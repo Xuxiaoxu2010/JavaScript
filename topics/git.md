@@ -161,7 +161,7 @@ git checkout work
 
 有时候，只是想新建一个分支，测试一下某个功能。测试完成之后，这个分支就用不到了，那就需要把这个分支删掉。
 
-那就在Google中用关键字`git remove branch`搜一下，看到StackOverflow上就有一篇文章，很完整地列出了删除分支的方法
+在Google中用关键字`git remove branch`搜一下，看到StackOverflow上就有一篇文章，很完整地列出了删除分支的方法：[How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely/)。
 
 #### 同时删除本地和远程分支
 
@@ -182,13 +182,6 @@ git branch -d test
 git branch -D work
 ```
 
-出现下面的提示文字不用担心，这只是在提醒本地分支被删除，但是远程的分支还保留着。
-
-```bash
-warning: deleting branch 'work' that has been merged to
-         'refs/remotes/origin/work', but not yet merged to HEAD.
-Deleted branch work (was dbfa635).
-```
 参考资料：
 
 - [How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely/)
