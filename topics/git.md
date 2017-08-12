@@ -112,19 +112,31 @@ git push -u origin work
 
 ### 同步某分支至本地
 
-因为上面新建的work分支只在办公室的电脑上有，家里并没有这个分支，所以需要同步至本机。
+因为上面新建的work分支只在办公室的台式机上有，家里的笔记本上并没有这个分支。为了在家里也能够继续学习，就需要把这个分支同步到家里的电脑上。
 
-最开始是用关键字`git clone branch`来查找方法的，试了一下之后发现这个关键字搜到的解决方法，只是把远程分支的文件下载到本机，本机并没有之前所建立的work分支。
+最开始是用关键字`git clone branch`来查找方法的，试了一下之后发现这个关键字搜到的解决方法，只是把远程分支的文件下载到本机，本机并没有之前所建立的work分支，所以需要更换搜索关键字。
 
-想到可以用`git pull`将代码更新至本地，但是执行该命令之后发现本地并没有将work分支同步下来。
+想到可以用`git pull`将代码更新至本地，尝试了一下，发现本地并没有将work分支同步下来。
 
 于是又用`how to pull new branch from remote`作为关键字来Google，参照着这篇教程[Syncing](https://www.atlassian.com/git/tutorials/syncing)操作，终于成功了。
 
-先是用`git fetch origin work`命令，将work分支拉至本机，这时候work还没有合并至本机的仓库中。这样可以避免操作错误，影响本机的仓库。
+先是将work分支拉至家里的笔记本上，这时候work还没有合并至本机的仓库中。这样可以避免操作错误，影响本机的仓库。
 
-接着再用`git merge origin/work`命令，将work分支合并至本机的仓库之中。
+```bash
+git fetch origin work
+```
 
-最后在再执行`git checkout work`，就可以在work分支中继续工作了~
+接着再将work分支合并至本机的仓库之中。
+
+```bash
+git merge origin/work
+```
+
+最后再切换一下分支，就可以在家里的笔记本上继续快乐地学习了~
+
+```bash
+git checkout work
+```
 
 参考资料：
 
