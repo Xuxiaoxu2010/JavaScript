@@ -305,7 +305,29 @@ Branch note set up to track remote branch note from origin.
 
 #### 在另一台电脑上同步分支
 
+首先，要清除另一台电脑上无效的对应关系。
+
+```bash
+$ git fetch -p
+From https://github.com/Dream4ever/getting-started-with-javascript
+ x [deleted]         (none)     -> origin/work
+```
+
+然后，把新的note分支同步下来就可以了。
+
+```bash
+$ git fetch origin note
+From https://github.com/Dream4ever/getting-started-with-javascript
+ * branch            note       -> FETCH_HEAD
+$ git checkout -b note origin/note
+Branch note set up to track remote branch note from origin.
+Switched to a new branch 'note'
+```
+
+好了，终于大功告成了！哈哈哈哈。
+
 参考资料：
 
 - [Rename master branch for both local and remote Git repositories](https://stackoverflow.com/questions/1526794/rename-master-branch-for-both-local-and-remote-git-repositories/)
-- [How to prune local tracking branches that do not exist on remote anymore](https://stackoverflow.com/questions/13064613/how-to-prune-local-tracking-branches-that-do-not-exist-on-remote-anymore)
+- [How to prune local tracking branches that do not exist on remote anymore](https://stackoverflow.com/questions/13064613/how-to-prune-local-tracking-branches-that-do-not-exist-on-remote-anymore/)
+- [Remove local branches no longer on remote](https://stackoverflow.com/questions/7726949/remove-local-branches-no-longer-on-remote/)
