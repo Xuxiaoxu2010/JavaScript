@@ -91,9 +91,9 @@ git push -u origin work
 - [How to clone a single branch in git?](https://stackoverflow.com/questions/1778088/how-to-clone-a-single-branch-in-git)
 - [Syncing](https://www.atlassian.com/git/tutorials/syncing)
 
-## 分支删除
+### 分支删除
 
-### 查看git文档，尝试同时删除本地和远程分支失败
+#### 查看git文档，尝试同时删除本地和远程分支失败
 
 ```bash
 git branch -Dr work
