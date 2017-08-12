@@ -48,19 +48,19 @@ git的一大功能，就是可以将文件退回到某次commit之前的版本�
 
 因为自己和老师的仓库都是一直在更新，所以每次提交前，需要先将自己的仓库（包括远程和本地）同步为老师仓库的最新状态，然后再提交自己的更改。
 
-首先，添加徐老师的远程仓库，并命名为upstream，方便以后再次调用。
+首先，添加徐老师的仓库，并命名为upstream，方便以后再次调用。
 
 ```bash
 git remote add upstream https://github.com/xugy0926/getting-started-with-javascript.git
 ```
 
-然后将老师的仓库中的内容下载至本地。注意，下载至本地的内容，和自己的项目仓库是互不干扰的。
+然后将老师的仓库中的内容下载至本地。注意，下载至本地的内容，和自己的仓库是互不干扰的。
 
 ```bash
 git fetch upstream master
 ```
 
-这时，徐老师项目仓库的最新内容已经下载至本地了。我们要把这些内容（upstream/master，代表upstream这个源的master分支）合并到自己项目仓库中。
+这时，徐老师仓库的最新内容已经下载至本地了。我们要把这些内容（upstream/master，代表upstream这个源的master分支）合并到自己的仓库中。
 
 ```bash
 git merge upstream/master
@@ -72,37 +72,37 @@ git merge upstream/master
 
 ### 新建功能分支，各自完成不同的需求
 
-因为自己一边要做笔记，一边还想向徐老师的项目上提PR。在提PR的时候，不想把自己的笔记提交上去。
+因为自己一边要做笔记，一边还想向徐老师的项目上提PR。因为笔记还没写完，但是笔记已经有过多次commits了，在提PR的时候，不想把自己的笔记提交上去。
 
-但是在自己的项目里，已经有很多的commits被push到远程仓库上了，而且也不想通过git revert或者git reset来撤销commit。
+虽然git可以通过git revert或者git reset来撤销commit，但是自己还想保持commit历史的完整性。
 
-这个时候，就可以从徐老师的仓库上新建一个分支work用来提交PR，默认的分支master则用来做笔记。
+这个时候，就可以从徐老师的仓库上新建一个分支work用来提交PR，默认的分支master则用来做笔记，两边互不干扰，又能同时完成两项任务。
 
-等到暂时没有PR需要提交的时候，并且自己的作业也写完了，就可以将先将work分支与徐老师最新的代码同步，然后再将work分支同步到master分支上，最后提交master分支的PR即可。
-
-将老师的项目仓库的最新版拉到本地。
+首先，将老师的仓库的最新版拉到本地。
 
 ```bash
 git fetch upstream master
 ```
 
-用拉到本地的仓库新建一个隶属于自己项目仓库下的分支work。
+用拉到本地的仓库新建一个隶属于自己仓库的分支work。
 
 ```bash
 git checkout -b work upstream/master
 ```
 
-将91d4fce这次commit（修改文章文字错误和格式的操作）放入新增的work分支中。
+将91d4fce这次commit（修改老师文章中文字错误和格式的操作）放入新增的work分支中。
 
 ```bash
 git cherry-pick 91d4fce
 ```
 
-将本地分支work推送至服务器上，并指定origin为默认主机。
+将本地分支work推送至服务器上，并指定origin为默认主机。完成之后，在网页端提交自己的PR即可。
 
 ```bash
 git push -u origin work
 ```
+
+等到暂时没有PR需要提交了，并且自己的作业也写完的时候，就可以将先将work分支与徐老师最新的代码同步，然后再将work分支同步到master分支上就行了。
 
 参考资料：
 
@@ -120,9 +120,9 @@ git push -u origin work
 
 于是又用`how to pull new branch from remote`作为关键字来Google，参照着这篇教程[Syncing](https://www.atlassian.com/git/tutorials/syncing)操作，终于成功了。
 
-先是用`git fetch origin work`命令，将work分支拉至本机，这时候work还没有合并至本机的项目仓库中。这样可以避免操作错误，影响本机的项目仓库。
+先是用`git fetch origin work`命令，将work分支拉至本机，这时候work还没有合并至本机的仓库中。这样可以避免操作错误，影响本机的仓库。
 
-接着再用`git merge origin/work`命令，将work分支合并至本机的项目仓库之中。
+接着再用`git merge origin/work`命令，将work分支合并至本机的仓库之中。
 
 最后在再执行`git checkout work`，就可以在work分支中继续工作了~
 
