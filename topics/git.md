@@ -44,24 +44,63 @@ git的一大功能，就是可以将文件退回到某次commit之前的版本�
 - [How to undo the last commits in Git?](https://stackoverflow.com/questions/927358/how-to-undo-the-last-commits-in-git/)
 - [Undoing Changes](https://www.atlassian.com/git/tutorials/undoing-changes/)
 
+## 和老师的仓库保持同步
+
+因为自己和老师的仓库都是一直在更新，所以每次提交前，需要先将自己的仓库（包括远程和本地）同步为老师仓库的最新状态，然后再提交自己的更改。
+
+首先，添加徐老师的远程仓库，并命名为upstream，方便以后再次调用。
+
+```bash
+git remote add upstream https://github.com/xugy0926/getting-started-with-javascript.git
+```
+
+然后将老师的仓库中的内容下载至本地。注意，下载至本地的内容，和自己的项目仓库是互不干扰的。
+
+```bash
+git fetch upstream master
+```
+
+这时，徐老师项目仓库的最新内容已经下载至本地了。我们要把这些内容（upstream/master，代表upstream这个源的master分支）合并到自己项目仓库中。
+
+```bash
+git merge upstream/master
+```
+
+然后就可以提交自己的更改，或者进行其它操作了。
+
 ## 如何利用好分支功能？
 
-### 利用分支完成不同的需求
+### 新建功能分支，各自完成不同的需求
 
-因为自己一边要写作业，一边还想向徐老师的项目上提PR，在提PR的时候，不想把自己的笔记提交上去。
+因为自己一边要做笔记，一边还想向徐老师的项目上提PR。在提PR的时候，不想把自己的笔记提交上去。
 
-但是在自己的项目里，已经commit到远程仓库上了，而且也不想通过git revert或者git reset来撤销commit。
+但是在自己的项目里，已经有很多的commits被push到远程仓库上了，而且也不想通过git revert或者git reset来撤销commit。
 
-这个时候，就可以新建一个分支work，用来提交PR；默认的分支master则用来写作业。
+这个时候，就可以从徐老师的仓库上新建一个分支work用来提交PR，默认的分支master则用来做笔记。
 
-等到暂时没有PR需要提交的时候，并且自己的作业也写完了，这个时候就可以将先将work分支与徐老师最新的代码同步，然后再将work分支同步到master分支上，最后提交master分支的PR即可。
+等到暂时没有PR需要提交的时候，并且自己的作业也写完了，就可以将先将work分支与徐老师最新的代码同步，然后再将work分支同步到master分支上，最后提交master分支的PR即可。
 
-示例代码：
+将老师的项目仓库的最新版拉到本地。
 
-```git
-git fetch all
+```bash
+git fetch upstream master
+```
+
+用拉到本地的仓库新建一个隶属于自己项目仓库下的分支work。
+
+```bash
 git checkout -b work upstream/master
+```
+
+将91d4fce这次commit（修改文章文字错误和格式的操作）放入新增的work分支中。
+
+```bash
 git cherry-pick 91d4fce
+```
+
+将本地分支work推送至服务器上，并指定origin为默认主机。
+
+```bash
 git push -u origin work
 ```
 
@@ -69,6 +108,7 @@ git push -u origin work
 
 - [How to “pull request” a specific commit](https://stackoverflow.com/questions/34027850/how-to-pull-request-a-specific-commit/)
 - [How to synchronize two branches in the same Git repository?](https://stackoverflow.com/questions/4010962/how-to-synchronize-two-branches-in-the-same-git-repository/)
+- [Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
 
 ### 同步某分支至本地
 
