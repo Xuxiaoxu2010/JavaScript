@@ -60,7 +60,21 @@ git remote add upstream https://github.com/xugy0926/getting-started-with-javascr
 git fetch upstream master
 ```
 
-这时，徐老师仓库的最新内容已经下载至本地了。我们要把这些内容（upstream/master，代表upstream这个源的master分支）合并到自己的仓库中。
+这时，徐老师仓库的最新内容已经下载至本地了。
+
+我们先不急着合并进来，先看看自己的仓库和老师的仓库有哪些不同。
+
+```bash
+git diff upstream/master
+```
+
+下图是执行后的结果。
+
+![](https://github.com/Dream4ever/Pics/blob/master/git-diff-result.png)
+
+注意，执行`git diff`后，终端会进入vim环境，注意看图中最后一行行首的冒号。按一下`q`键，退出vim环境即可。
+
+对比完徐老师和自己仓库的不同之后，就要把这些内容（upstream/master，代表upstream这个源的master分支）合并到自己的仓库中了。
 
 ```bash
 git merge upstream/master
@@ -68,7 +82,7 @@ git merge upstream/master
 
 然后就可以提交自己的更改，或者进行其它操作了。
 
-## 如何利用好分支功能？
+## 善用分支功能
 
 ### 新建功能分支，各自完成不同的需求
 
@@ -178,3 +192,5 @@ Deleted branch work (was dbfa635).
 参考资料：
 
 - [How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely/)
+
+### 重命名分支
