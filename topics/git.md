@@ -74,11 +74,11 @@ git merge upstream/master
 
 因为自己一边要做笔记，一边还想向徐老师的项目上提PR。由于笔记还没写完，但是笔记已经有过多次commits了，所以在提PR的时候，不想把自己的笔记提交上去。
 
-虽然git可以通过git revert或者git reset来撤销commit，但是自己还想保持commit历史的完整性。
+虽然可以通过git revert或者git reset来撤销commit，但是自己还想保持commit历史的完整性。
 
 这个时候，就可以从徐老师的仓库上新建一个分支work用来提交PR，默认的分支master则用来做笔记，两边互不干扰，又能同时完成两项任务。
 
-首先，将老师的仓库的最新版拉到本地。
+首先，将老师的仓库的最新版拉到本地（添加upstream源的操作请查看上一小节的内容，此处不再重复）。
 
 ```bash
 git fetch upstream master
