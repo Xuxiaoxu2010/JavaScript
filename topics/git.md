@@ -131,24 +131,29 @@ git push -u origin work
 - [How to clone a single branch in git?](https://stackoverflow.com/questions/1778088/how-to-clone-a-single-branch-in-git)
 - [Syncing](https://www.atlassian.com/git/tutorials/syncing)
 
-### 分支删除
+### 删除无用分支
 
-#### 查看git文档，尝试同时删除本地和远程分支失败
+有时候，只是想新建一个分支，测试一下某个功能。测试完成之后，这个分支就用不到了，那就需要把这个分支删掉。
+
+那就在Google中用关键字`git remove branch`搜一下，看到StackOverflow上就有一篇文章，很完整地列出了删除分支的方法
+
+#### 同时删除本地和远程分支
+
+`git push -d`命令用于删除远程分支，`git branch -d`命令则用于删除本地分支。
 
 ```bash
-git branch -Dr work
+git push -d origin test
+git branch -d test
 ```
 
-#### 删除本地分支
+#### 强制删除本地分支
+
+有时候会提示本地分支无法删除，如果确定要执行删除操作的话，那我们就来个强制执行。
+
+注意这里的`-D`是大写，编程输入代码时，大小写一定要看仔细。
 
 ```bash
 git branch -D work
-```
-
-#### 删除远程分支
-
-```bash
-git push origin :work
 ```
 
 出现下面的提示文字不用担心，这只是在提醒本地分支被删除，但是远程的分支还保留着。
@@ -158,9 +163,6 @@ warning: deleting branch 'work' that has been merged to
          'refs/remotes/origin/work', but not yet merged to HEAD.
 Deleted branch work (was dbfa635).
 ```
+参考资料：
 
-搜索关键字：
-
-`remove remote branch remote-tracking branch not found`
-
-参考文章：[git delete remote branch not working: branch not found](https://stackoverflow.com/questions/31403820/git-delete-remote-branch-not-working-branch-not-found/)
+- [How do I delete a Git branch both locally and remotely?](https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely/)
