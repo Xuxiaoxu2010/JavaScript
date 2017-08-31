@@ -9,6 +9,11 @@
 - 仓库地址：[https://github.com/Dream4ever/JavaScript](https://github.com/Dream4ever/JavaScript)
 - 网页地址：[https://dream4ever.github.io/JavaScript/](https://dream4ever.github.io/JavaScript/)
 
+### 王颖
+
+- 仓库地址：[https://github.com/MaggieWong27/homework-1](https://github.com/MaggieWong27/homework-1)
+- 网页地址：[https://maggiewong27.github.io/StaticSite/](https://maggiewong27.github.io/StaticSite/)
+
 ---
 
 [Git常用操作笔记](https://github.com/xugy0926/getting-started-with-javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md)
