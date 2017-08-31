@@ -1,12 +1,17 @@
 # JavaScript
 
-JavaScript Curriculum Content of XinShengDaXue
+---
 
-This is everything about the JavaScript curriculum content of XinShengDaXue.
+## 编程小分队第七课作业汇总
+
+### 何伟
+
+- 仓库地址：[https://github.com/Dream4ever/JavaScript](https://github.com/Dream4ever/JavaScript)
+- 网页地址：[https://dream4ever.github.io/JavaScript/](https://dream4ever.github.io/JavaScript/)
 
 ---
 
-[Git常用操作笔记](https://github.com/Dream4ever/JavaScript/blob/master/topics/git.md)
+[Git常用操作笔记](https://github.com/xugy0926/getting-started-with-javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md)
 
 [预习作业01-找到Github上JavaScript分类下star数最高的项目](https://github.com/Dream4ever/JavaScript/wiki/%E9%A2%84%E4%B9%A0%E4%BD%9C%E4%B8%9A01-%E6%89%BE%E5%88%B0Github%E4%B8%8AJavaScript%E5%88%86%E7%B1%BB%E4%B8%8Bstar%E6%95%B0%E6%9C%80%E9%AB%98%E7%9A%84%E9%A1%B9%E7%9B%AE)
 
