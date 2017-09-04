@@ -2,13 +2,11 @@
 
 var fs = require('fs'),
     path = require('path'),
-    jsonfile = require('jsonfile'),
-    jschardet = require('jschardet'),
-    iconv = require('iconv-lite');
+    jsonfile = require('jsonfile');
 
 var repoPath = path.join(__dirname, '../words'),
-    contentPath = './content.json',
-    errorPath = './error.json';
+    contentPath = path.join(__dirname, 'content.json'),
+    errorPath = path.join(__dirname, 'error.json');
 
 var jsonFiles = [],
     errorFiles = [],
@@ -57,17 +55,6 @@ var files = fs.readdir(repoPath, function (err, files) {
             // 如果用异步读取，读取失败的文件名无法传入回调函数
             var content = jsonfile.readFileSync(jsonFiles[i]);
 
-            // var encoding = jschardet.detect(content.words).encoding;
-
-            // var prop = {
-            //     'encoding': encoding,
-            //     'flag': 'a'
-            // }
-
-            // if (encoding !== 'UTF-8') {
-            //     content = iconv.encode(content, 'UTF-8');
-            // }
-
             fileContent.push(content);
 
         } catch (ex) {
@@ -77,14 +64,10 @@ var files = fs.readdir(repoPath, function (err, files) {
         }
     }
 
-    for (var i = 0; i < fileContent.length; i++) {
-        fileContent[i] = JSON.stringify(fileContent[i], null, 4);
-        console.log(fileContent[i]);
-    }
+    // for (var i = 0; i < fileContent.length; i++) {
+    //     fileContent[i] = JSON.stringify(fileContent[i], null, 4);
+    // }
     
     jsonfile.writeFileSync(contentPath, fileContent);
     jsonfile.writeFileSync(errorPath, errorFiles);
-
-    // console.log(fileContent.length);
-    // console.log(errorFiles.length);
 });
