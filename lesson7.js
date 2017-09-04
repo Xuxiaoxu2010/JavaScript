@@ -1,12 +1,18 @@
 'use strict'
 
-var fs = require('fs')
-var path = require('path');
+var fs = require('fs'),
+    path = require('path'),
+    jsonfile = require('jsonfile'),
+    jschardet = require('jschardet'),
+    iconv = require('iconv-lite');
 
-var repoPath = path.join(__dirname, '../words');
+var repoPath = path.join(__dirname, '../words'),
+    contentPath = './content.json',
+    errorPath = './error.json';
 
-var jsonFiles = [];
-var errorFiles = [];
+var jsonFiles = [],
+    errorFiles = [],
+    fileContent = [];
 
 if (!fs.existsSync(repoPath)) {
 
@@ -27,15 +33,57 @@ var files = fs.readdir(repoPath, function (err, files) {
 
         var fullPath = path.join(repoPath, files[i]);
 
-        if (!files[i].endsWith('.json') ||
-            fs.statSync(fullPath).isDirectory()) {
+        if (fs.statSync(fullPath).isDirectory()) {
+
+            files.splice(i, 1);
+
+        } else if (!files[i].endsWith('.json') &&
+            fs.statSync(fullPath).isFile()) {
+
             errorFiles.push(files[i]);
             files.splice(i, 1);
         }
-
+        else {
+            // 提前就把文件的路径拼接好
+            files[i] = fullPath;
+        }
     }
 
     jsonFiles = files;
 
-    console.log(files.length);
+    for (var i = 0; i < jsonFiles.length; i++) {
+
+        try {
+
+            // 如果用异步读取，读取失败的文件名无法传入回调函数
+            var content = jsonfile.readFileSync(jsonFiles[i]);
+
+            var encoding = jschardet.detect(content.words).encoding;
+
+            var prop = {
+                'encoding': encoding,
+                'flag': 'a'
+            }
+
+            // if (encoding !== 'UTF-8') {
+            //     content = iconv.encode(content, 'UTF-8');
+            // }
+
+            fileContent.push(content);
+            // console.log(fileContent[fileContent.length - 1]);
+
+            
+        } catch (ex) {
+            
+            console.log(ex.message);
+            errorFiles.push(path.basename(jsonFiles[i]));
+            
+        }
+        
+        jsonfile.writeFileSync(contentPath, fileContent);
+        jsonfile.writeFileSync(errorPath, errorFiles);
+    }
+
+    console.log(fileContent.length);
+    console.log(errorPath.length);
 });

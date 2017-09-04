@@ -2,6 +2,7 @@
   "name": "packages",
   "dependencies": {
     "jsonfile": "3.0.1",
-    "jschardet": "1.5.1"
+    "jschardet": "1.5.1",
+    "iconv-lite": "0.4.18"
   }
 }
