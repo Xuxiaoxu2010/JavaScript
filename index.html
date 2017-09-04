@@ -22,8 +22,9 @@
   <div class="container">
     <div id="app">
       <ul>
-        <li v-for='content in result'>
-          {{ content.name }}
+        <li v-for='word in words'>
+          <!-- {{ word.name }} -->
+          <img class="avatar" :src=word.avatar alt="">
         </li>
       </ul>
     </div>
@@ -39,7 +40,9 @@
 
         var vm = new Vue({
           el: '#app',
-          data: result
+          data: {
+            words: result
+          }
         });
       }
     });
