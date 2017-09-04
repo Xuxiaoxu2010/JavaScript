@@ -1,13 +1,16 @@
-.main-header {
+.bs-docs-header {
+  background-color: #6f5499;
+  
   padding-top: 60px;
   padding-bottom: 60px;
-  margin-bottom: 30px;
   font-size: 24px;
   text-align: left;
-  background-color: #6f5499;
+
+  color: #cdbfe3;
 }
 
-.main-header h1 {
-  margin-top: 0;
+.bs-docs-header h1 {
+  font-size: 60px;
+  line-height: 1;
   color: #fff;
 }
