@@ -40,10 +40,9 @@ var files = fs.readdir(repoPath, function (err, files) {
         } else if (!files[i].endsWith('.json') &&
             fs.statSync(fullPath).isFile()) {
 
-            errorFiles.push(files[i]);
             files.splice(i, 1);
-        }
-        else {
+        } else {
+
             // 提前就把文件的路径拼接好
             files[i] = fullPath;
         }
@@ -58,32 +57,34 @@ var files = fs.readdir(repoPath, function (err, files) {
             // 如果用异步读取，读取失败的文件名无法传入回调函数
             var content = jsonfile.readFileSync(jsonFiles[i]);
 
-            var encoding = jschardet.detect(content.words).encoding;
+            // var encoding = jschardet.detect(content.words).encoding;
 
-            var prop = {
-                'encoding': encoding,
-                'flag': 'a'
-            }
+            // var prop = {
+            //     'encoding': encoding,
+            //     'flag': 'a'
+            // }
 
             // if (encoding !== 'UTF-8') {
             //     content = iconv.encode(content, 'UTF-8');
             // }
 
             fileContent.push(content);
-            // console.log(fileContent[fileContent.length - 1]);
 
-            
         } catch (ex) {
-            
-            console.log(ex.message);
+
+            // console.log(ex.message);
             errorFiles.push(path.basename(jsonFiles[i]));
-            
         }
-        
-        jsonfile.writeFileSync(contentPath, fileContent);
-        jsonfile.writeFileSync(errorPath, errorFiles);
     }
 
-    console.log(fileContent.length);
-    console.log(errorPath.length);
+    for (var i = 0; i < fileContent.length; i++) {
+        fileContent[i] = JSON.stringify(fileContent[i], null, 4);
+        console.log(fileContent[i]);
+    }
+    
+    jsonfile.writeFileSync(contentPath, fileContent);
+    jsonfile.writeFileSync(errorPath, errorFiles);
+
+    // console.log(fileContent.length);
+    // console.log(errorFiles.length);
 });
