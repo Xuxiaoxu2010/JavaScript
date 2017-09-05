@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./public/style.css">
   <script src="https://unpkg.com/vue"></script>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+  <script src="main.js"></script>
 </head>
 
 <body>
@@ -29,12 +30,21 @@
               <h3 class="col-md-6 col-md-offset-6" v-bind:title=word.name> {{ word.name}} </h3>
               <p class="col-md-12"> {{ word.words}} </p>
             </div>
-            <img class="avatar col-md-2" :src=word.avatar alt="" align="right">
+            <div class="img-wrapper col-md-2">
+              <img class="avatar center-block" :src=word.avatar alt="" align="right">
+            </div>
           </div>
         </template>
         <template v-else>
           <div class="col-md-12 right">
-            <img class="avatar col-md-2 col-md-offset-5" :src=word.avatar alt="">
+            <!-- https://stackoverflow.com/a/3791929/2667665
+            添加一个指定宽高的 div 父元素
+            子元素 img 即使无法显示也依然保留其位置 -->
+            <div class="img-wrapper col-md-2 col-md-offset-5">
+              <!-- https://stackoverflow.com/a/20396826/2667665
+              center-block 这个 bs 自带的类可让图片居中 -->
+              <img class="avatar center-block" :src=word.avatar alt="">
+            </div>
             <div class="col-md-5">
               <h3 class="col-md-6" v-bind:title=word.name> {{ word.name}} </h3>
               <div class="col-md-6"></div>
@@ -45,43 +55,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    var result;
-
-    $.ajax({
-      url: "https://raw.githubusercontent.com/Dream4ever/JavaScript/master/content.json",
-      success: function (data, status) {
-        result = JSON.parse(data);
-
-        var vm = new Vue({
-          el: '#app',
-          data: {
-            words: result
-          }
-        });
-
-        Vue.component('left-word', {
-          props: ['word'],
-          template:
-          '<h3 class="col-md-3 col-md-offset-6"> {{ word.name}} </h3><img class="avatar col-md-3" :src=word.avatar><p class="col-md-12"> {{ word.words}} </p>'
-        });
-
-        Vue.component('right-word', {
-          props: ['word'],
-          template:
-          '<img class="avatar col-md-3" :src=word.avatar><h3 class="col-md-3"> {{ word.name}} </h3><p class="col-md-12"> {{ word.words}} </p>'
-        });
-      }
-    });
-
-
-    // var url = 'https://js.xinshengdaxue.com/api/v1/learnJS/course/1/detail';
-
-    // $.get(url, function (data) {
-    //   console.log(data);
-    // });
-  </script>
 </body>
 
 </html>

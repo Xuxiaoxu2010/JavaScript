@@ -17,17 +17,25 @@
 
 body > .container {
   margin-top: 60px;
+  width: 90%;
 }
 
 .left, .right {
   margin-bottom: 40px;
 }
 
+.img-wrapper {
+  width: 100px;
+  height: 100px;
+  padding: 0;
+  border: 1px solid #bbb;
+}
+
 .avatar {
   max-width: 100px;
   max-height: 100px;
   box-shadow: #aaa 2px 2px 2px;
-  padding: 0;
+  float: none;
 }
 
 h3 {

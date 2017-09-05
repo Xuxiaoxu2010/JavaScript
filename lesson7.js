@@ -1,6 +1,6 @@
 'use strict'
 
-var fs = require('fs'),
+;var fs = require('fs'),
     path = require('path'),
     jsonfile = require('jsonfile');
 
@@ -67,7 +67,7 @@ var files = fs.readdir(repoPath, function (err, files) {
     // for (var i = 0; i < fileContent.length; i++) {
     //     fileContent[i] = JSON.stringify(fileContent[i], null, 4);
     // }
-    
+
     jsonfile.writeFileSync(contentPath, fileContent);
     jsonfile.writeFileSync(errorPath, errorFiles);
 });
