@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-;var fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),
     jsonfile = require('jsonfile');
 
-var repoPath = path.join(__dirname, '../words'),
+var repoPath = path.join(__dirname, '../../../words'),
     contentPath = path.join(__dirname, 'content.json'),
     errorPath = path.join(__dirname, 'error.json');
 
