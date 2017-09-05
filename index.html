@@ -21,12 +21,28 @@
   </div>
   <div class="container">
     <div id="app">
-      <ul>
-        <li v-for='word in words'>
-          <!-- {{ word.name }} -->
-          <img class="avatar" :src=word.avatar alt="">
-        </li>
-      </ul>
+      <div class="wrapper" v-for="(word, key) in words">
+        <!-- https://cn.vuejs.org/v2/guide/conditional.html#在-lt-template-gt-中配合-v-if-条件渲染一整组 -->
+        <template v-if="key % 2 == 0">
+          <div class="col-md-12 left">
+            <div class="col-md-5">
+              <h3 class="col-md-6 col-md-offset-6" v-bind:title=word.name> {{ word.name}} </h3>
+              <p class="col-md-12"> {{ word.words}} </p>
+            </div>
+            <img class="avatar col-md-2" :src=word.avatar alt="" align="right">
+          </div>
+        </template>
+        <template v-else>
+          <div class="col-md-12 right">
+            <img class="avatar col-md-2 col-md-offset-5" :src=word.avatar alt="">
+            <div class="col-md-5">
+              <h3 class="col-md-6" v-bind:title=word.name> {{ word.name}} </h3>
+              <div class="col-md-6"></div>
+              <p class="col-md-12"> {{ word.words}} </p>
+            </div>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 
@@ -43,6 +59,18 @@
           data: {
             words: result
           }
+        });
+
+        Vue.component('left-word', {
+          props: ['word'],
+          template:
+          '<h3 class="col-md-3 col-md-offset-6"> {{ word.name}} </h3><img class="avatar col-md-3" :src=word.avatar><p class="col-md-12"> {{ word.words}} </p>'
+        });
+
+        Vue.component('right-word', {
+          props: ['word'],
+          template:
+          '<img class="avatar col-md-3" :src=word.avatar><h3 class="col-md-3"> {{ word.name}} </h3><p class="col-md-12"> {{ word.words}} </p>'
         });
       }
     });
