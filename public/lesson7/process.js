@@ -12,6 +12,7 @@ var jsonFiles = [],
     errorFiles = [],
     fileContent = [];
 
+// https://stackoverflow.com/a/4482701/2667665
 if (!fs.existsSync(repoPath)) {
 
     console.log('心里话项目的路径不正确，请检查路径');
@@ -19,7 +20,6 @@ if (!fs.existsSync(repoPath)) {
 
 }
 
-// https://stackoverflow.com/a/4482701/2667665
 var files = fs.readdir(repoPath, function (err, files) {
 
     if (err) {
