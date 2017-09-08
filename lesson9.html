@@ -10,13 +10,22 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
+<!-- 整体风格参考下面这篇文章试试？看看如何把资讯类页面和文章类页面结合起来
+https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
+或者做成带链接的轮播图？ -->
+
 <body>
   <div id="app">
+    <!-- 页面顶部 banner 换成和主题相关的图片 -->
     <div class="main-header">
       <div class="container">
         <h1>JavaScript编程入门</h1>
       </div>
     </div>
+    <!-- 增加一块内容：一天内/一周内/一个月内 Github上流行的JS仓库
+    https://github.com/trending/javascript
+  https://github.com/trending/javascript?since=weekly
+https://github.com/trending/javascript?since=monthly -->
     <div class="container">
       <div class="panel-body">
         <div class="btn btn-primary" v-on:click="sendData">有话对老师说</div>
@@ -51,6 +60,5 @@
 <script>
   // vue官网： https://cn.vuejs.org/v2/guide/
   // 初始化Vue
-
 
 </script>

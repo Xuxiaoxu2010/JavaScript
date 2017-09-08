@@ -4,7 +4,8 @@
   margin-bottom: 30px;
   font-size: 24px;
   text-align: left;
-  background-color: #6f5499;
+  /* background-color: #6f5499; */
+  background-image: ("https://raw.githubusercontent.com/Dream4ever/Pics/master/software-computer-code.jpg");
 }
 
 .main-header h1 {

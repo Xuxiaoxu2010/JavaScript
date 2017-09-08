@@ -30,7 +30,7 @@
               <h3 class="col-md-6 col-md-offset-6" v-bind:title=word.name> {{ word.name}} </h3>
               <p class="col-md-12"> {{ word.words}} </p>
             </div>
-            <div class="img-wrapper col-md-2">
+            <div class="img-wrapper col-md-1">
               <img class="avatar center-block" :src=word.avatar alt="" align="right">
             </div>
           </div>
@@ -40,7 +40,7 @@
             <!-- https://stackoverflow.com/a/3791929/2667665
             添加一个指定宽高的 div 父元素
             子元素 img 即使无法显示也依然保留其位置 -->
-            <div class="img-wrapper col-md-2 col-md-offset-5">
+            <div class="img-wrapper col-md-1 col-md-offset-6">
               <!-- https://stackoverflow.com/a/20396826/2667665
               center-block 这个 bs 自带的类可让图片居中 -->
               <img class="avatar center-block" :src=word.avatar alt="">
