@@ -1,7 +1,7 @@
 {
   "name": "packages",
   "dependencies": {
-    "jsonfile": "3.0.1",
-    "axios": "0.16.2"
+    "axios": "0.16.2",
+    "jsonfile": "3.0.1"
   }
 }
