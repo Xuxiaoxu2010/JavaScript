@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    /* 引入 simple-git 这个库
+    /* 可以引入 simple-git 这个库
        每次输出心里话之前，先自动更新一下，保证内容是最新的 */
 
     var fs = require('fs'),
