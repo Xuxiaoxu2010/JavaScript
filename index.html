@@ -14,10 +14,10 @@
     <meta charset="UTF-8">
     <title>JavaScript 成长记录</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./public/lesson9/style.css">
-    <script src="public/lesson9/vue.min.js"></script>
+    <link rel="stylesheet" href="public/css/style.css">
+    <script src="http://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="public/lesson9/main.js"></script>
+    <script src="public/js/main.js"></script>
 </head>
 
 <!-- 整体风格参考下面这篇文章试试？看看如何把资讯类页面和文章类页面结合起来
@@ -38,47 +38,5 @@ https://github.com/trending/javascript?since=monthly -->
 
     </div>
 </body>
-
-<!-- <script>
-    var preFix = 'https://js.xinshengdaxue.com/api/v1/learnJS/';
-    var api = {
-        'words': 'course/1/detail',
-        'catalog': 'course/1/catalog',
-        'homework': 'course/1/homework',
-        'teams': 'course/1/teams',
-        'sayToMe': 'sayToMe'
-    };
-
-    for (var a in api) {
-        api[a] = preFix + api[a];
-    }
-
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            wordsList: []
-        },
-        methods: {
-            fetchData: function () {
-                // 尽量使用点运算符访问对象属性
-                // https://stackoverflow.com/a/13192501/2667665
-                axios.get(api.words)
-                    .then(function (response) {
-                        console.log(response);
-                        app.wordsList = response.data.words;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
-            sendData: function () {
-                // TODO
-            }
-        }
-    });
-
-    vm.fetchData();
-
-</script> -->
 
 </html>
