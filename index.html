@@ -15,9 +15,8 @@
     <title>JavaScript 成长记录</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/style.css">
-    <script src="http://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="public/js/main.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
 </head>
 
 <!-- 整体风格参考下面这篇文章试试？看看如何把资讯类页面和文章类页面结合起来
@@ -38,5 +37,9 @@ https://github.com/trending/javascript?since=monthly -->
 
     </div>
 </body>
+
+<!-- 如果下面的js放到head标签中，就会先加载js，而这个时候dom中的#app还没加载出来，会报错，所以要把js放到页面底部
+     https://stackoverflow.com/a/29484590/2667665 -->
+<script src="public/js/main.js"></script>
 
 </html>
