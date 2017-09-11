@@ -64,7 +64,7 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
              1. 前端页面采用Bootstrap的表单样式
              2. 表单提交按照sf上的文章来：
              https://segmentfault.com/q/1010000007066215 -->
-        <div class="say-to-you">
+        <form class="say-to-you" @submit.prevent="submit">
             <div class="container">
                 <div class="user-name">
                     <span>你每次交作业时的名字：</span>
@@ -78,9 +78,9 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                     <p>想对老师说些什么？</p>
                     <textarea name="content" v-model="content" rows="10" placeholder="老师，我想对你说……"></textarea>
                 </div>
-                <button class="btn btn-default" type="submit" v-on:click="sendData">Button</button>
+                <button class="btn btn-default" type="submit" v-on:click="submit">Button</button>
             </div>
-        </div>
+        </form>
 
         <!-- 增加一块内容：一天内/一周内/一个月内 Github上流行的JS仓库
         <!-- <svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">

@@ -80,7 +80,7 @@
     var links = {
         'github': 'https://github.com/Dream4ever/',
         'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/'
-    }
+    };
 
     var vm = new Vue({
         el: '#app',
@@ -92,6 +92,7 @@
         },
         methods: {
             fetchData: function () {
+
                 // 尽量使用点运算符访问对象属性
                 // https://stackoverflow.com/a/13192501/2667665
                 axios.get(api.words)
@@ -103,24 +104,33 @@
                         console.log(error);
                     });
             },
-            sendData: function () {
-                // TODO
+            submit: function () {
+
+                // 字符串空值的检测在下面的body赋值语句中无效，放到前面这里才行，为什么？
+                // var user_name = this.name.trim() || body.name,
+                //     user_account = this.account.trim() || body.account,
+                //     user_content = this.content.trim() || body.content;
+
+                // 为什么必须先stringify再parse才能成功？不能直接parse？
+                // 而且不parse的话，传出去的字符串还带着双引号
+                body = JSON.parse(JSON.stringify({
+                    // 为什么必须用这种写法才能检测出空值？
+                    'name': this.name.trim() || body.name,
+                    'account': this.account.trim() || body.account,
+                    'content': this.content.trim() || body.content + '123'
+                }));
+
+                axios.post(api.sayToMe, body)
+                    .then(function (response) {
+                        console.log('data posted:\n');
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         }
     });
 
     // vm.fetchData();
-
-    function sayToYou() {
-        axios.post(api.sayToMe, body)
-            .then(function (response) {
-                console.log('data posted:\n');
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    // sayToYou();
 })();
