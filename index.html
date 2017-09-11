@@ -12,7 +12,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>JavaScript 成长记录</title>
+    <title>JavaScript 大杂烩</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/css/style.css">
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
@@ -25,12 +25,67 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
 
 <body>
     <div id="app">
+        <nav class="navbar navbar-default">
+            <!-- 官网示例中的container-fluid这个类，没有让内部元素在页面中部显示，所以要用container限制一下内部元素的宽度 -->
+            <div class="container">
+                <!-- 这是新大的logo及导向js课程首页的链接 -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="http://js.xinshengdaxue.com">
+                        <img alt="Brand" src="https://o4a7cbihz.qnssl.com/picture/57140c0c-4ffa-4dde-9757-570b53f96796">
+                    </a>
+                </div>
+                <!-- 这是一些文字链接 -->
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="https://github.com/Dream4ever/">我的 GitHub</a>
+                        </li>
+                        <li>
+                            <a href="https://segmentfault.com/u/samsara0511/articles/">我的文章</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <!-- 页面顶部 banner 换成和主题相关的图片 -->
         <div class="header">
-            <h1>JavaScript编程入门</h1>
+            <div class="container">
+                <h1>JavaScript 大杂烩</h1>
+                <img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fi7s7vo8y0j30hs0hsaay.jpg" alt="">
+                <div class="teacher">
+                    <p>授课教师：徐高阳</p>
+                    <p>人见人爱，花见花开的徐帅 ʕ•̫͡•ʔ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TODO:
+             1. 前端页面采用Bootstrap的表单样式
+             2. 表单提交按照sf上的文章来：
+             https://segmentfault.com/q/1010000007066215 -->
+        <div class="say-to-you">
+            <div class="container">
+                <div class="user-name">
+                    <span>你每次交作业时的名字：</span>
+                    <input class="form-control" type="text" v-model="name" v-model.trim="name">
+                </div>
+                <div class="user-account">
+                    <span>新大的手机号或者邮箱：</span>
+                    <input class="form-control" type="text" v-model="account" v-model.trim="account">
+                </div>
+                <div class="user-content">
+                    <p>想对老师说些什么？</p>
+                    <textarea name="content" v-model="content" rows="10" placeholder="老师，我想对你说……"></textarea>
+                </div>
+                <button class="btn btn-default" type="submit" v-on:click="sendData">Button</button>
+            </div>
         </div>
 
         <!-- 增加一块内容：一天内/一周内/一个月内 Github上流行的JS仓库
+        <!-- <svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 12 16" width="12">
+            <path fill-rule="evenodd" d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path>
+        </svg>
     https://github.com/trending/javascript
   https://github.com/trending/javascript?since=weekly
 https://github.com/trending/javascript?since=monthly -->

@@ -1,15 +1,40 @@
-html, body, app {
-    width: 100%;
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar-brand > img {
+    width: 20px;
+    /* height: 24px; */
 }
 
 .header {
-    width: 100%;
+    padding: 60px;
+    background: url("https://js.xinshengdaxue.com/images/background.jpg");
+    /* background-size: 100%; */
+    box-sizing: border-box;
 }
 
-.header > h1 {
-    float: left;
+.header h1 {
+    color: #fff;
+    line-height: 2em;
 }
 
-.header > img {
+.header img {
+    width: 40px;
+    border-radius: 18px;
+    vertical-align: top;
+    margin: 0 20px 0 0;
+}
+
+.teacher {
+    display: inline-block;
+}
+
+.teacher p {
+    margin: 0 0 3px;
+    color: #fff;
+}
+
+.user-content textarea {
     width: 100%;
 }
