@@ -97,10 +97,10 @@
                 'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/'
             },
             articles: {
-                'Git 实战笔记': 'https://github.com/xugy0926/getting-started-with-javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md',
-                '茴字的七种写法 - 论 Web 页面中的相对路径': 'https://github.com/Dream4ever/JavaScript/blob/master/topics/relative-path.md',
                 '前端相关资源汇总': 'https://github.com/Dream4ever/Coding-Life/blob/master/Front-End/Front-End%20Resource%20Collection.md',
-                '《JavaScript 权威指南》勘误表中文版': 'https://dream4ever.github.io/Chinese-Errata-for-JavaScript-The-Definitive-Guide/'
+                'Git 实战笔记': 'https://github.com/xugy0926/getting-started-with-javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md',
+                '《JavaScript 权威指南》勘误表中文版': 'https://dream4ever.github.io/Chinese-Errata-for-JavaScript-The-Definitive-Guide/',
+                '茴字的七种写法 - 论 Web 页面中的相对路径': 'https://github.com/Dream4ever/JavaScript/blob/master/topics/relative-path.md'
             }
         },
         methods: {
