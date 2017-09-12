@@ -64,29 +64,35 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
             </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <!-- TODO:
+        <div class="main container">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">想对老师说说心里话</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- TODO:
              1. 前端页面采用Bootstrap的表单样式
              2. 表单提交按照sf上的文章来：
              https://segmentfault.com/q/1010000007066215 -->
-                <form class="say-to-you" @submit.prevent="submit">
-                    <div class="container">
-                        <div class="user-name form-group">
-                            <span class="col-md-2">你每次交作业时的名字：</span>
-                            <input class="form-control" type="text" autofocus v-model="name" v-model.trim="name">
-                        </div>
-                        <div class="user-account form-group">
-                            <span class="col-md-2">新大的手机号或者邮箱：</span>
-                            <input class="form-control" type="text" v-model="account" v-model.trim="account">
-                        </div>
-                        <div class="user-content form-group">
-                            <p>想对老师说些什么？</p>
-                            <textarea name="content" v-model="content" rows="10" placeholder="老师，我想对你说……"></textarea>
-                        </div>
-                        <button class="btn btn-default" type="submit" v-on:click="submit">Button</button>
+                        <form class="say-to-you" @submit.prevent="submit">
+                            <div class="user-name form-group">
+                                <label for="name">你每次交作业时的名字：</label>
+                                <input id="name" class="form-control" type="text" autofocus v-model="name" v-model.trim="name">
+                            </div>
+                            <div class="user-account form-group">
+                                <label for="account">新大的手机号或者邮箱：</label>
+                                <input id="account" class="form-control" type="text" v-model="account" v-model.trim="account">
+                            </div>
+                            <div class="user-content form-group">
+                                <label for="content">想对老师说些什么？</label>
+                                <textarea id="content" name="content" v-model="content" rows="10" placeholder="老师，我想对你说……"></textarea>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit" v-on:click="submit">帮你传达给老师</button>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 

@@ -35,16 +35,20 @@
     color: #fff;
 }
 
+.main {
+    padding-top: 40px;
+}
+
 .say-to-you {
-    padding-top: 50px;
+    padding-top: 10px;
 }
 
-.say-to-you span {
-    line-height: 34px;
+.form-group label {
+    height: 30px;
 }
 
-.form-control {
-    width: 30%;
+.user-content label {
+    display: block;
 }
 
 .user-content textarea {
