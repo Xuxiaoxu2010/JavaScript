@@ -41,8 +41,8 @@
     padding-top: 40px;
 }
 
-.say-to-you {
-    padding-top: 10px;
+.say-to-you h3, articles h3 {
+    line-height: 2em;
 }
 
 .form-group label {
@@ -55,4 +55,8 @@
 
 .user-content textarea {
     width: 100%;
+}
+
+.articles-list {
+    padding-left: 10px;
 }

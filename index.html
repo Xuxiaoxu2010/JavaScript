@@ -69,16 +69,13 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
             <div class="col-md-8">
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default">
+                <div class="say-to-you panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">想对老师说说心里话</h3>
                     </div>
                     <div class="panel-body">
-                        <!-- TODO:
-             1. 前端页面采用Bootstrap的表单样式
-             2. 表单提交按照sf上的文章来：
-             https://segmentfault.com/q/1010000007066215 -->
-                        <form class="say-to-you" @submit.prevent="submit">
+                        <form @submit.prevent="submit">
+                            <!-- TODO: 1. 前端页面采用Bootstrap的表单样式 2. 表单提交按照sf上的文章来： https://segmentfault.com/q/1010000007066215 -->
                             <div class="user-name form-group">
                                 <label for="name">你每次交作业时的名字：</label>
                                 <input id="name" class="form-control" type="text" autofocus v-model="name" v-model.trim="name">
@@ -93,6 +90,23 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                             </div>
                             <button class="btn btn-primary btn-lg btn-block" type="submit" v-on:click="submit">帮你传达给老师</button>
                         </form>
+                    </div>
+                </div>
+                <div class="articles panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">课程相关的文章</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="articles-list" v-for="(article, title) in articles">
+                            <template>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">
+                                      <a :href="article">{{ title }}</a>
+                                    </label>
+                                </div>
+                            </template>
+                        </ul>
                     </div>
                 </div>
             </div>
