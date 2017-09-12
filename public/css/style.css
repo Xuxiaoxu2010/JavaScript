@@ -35,6 +35,18 @@
     color: #fff;
 }
 
+.say-to-you {
+    padding-top: 50px;
+}
+
+.say-to-you span {
+    line-height: 34px;
+}
+
+.form-control {
+    width: 30%;
+}
+
 .user-content textarea {
     width: 100%;
 }
