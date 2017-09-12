@@ -25,23 +25,24 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
 
 <body>
     <div id="app">
+
         <nav class="navbar navbar-default">
             <!-- 官网示例中的container-fluid这个类，没有让内部元素在页面中部显示，所以要用container限制一下内部元素的宽度 -->
             <div class="container">
                 <!-- 这是新大的logo及导向js课程首页的链接 -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="http://js.xinshengdaxue.com">
-                        <img alt="Brand" src="https://o4a7cbihz.qnssl.com/picture/57140c0c-4ffa-4dde-9757-570b53f96796">
+                    <a class="navbar-brand" :href="links.home">
+                        <img alt="Brand" :src="links.logo">
                     </a>
                 </div>
                 <!-- 这是一些文字链接 -->
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="https://github.com/Dream4ever/">我的 GitHub</a>
+                            <a :href="links.mygithub">我的 GitHub</a>
                         </li>
                         <li>
-                            <a href="https://segmentfault.com/u/samsara0511/articles/">我的文章</a>
+                            <a :href="links.segmentfault">我的文章</a>
                         </li>
                     </ul>
                 </div>
@@ -52,20 +53,21 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
         <div class="header">
             <div class="container">
                 <h1>JavaScript 大杂烩</h1>
-                <img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fi7s7vo8y0j30hs0hsaay.jpg" alt="徐老师的头像">
+                <img :src="links.avatar" alt="徐老师的头像">
                 <div class="teacher">
                     <p>
-                        <a href="https://github.com/xugy0926/">授课教师：徐高阳</a>
+                        <a :href="links.github">授课教师：徐高阳</a>
                     </p>
                     <p>
-                        <a href="https://github.com/xugy0926/"></a>人见人爱，花见花开的徐帅 ʕ•̫͡•ʔ</a>
+                        <a :href="links.github">人见人爱，花见花开的徐帅 ʕ•̫͡•ʔ</a>
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="main container">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+            </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
