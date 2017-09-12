@@ -111,13 +111,18 @@
                 //     user_account = this.account.trim() || body.account,
                 //     user_content = this.content.trim() || body.content;
 
+                console.log(body);
+                console.log(JSON.stringify(body));
+
                 // 为什么必须先stringify再parse才能成功？不能直接parse？
-                // 而且不parse的话，传出去的字符串还带着双引号
+                // 因为axois接收的data是JSON字符串，而如果直接把对象传过去，
+                // axios就会先按照默认的行为将其转换成字符串，转换结果和stringify是不一样的
+                // 而且不再parse一下的话，就只是单纯的字符串而不是JSON，所以无法得到预期的结果
                 body = JSON.parse(JSON.stringify({
                     // 为什么必须用这种写法才能检测出空值？
                     'name': this.name.trim() || body.name,
                     'account': this.account.trim() || body.account,
-                    'content': this.content.trim() || body.content + '123'
+                    'content': this.content.trim() || body.content
                 }));
 
                 axios.post(api.sayToMe, body)

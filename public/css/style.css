@@ -8,9 +8,9 @@
 }
 
 .header {
-    padding: 60px;
-    background: url("https://js.xinshengdaxue.com/images/background.jpg");
-    /* background-size: 100%; */
+    padding: 40px 0 70px;
+    background: url("../images/bg.png") no-repeat;
+    background-size: 100%;
     box-sizing: border-box;
 }
 
@@ -30,7 +30,7 @@
     display: inline-block;
 }
 
-.teacher p {
+.teacher a, .teacher p {
     margin: 0 0 3px;
     color: #fff;
 }
