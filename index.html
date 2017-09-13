@@ -75,7 +75,9 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                     </div>
                     <div class="panel-body">
                         <form @submit.prevent="submit">
-                            <!-- TODO: 1. 前端页面采用Bootstrap的表单样式 2. 表单提交按照sf上的文章来： https://segmentfault.com/q/1010000007066215 -->
+                            <!-- TODO
+                                1. 前端页面采用Bootstrap的表单样式
+                                2. 表单提交按照sf上的文章来： https://segmentfault.com/q/1010000007066215 -->
                             <div class="user-name form-group">
                                 <label for="name">你每次交作业时的名字：</label>
                                 <input id="name" class="form-control" type="text" autofocus v-model="name" v-model.trim="name">
