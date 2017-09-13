@@ -1,0 +1,22 @@
+[
+    {
+        "event": "joined_github",
+        "date": "2012-10-19",
+        "img": "https://assets-cdn.github.com/images/modules/profile/profile-joined-github.png"
+    },
+    {
+        "event": "first_issue",
+        "date": "2013-06-04",
+        "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png"
+    },
+    {
+        "event": "first_repository",
+        "date": "2016-06-24",
+        "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-repo.png"
+    },
+    {
+        "event": "first_pull_request",
+        "date": "2017-08-05",
+        "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-pr.png"
+    }
+]

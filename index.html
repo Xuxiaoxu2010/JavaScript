@@ -109,6 +109,23 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                         </ul>
                     </div>
                 </div>
+                <div class="to-do panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">待完成的功能</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="articles-list" v-for="(article, title) in articles">
+                            <template>
+                                <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox">
+                                      <a :href="article">{{ title }}</a>
+                                    </label>
+                                </div>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
