@@ -99,5 +99,3 @@ www.hackerrank.com
 
 1. 员工成长快于公司，跳槽是理所应当。
 1. 公司成长快于员工，辞退跟不上公司步伐或者严重拖后腿的员工也是理所应当。
-
-https://github.com/Dream4ever/JavaScript/blob/master/topics/lesson12.md
