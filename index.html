@@ -74,8 +74,48 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
 
             <div class="col-md-8">
             </div>
-            
+
             <div class="col-md-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">团队成员</h3>
+                    </div>
+                    <div id="carousel-example-generic" class="teammates carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox" v-for="(teammate, index) in teammates">
+                            <template>
+                                <div class="item" v-bind:class="index == 0 ? 'active' : ''">
+                                    <img :src=teammate.avatar alt="">
+                                    <div class="carousel-caption">
+                                        <h1>{{ teammate.name }}</h1>
+                                        <p>{{ teammate.github }}</p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                </div>
+
                 <div class="say-to-you panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">想对老师说说心里话</h3>
@@ -106,12 +146,12 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                         <h3 class="panel-title">自己写的课程相关的文章</h3>
                     </div>
                     <div class="panel-body">
-                        <ul class="articles-list" v-for="(article, title) in articles">
+                        <ul class="articles-list" v-for="(link, title) in articles">
                             <template>
                                 <div class="checkbox">
                                     <label>
                                       <input type="checkbox">
-                                      <a :href="article">{{ title }}</a>
+                                      <a :href="link">{{ title }}</a>
                                     </label>
                                 </div>
                             </template>
@@ -123,12 +163,12 @@ https://medium.com/swlh/why-i-left-the-best-job-in-the-world-3689a5a4649a
                         <h3 class="panel-title">待完成的功能</h3>
                     </div>
                     <div class="panel-body">
-                        <ul class="articles-list" v-for="(ft, title) in feature">
+                        <ul class="articles-list" v-for="(link, title) in feature">
                             <template>
                                 <div class="checkbox">
                                     <label>
                                       <input type="checkbox">
-                                      <a :href="ft">{{ title }}</a>
+                                      <a :href="link">{{ title }}</a>
                                     </label>
                                 </div>
                             </template>

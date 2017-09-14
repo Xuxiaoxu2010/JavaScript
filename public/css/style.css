@@ -41,6 +41,29 @@
     padding-top: 40px;
 }
 
+.carousel-inner > .item > img {
+    margin: 0 auto;
+    width: 140px;
+}
+
+.carousel-caption {
+    position: none;
+}
+
+.carousel-control {
+    background-image: url() !important;
+    height: 18%;
+    color: #666;
+}
+
+.carousel-control.left {
+    left: 5%;
+}
+
+.carousel-control.right {
+    right: 5%;
+}
+
 h3.panel-title {
     line-height: 2em;
 }

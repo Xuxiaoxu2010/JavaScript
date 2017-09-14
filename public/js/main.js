@@ -104,6 +104,33 @@
                 'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/',
                 'new_index': 'dream4ever.github.io/JavaScript/index2.html'
             },
+            teammates: [
+                {
+                    'name': '何伟',
+                    'github': 'https://github.com/Dream4ever/',
+                    'avatar': 'https://avatars2.githubusercontent.com/u/2596367?v=4&s=460'
+                },
+                {
+                    'name': '王颖',
+                    'github': 'https://github.com/MaggieWong27',
+                    'avatar': 'https://avatars3.githubusercontent.com/u/30827246?v=4&s=460'
+                },
+                {
+                    'name': '王沙沙',
+                    'github': 'https://github.com/shashawang',
+                    'avatar': 'https://avatars3.githubusercontent.com/u/20803305?v=4&s=460'
+                },
+                {
+                    'name': '谢泓升',
+                    'github': 'https://github.com/Risexie',
+                    'avatar': 'https://avatars1.githubusercontent.com/u/30618014?v=4&s=460'
+                },
+                {
+                    'name': '伍帆',
+                    'github': 'https://github.com/french5',
+                    'avatar': 'https://avatars3.githubusercontent.com/u/20951309?v=4&s=460'
+                }
+            ],
             articles: {
                 '前端相关资源汇总': 'https://github.com/Dream4ever/Coding-Life/blob/master/Front-End/Front-End%20Resource%20Collection.md',
                 'Git 实战笔记': 'https://github.com/xugy0926/getting-started-with-javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md',
@@ -118,6 +145,10 @@
             }
         },
         methods: {
+            mounted: function() {
+                $('.carousel-inner').first().children().addClass('active');
+                $('.carousel').carousel();
+            },
             fetch: function () {
 
                 // 尽量使用点运算符访问对象属性
