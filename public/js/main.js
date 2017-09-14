@@ -146,8 +146,8 @@
         },
         methods: {
             mounted: function() {
-                $('.carousel-inner').first().children().addClass('active');
-                $('.carousel').carousel();
+                // $('.carousel-inner').first().children().addClass('active');
+                // $('.carousel').carousel();
             },
             fetch: function () {
 
