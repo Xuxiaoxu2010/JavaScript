@@ -1,7 +1,7 @@
 #app {
     width: 100%;
     height: 100%;
-    background: url("../images/bg.png") no-repeat;
+    background: url("https://raw.githubusercontent.com/Dream4ever/Pics/master/matrix-blur.jpg") no-repeat;
     background-size: 100%;
     box-sizing: border-box;
 }
