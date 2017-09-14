@@ -1,21 +1,21 @@
 [
     {
-        "event": "joined_github",
+        "event": "Joined GitHub",
         "date": "2012-10-19",
         "img": "https://assets-cdn.github.com/images/modules/profile/profile-joined-github.png"
     },
     {
-        "event": "first_issue",
+        "event": "First Issue",
         "date": "2013-06-04",
         "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-issue.png"
     },
     {
-        "event": "first_repository",
+        "event": "First Repo",
         "date": "2016-06-24",
         "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-repo.png"
     },
     {
-        "event": "first_pull_request",
+        "event": "First Pull Request",
         "date": "2017-08-05",
         "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-pr.png"
     }

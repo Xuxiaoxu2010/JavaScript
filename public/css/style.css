@@ -41,27 +41,38 @@
     padding-top: 40px;
 }
 
-.carousel-inner > .item > img {
-    margin: 0 auto;
-    width: 140px;
+.milestone h3 {
+    text-align: center;
+}
+
+.milestone p {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.carousel {
+    box-shadow: #555 0 0 5px;
 }
 
 .carousel-caption {
-    position: none;
+    text-shadow: 0 0 5px rgba(0,0,0,.9);
 }
 
 .carousel-control {
-    background-image: url() !important;
-    height: 18%;
-    color: #666;
+    background-image: none !important;
+    color: #007ae2;
 }
 
-.carousel-control.left {
-    left: 5%;
+.carousel-indicators {
+    bottom: 0;
 }
 
-.carousel-control.right {
-    right: 5%;
+.carousel-indicators > li {
+    border: 2px solid #000;
+}
+
+.carousel-indicators > .active {
+    background-color: #000;
 }
 
 h3.panel-title {
@@ -81,5 +92,19 @@ h3.panel-title {
 }
 
 .articles-list {
-    padding-left: 10px;
+    padding-left: 20px;
+}
+
+.articles-list > li {
+    line-height: 2.5em;
+}
+
+.to-do-list {
+    margin: 0;
+    padding-left: 17px;
+}
+
+.to-do {
+    padding: 10px 0;
+    margin: 0;
 }
