@@ -109,6 +109,11 @@
                 '《JavaScript 权威指南》勘误表中文版': 'https://dream4ever.github.io/Chinese-Errata-for-JavaScript-The-Definitive-Guide/',
                 '茴字的七种写法 - 论 Web 页面中的相对路径': 'https://github.com/Dream4ever/JavaScript/blob/master/topics/relative-path.md',
                 'VSCode 应用笔记': '#'
+            },
+            feature: {
+                '轮播图': '#',
+                '我的GitHub里程碑': '#',
+                '待定': ''
             }
         },
         methods: {
