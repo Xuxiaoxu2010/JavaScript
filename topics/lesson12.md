@@ -8,16 +8,24 @@
 
 文章：《十年学编程》，Google研究中心主任。
 
-JS发展这么多年，有很多缺陷，一些公司做了些改进：
+JS发展这么多年，有很多缺陷，一些公司做了些改进，这些语言都能编译成JS，可以很好的开拓JS的编码思路：
 
 1. TypeScript
 1. Dart
-1. ClosureScript
+1. ClojureScript
+1. Elm
 
 ### 多练
 
 1. 业余的话，写自己需要的东西
 1. 实在不知道要什么的话，就上网做一些算法题 => 锻炼逻辑思维能力，提升自己解决问题的能力
+
+#### 练习算法的网站
+
+www.spoj.com
+www.leetcode.com
+www.codewars.com
+www.hackerrank.com
 
 ## 美女运营分享
 
