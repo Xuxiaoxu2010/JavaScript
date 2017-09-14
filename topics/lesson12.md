@@ -22,10 +22,10 @@ JS发展这么多年，有很多缺陷，一些公司做了些改进，这些语
 
 #### 练习算法的网站
 
-www.spoj.com
-www.leetcode.com
-www.codewars.com
-www.hackerrank.com
+1. www.spoj.com
+1. www.leetcode.com
+1. www.codewars.com
+1. www.hackerrank.com
 
 ## 美女运营分享
 
