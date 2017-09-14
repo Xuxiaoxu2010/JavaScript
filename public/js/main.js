@@ -101,7 +101,8 @@
                 'avatar': 'https://ws1.sinaimg.cn/large/006tKfTcgy1fi7s7vo8y0j30hs0hsaay.jpg',
                 'github': 'https://github.com/xugy0926/',
                 'mygithub': 'https://github.com/Dream4ever/',
-                'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/'
+                'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/',
+                'newindex': 'dream4ever.github.io/JavaScript/index2.html'
             },
             articles: {
                 '前端相关资源汇总': 'https://github.com/Dream4ever/Coding-Life/blob/master/Front-End/Front-End%20Resource%20Collection.md',
