@@ -102,7 +102,7 @@
                 'github': 'https://github.com/xugy0926/',
                 'mygithub': 'https://github.com/Dream4ever/',
                 'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/',
-                'newindex': 'dream4ever.github.io/JavaScript/index2.html'
+                'new_index': 'dream4ever.github.io/JavaScript/index2.html'
             },
             articles: {
                 '前端相关资源汇总': 'https://github.com/Dream4ever/Coding-Life/blob/master/Front-End/Front-End%20Resource%20Collection.md',
