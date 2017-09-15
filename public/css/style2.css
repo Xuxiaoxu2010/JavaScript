@@ -4,7 +4,7 @@
     background: url() no-repeat;
     background-size: cover;
     box-sizing: border-box;
-    animation: image_blur 10s;
+    animation: image_blur 4s;
 }
 
 
