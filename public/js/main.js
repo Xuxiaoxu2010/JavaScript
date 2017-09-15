@@ -29,9 +29,6 @@
 
     'use strict';
 
-    // words: 心里话       detail: 课程基本信息      catalog: 课程文档信息
-    // homework/1 课程作业  teams: 团队信息          sayToMe: 给老师留言
-
     // TODO
     // API列表也改成从json文件中读取？
 
