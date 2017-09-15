@@ -4,7 +4,7 @@
     background: url("https://raw.githubusercontent.com/Dream4ever/Pics/master/matrix-blur.jpg") no-repeat;
     background-size: cover;
     box-sizing: border-box;
-    animation: image_blur 4s;
+    animation: image_blur 8s;
 }
 
 
