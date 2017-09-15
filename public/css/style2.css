@@ -5,8 +5,11 @@
     background-size: cover;
     box-sizing: border-box;
     animation: image_blur 10s; 
+    /* https://stackoverflow.com/a/42963980/2667665 */
+    transform: scale(1.1);
 }
 
+/* https://stackoverflow.com/a/15409944/2667665 */
 @keyframes image_blur {
     0% { -webkit-filter: blur(6px);}
     50% { -webkit-filter: blur(3px);}
