@@ -52,6 +52,7 @@
 
 .carousel {
     box-shadow: #555 0 0 5px;
+    margin-top: 10px;
 }
 
 .carousel-caption {
@@ -68,11 +69,11 @@
 }
 
 .carousel-indicators > li {
-    border: 2px solid #000;
+    border: 2px solid #007ae2;
 }
 
 .carousel-indicators > .active {
-    background-color: #000;
+    background-color: #007ae2;
 }
 
 h3.panel-title {
