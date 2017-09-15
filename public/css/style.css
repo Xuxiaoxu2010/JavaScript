@@ -42,11 +42,11 @@
     padding-top: 40px;
 }
 
-.panel-default {
+.col-md-8 .panel-default {
     border-color: #BDDAF6;
 }
 
-.panel-default>.panel-heading {
+.col-md-8 .panel-default>.panel-heading {
     color: #fff;
     background-color: #479fea;
 }
