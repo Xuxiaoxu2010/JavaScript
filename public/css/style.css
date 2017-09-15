@@ -51,6 +51,11 @@
     background-color: #479fea;
 }
 
+.btn-primary {
+    background-color: #479fea;
+    border-style: none;
+}
+
 .milestone h3 {
     text-align: center;
 }
