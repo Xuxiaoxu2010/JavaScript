@@ -4,7 +4,7 @@
             "url": "http://js.xinshengdaxue.com"
         },
         "logo": {
-            "url": "https://o4a7cbihz.qnssl.com/picture/57140c0c-4ffa-4dde-9757-570b53f96796"
+            "url": "https://o4a7cbihz.qnssl.com/picture/57140c0c_4ffa_4dde-9757-570b53f96796"
         },
         "xu_avatar": {
             "url": "https://ws1.sinaimg.cn/large/006tKfTcgy1fi7s7vo8y0j30hs0hsaay.jpg"
@@ -75,7 +75,82 @@
         {
             "event": "First Pull Request",
             "date": "2017-08-05",
-            "img": "https://assets-cdn.github.com/images/modules/profile/profile-first-pr.png"
+            "img": "https://assets_cdn.github.com/images/modules/profile/profile_first_pr.png"
         }
-    ]
+    ],
+    "teammates": [
+        {
+            "name": "何伟",
+            "github": "https://github.com/Dream4ever/",
+            "avatar": "https://avatars2.githubusercontent.com/u/2596367?v=4&s=460"
+        },
+        {
+            "name": "王颖",
+            "github": "https://github.com/MaggieWong27",
+            "avatar": "https://avatars3.githubusercontent.com/u/30827246?v=4&s=460"
+        },
+        {
+            "name": "王沙沙",
+            "github": "https://github.com/shashawang",
+            "avatar": "https://avatars3.githubusercontent.com/u/20803305?v=4&s=460"
+        },
+        {
+            "name": "谢泓升",
+            "github": "https://github.com/Risexie",
+            "avatar": "https://avatars1.githubusercontent.com/u/30618014?v=4&s=460"
+        },
+        {
+            "name": "伍帆",
+            "github": "https://github.com/french5",
+            "avatar": "https://avatars3.githubusercontent.com/u/20951309?v=4&s=460"
+        }
+    ],
+    "articles": {
+        "front_resource": {
+            "title": "前端相关资源汇总",
+            "url": "https://github.com/Dream4ever/Coding_Life/blob/master/Front_End/Front_End%20Resource%20Collection.md"
+        },
+        "git": {
+            "title": "Git 实战笔记",
+            "url": "https://github.com/xugy0926/getting_started_with_javascript/blob/master/topics/Git%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0.md"
+        },
+        "js_errta": {
+            "title": "《JavaScript 权威指南》勘误表中文版",
+            "url": "https://dream4ever.github.io/Chinese_Errata_for_JavaScript_The_Definitive_Guide/"
+        },
+        "relative_path": {
+            "title": "茴字的七种写法 _ 论 Web 页面中的相对路径",
+            "url": "https://github.com/Dream4ever/JavaScript/blob/master/topics/relative_path.md"
+        },
+        "vscode": {
+            "title": "VSCode 应用笔记",
+            "url": "https://github.com/Dream4ever/JavaScript/blob/master/topics/vscode.md"
+        }
+    },
+    "to_do": {
+        "carousel": {
+            "name": "轮播图加链接",
+            "done": true
+        },
+        "github_timeline": {
+            "name": "我的GitHub里程碑",
+            "done": true
+        },
+        "teammates": {
+            "name": "展示团队成员",
+            "done": false
+        },
+        "upload_image": {
+            "name": "上传所有用到的图片",
+            "done": false
+        },
+        "relative_path": {
+            "name": "网页中的图片链接均改为相对路径",
+            "done": false
+        },
+        "one_json": {
+            "name": "所有数据统一放到单个json文件中",
+            "done": false
+        }
+    }
 }
