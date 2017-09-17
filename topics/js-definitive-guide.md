@@ -54,7 +54,7 @@ a = { x: 1, y: 2 }; // object 对象
 ## identifier 标识符
 
 ```js
-// 下面的都是合法的标识符
+// Below are all legal identifiers 下面的都是合法的标识符
 i;
 my_variable_name;
 v8;
@@ -69,20 +69,20 @@ sí;
 ```js
 break
 null
-/* May be Used in the Future in ES */
+/* May be Used in the Future in ES 未来版本的ES中会用到 */
 const
 super
-/* Reserved in Strict Mode */
+/* Reserved in Strict Mode 在严格模式下是保留字 */
 let
 yield
 arguments
 eval
-/* Java Keywords */
+/* Java Keywords Java的关键字 */
 abstract
 private
-/* Global Variables and Functions */
+/* Global Variables and Functions 全局变量和函数 */
 Infinity
-Object
+eval
 ```
 
 ## Optional Semicolons 可选的分号
@@ -97,6 +97,32 @@ console.log(a)
 ```
 
 ## Primitive Type 原始类型
+
+```javascript
+1.2 // Number Type 数字类型
+'Hello' // String Type 字符串类型
+true // Boolean Type 布尔类型
+null // 空
+undefined // 未定义
+```
+
+## Object Type 对象类型
+
+```javascript
+// Normal Object 普通对象
+Person: {
+    "name": "Henry",
+    "age": 28
+}
+
+// Array Object 数组对象
+num = [1, 1, 2, 3, 5, 7];
+
+// Function Object 函数对象
+function add(a, b) {
+    return a + b;
+}
+```
 
 ## Object-Oriented 面向对象特性
 
