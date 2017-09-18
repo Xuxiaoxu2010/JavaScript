@@ -91,3 +91,9 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 ### Quick and Simple Text Selection
 
 ### Vue 2 Snippets
+
+---
+
+## 参考资料
+
+[为什么我选择使用 VS Code进行前端开发?](https://segmentfault.com/a/1190000010750647?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)：用到了里面介绍的 Dash、Path Intellisense 这两个扩展。
