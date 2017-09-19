@@ -99,7 +99,7 @@
                 'github': 'https://github.com/xugy0926/',
                 'my_github': 'https://github.com/Dream4ever/',
                 'segmentfault': 'https://segmentfault.com/u/samsara0511/articles/',
-                'new_index': './index2.html'
+                'new_index': './parallel.html'
             },
             teammates: [
                 {
