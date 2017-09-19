@@ -314,4 +314,6 @@ U+0000 // null，0000 为码点（code point），也是该字符的编号
 U+597D // 好
 ```
 
-1. JavaScript 中并没有表示单个字符的“字符型”，只有字符串这一种类型
+参考资料：[Unicode与JavaScript详解](http://www.ruanyifeng.com/blog/2014/12/unicode.html)
+
+1. JavaScript 中并没有表示单个字符的“字符型”，只有字符串这一种类型。
