@@ -1,7 +1,7 @@
 # 《JavaScript 权威指南》学习笔记
 
 > 是否需要重新调整为JS文件？各章、节、小节依次是嵌套的对象，输入章、节、小节名称，即输出该小节关键知识点。
-> Lexical.Charset.CaseSensitive => 输出关键知识点
+> Lexical.Charset.CaseSensitive // 输出关键知识点
 
 ## 词法结构
 
@@ -205,13 +205,13 @@ str[1] = 'a';
 str; // => 'Hello' 无法改变值
 ```
 
-### Type Convertion 类型转换
+### 类型转换
 
 ```javascript
 1 == true // true
 ```
 
-### Untyped Variable 变量无类型
+### 变量无类型
 
 ```javascript
 var a = 1.2;
@@ -219,9 +219,9 @@ a = 'Hello';
 a = [1, 2, 3];
 ```
 
-### Number 数字
+### 数字
 
-#### Integer Lietrals 整型直接量
+#### 整型直接量
 
 ```javascript
 0
@@ -229,7 +229,7 @@ a = [1, 2, 3];
 0377 // 八进制 => 255（十进制） 在ES6的严格模式下是禁止的
 ```
 
-#### Floating-Point Lietrals 浮点型直接量
+#### 浮点型直接量
 
 ```javascript
 3.14
@@ -238,7 +238,7 @@ a = [1, 2, 3];
 1.2E-15
 ```
 
-#### Arithmetic 算术运算
+#### 算术运算
 
 ```javascript
 // Math对象的函数和常量
@@ -247,6 +247,71 @@ Math.PI
 Math.random()
 ```
 
+##### 上溢/下溢
+
 ```javascript
 // Infinity and NaN 运算出现特殊值的情况
+
+// Infinity
+1 / 0
+Number.MAX_VALUE + 1E300
+
+// -Infinity
+-1 / 0
+-1 / Number.MIN_VALUE
+
+// NaN
+0 / 0
+
+// +/-0
+Number.MIN_VALUE / 2 // 0
+-Number.MIN_VALUE / 2 // -0
+1 / Infinity // 0
+-1 / Infinity // -0
 ```
+
+##### 特殊值的判断
+
+```javascript
+NaN != NaN // true 仅能通过此等式或 isNaN() 函数判断是否为 NaN
+isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
+1 / 0 !== 1 / -0 // 只有在这个时候，0 和 -0 才不相等
+```
+
+#### 浮点数精度
+
+```javascript
+(.3 - .2) !== (.2 - .1) // true 因为 JS 中的浮点数只是对应实数的近似表示
+```
+
+**解决方法**：对于精度要求高的场合，可用大整数进行运算，记得保证最终值的小数点位数不要错就可以。
+
+#### 日期和时间
+
+```javascript
+var then = new Date(2011, 0, 1, 17, 10, 30);
+var now = new Date();
+var elapsed = now - then; // 单位为毫秒
+now.getFullYear() // 2017
+now.getMonth() // 8，从 0 开始的月份，而不是从 1
+now.getDate() // 19，从 1 开始的天数
+now.getDay() // 2，周一至周六分别为 1~6，周日为 0
+```
+
+### 文本
+
+#### 字符集和内码
+
+> 不影响基本使用，先 pass 这一部分。
+
+JavaScript 采用 UTF-16 编码的 Unicode 字符集，每个字符均用无符号的 16 位值表示。
+因为有很多符号要表示，所以 Unicode 是分区定义的，每个区也称为一个平面（plane），可存放 65536（2^16）个字符。
+最前面的 65536 个字符位称为基本平面（BMP），它的码点范围为：`0 ~ 2^16 - 1`，对应的 16 进制就是 `U+0000 ~ U+FFFF`。所有最常见的字符都在这个平面，这也是 Unicode 最先定义和公布的一个平面。
+剩下的字符都放在辅助平面（SMP），码点范围从 `U+010000` 开始。
+
+```javascript
+U+0000 // null，0000 为码点（code point），也是该字符的编号
+U+597D // 好
+```
+
+1. JavaScript 中并没有表示单个字符的“字符型”，只有字符串这一种类型
