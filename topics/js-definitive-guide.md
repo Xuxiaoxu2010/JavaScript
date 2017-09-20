@@ -1,6 +1,6 @@
 # 《JavaScript 权威指南》学习笔记
 
-> 是否需要重新调整为JS文件？各章、节、小节依次是嵌套的对象，输入章、节、小节名称，即输出该小节关键知识点。
+> 是否需要重新调整为 JS 文件？各章、节、小节依次是嵌套的对象，输入章、节、小节名称，即输出该小节关键知识点。
 > Lexical.Charset.CaseSensitive // 输出关键知识点
 
 ## 词法结构
@@ -71,7 +71,7 @@ sí;
 ```js
 break
 null
-/* 未来版本的ES中会用到 */
+/* 未来版本的 ES 中会用到 */
 const
 super
 /* 在严格模式下是保留字 */
@@ -79,7 +79,7 @@ let
 yield
 arguments
 eval
-/* Java的关键字 */
+/* Java 的关键字 */
 abstract
 private
 /* 全局变量和函数 */
@@ -208,7 +208,7 @@ str; // => 'Hello' 无法改变值
 ### 类型转换
 
 ```javascript
-1 == true // true
+1 == true // => true
 ```
 
 ### 变量无类型
@@ -225,8 +225,8 @@ a = [1, 2, 3];
 
 ```javascript
 0
-0xff // 十六进制 => 255（十进制）
-0377 // 八进制 => 255（十进制） 在ES6的严格模式下是禁止的
+0xff // 十六进制 <-> 255（十进制）
+0377 // 八进制 <-> 255（十进制） 在ES6的严格模式下是禁止的
 ```
 
 #### 浮点型直接量
@@ -241,7 +241,7 @@ a = [1, 2, 3];
 #### 算术运算
 
 ```javascript
-// Math对象的函数和常量
+// Math 对象的函数和常量
 Math.pow(2, 53)
 Math.PI
 Math.random()
@@ -264,16 +264,16 @@ Number.MAX_VALUE + 1E300
 0 / 0
 
 // +/-0
-Number.MIN_VALUE / 2 // 0
--Number.MIN_VALUE / 2 // -0
-1 / Infinity // 0
--1 / Infinity // -0
+Number.MIN_VALUE / 2 // => 0
+-Number.MIN_VALUE / 2 // => -0
+1 / Infinity // => 0
+-1 / Infinity // => -0
 ```
 
 ##### 特殊值的判断
 
 ```javascript
-NaN != NaN // true 仅能通过此等式或 isNaN() 函数判断是否为 NaN
+NaN != NaN // => true: 仅能通过此等式或 isNaN() 函数判断是否为 NaN
 isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
 1 / 0 !== 1 / -0 // 只有在这个时候，0 和 -0 才不相等
 ```
@@ -281,7 +281,7 @@ isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
 #### 浮点数精度
 
 ```javascript
-(.3 - .2) !== (.2 - .1) // true 因为 JS 中的浮点数只是对应实数的近似表示
+(.3 - .2) !== (.2 - .1) // => true: 因为 JS 中的浮点数只是对应实数的近似表示
 ```
 
 **解决方法**：对于精度要求高的场合，可用大整数进行运算，记得保证最终值的小数点位数不要错就可以。
@@ -292,10 +292,10 @@ isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
 var then = new Date(2011, 0, 1, 17, 10, 30);
 var now = new Date();
 var elapsed = now - then; // 单位为毫秒
-now.getFullYear() // 2017
-now.getMonth() // 8，从 0 开始的月份，而不是从 1
-now.getDate() // 19，从 1 开始的天数
-now.getDay() // 2，周一至周六分别为 1~6，周日为 0
+now.getFullYear() // => 2017
+now.getMonth() // => 8: 从 0 开始的月份，而不是从 1
+now.getDate() // => 19: 从 1 开始的天数
+now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
 ```
 
 ### 文本
@@ -310,8 +310,8 @@ JavaScript 采用 UTF-16 编码的 Unicode 字符集，每个字符均用无符�
 剩下的字符都放在辅助平面（SMP），码点范围从 `U+010000` 开始。
 
 ```javascript
-U+0000 // null，0000 为码点（code point），也是该字符的编号
-U+597D // 好
+U+0000 // => null: 0000 为码点（code point），也是该字符的编号
+U+597D // => '好'
 ```
 
 参考资料：[Unicode与JavaScript详解](http://www.ruanyifeng.com/blog/2014/12/unicode.html)
@@ -321,7 +321,7 @@ U+597D // 好
 #### 字符串直接量
 
 ```javascript
-"" // 空字符串，包含 0 个字符
+"" // => 空字符串: 包含 0 个字符
 'test'
 "3.14"
 'name="myForm"' // 由单引号定界的字符串，里面可以包含双引号，但不能再包含单引号了，否则将以内部出现的第一个单引号作为字符串的结束位置，这样肯定与期望中的字符串不符
@@ -367,16 +367,16 @@ msg = 'Hello' + ', ' + 'world' // 字符串直接量的拼接
 greeting = msg + ' ' + name // 字符串直接量和字符串变量的拼接
 s.length // 字符串的长度
 var s = 'hello, world' // 定义字符串
-s.charAt(0) // 'h': 第一个字符
-s.charAt(s.length - 1) // 'd': 最后一个字符
-s.substring(1,4) // 'ell': 游标在 1~3 之间的字符，即第 2~4 个字符
-s.slice(-3) // 'rld': 最后 3 个字符
-s.indexOf('l') // 2: 字符 l 第一次出现时的游标
-s.lastIndexOf('l') // 10: 字符 l 最后一次出现时的游标
-s.indexOf('l', 3) // 3: 在位置 3 及之后第一次出现字符 l 的位置
+s.charAt(0) // => 'h': 第一个字符
+s.charAt(s.length - 1) // => 'd': 最后一个字符
+s.substring(1,4) // => 'ell': 游标在 1~3 之间的字符，即第 2~4 个字符
+s.slice(-3) // => 'rld': 最后 3 个字符
+s.indexOf('l') // => 2: 字符 l 第一次出现时的游标
+s.lastIndexOf('l') // => 10: 字符 l 最后一次出现时的游标
+s.indexOf('l', 3) // => 3: 在位置 3 及之后第一次出现字符 l 的位置
 s.split(', ') // 用 ', ' 逗号加空格将字符串分割成数组
-s.replace('l', 'L') // 'heLlo, world': 替换字符串中首个小写字符 l 为大写字符 Latin
-s.toUpperCase() // 'HELLO, WORLD': 字符串中所有字母变为大写
+s.replace('l', 'L') // => 'heLlo, world': 替换字符串中首个小写字符 l 为大写字符 Latin
+s.toUpperCase() // => 'HELLO, WORLD': 字符串中所有字母变为大写
 ```
 
 **注意**：前面说过，字符串是不可变类型，所以 `replace()` 和 `toUpperCase()` 这样的方法返回的是新字符串，原字符串不会发生变化，除非用 `str = str.toUpperCase()` 这样的方法对字符串进行重新赋值。
@@ -390,3 +390,29 @@ s[s.length - 1] // => 'd'
 ```
 
 #### 模式匹配
+
+JavaScript 定义了 `RegExp()` 构造函数，用来创建 “表示文本匹配模式” 的对象，这些模式称为 “正则表达式（regular expression）”。
+
+RegExp 并不是 JavaScript 的基本类型，它和 Date 类型一样，只是一种具有实用 API 的特殊对象。
+
+String 和 RegExp 对象均定义了利用正则表达式进行模式匹配和查找/替换的函数。
+
+RegExp 也有直接量写法，可以直接在 JavaScript 程序中使用。在两条斜线 `//` 之间的文本构成了一个正则表达式直接量，第二条斜线之后也可以跟随一个或多个字母，用来修饰匹配模式的含义。
+
+```javascript
+/^HTML/ // 匹配以 HTML 开始的字符串
+/[1-9][0-9]*/ // 匹配一个非零数字，后跟任意个任意数字
+/\bjavascript\b/i // 匹配单词 'javascript'，忽略大小写。\b 用于匹配一个词的边界，所有不是大小写罗马字母、数字或者下划线的字符，均是一个词的边界
+```
+
+RegExp 对象定义了很多有用的方法，字符串同样具有可以接收 RegExp 参数的方法。
+
+```javascript
+var text = 'testing: 1, 2, 3'; // 定义用于演示文本匹配的字符串
+var pattern = /\d+/g // 匹配包含至少一个数字的实例
+pattern.test(text) // => true: 匹配成功，pattern.test(text) 表示测试 text 中是否匹配 pattern 这个模式
+text.search(pattern) // => 9: 首次匹配成功的字符串中第一个字符的位置
+text.match(pattern) // => ['1', '2', '3']: 所有匹配成功的内容组成的数组
+text.replace(pattern, '#') // => 'testing: #, #, #': 将所有匹配成功的内容换成 replace() 方法中第二个参数里的内容
+text.split(/\D+/) // => ['', '1', '2', '3']: 为什么截取出来的数组，第一个元素是空字符串？text.match(/\D+/) 得到的结果也只是 'testing: `，并不包含后面的 `, `
+```
