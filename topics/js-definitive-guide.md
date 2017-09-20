@@ -23,9 +23,7 @@ var A = 1;
 #### 标准化
 
 ```js
-// 返回标准化的 Unicode 字符串
-"café".normalize() // => "café"
-"caf\u00e9".normalize() // => "café"
+"caf\u00e9".normalize() // => "café": 返回标准化的 Unicode 字符串
 ```
 
 ### 注释
@@ -57,13 +55,13 @@ a = { x: 1, y: 2 }; // 对象
 
 ```js
 // 下面的都是合法的标识符
-i;
-my_variable_name;
-v8;
-_dummy;
-$str;
-sí;
-π;
+i
+my_variable_name
+v8
+_dummy
+$str
+sí
+π
 ```
 
 #### 保留字
