@@ -93,7 +93,7 @@ a
 =
 3
 console.log(a)
-/* => var a; a = 3; console.log(a); */
+/* JavaScript 会识别为：var a; a = 3; console.log(a); */
 ```
 
 ## 类型、值和变量
@@ -186,15 +186,15 @@ a[1] = 12;
 
 ```javascript
 // 数字类型
-1.3 = 1.毫无意义
+1.3 = 1 // 毫无意义
 
-// Boolean 布尔类型
-false = 同上
+// 布尔类型
+false = true // 同上
 
-// null 空
-null = 同上
+// 空
+null = 1 // 同上
 
-undefined
+// undefined
 undefined = true // 同上
 
 // 字符串类型
