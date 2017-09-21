@@ -308,3 +308,11 @@ async function askMom() {
 1. 需要在函数中返回 promise 的时候，定义函数时在代码最前面加上 `async` 关键字就行了，比如：`async function showOff(phone)`。
 1. 需要调用 promise 的时候，在函数名前面加上 `await` 关键字就行了，比如 `let phone = await willIGetNewPhone;` 和 `let message = await showOff(phone)`。
 1. 对于被 rejected - 拒绝了的 promise，用 `try { ... } catch (error) { ... }` 来捕获 promise 中的 error。
+
+---
+
+## 为什么要用 Promises？什么时候用？
+
+## 小区里的新朋友：Observables
+
+## 总结
