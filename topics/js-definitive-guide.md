@@ -217,9 +217,13 @@ a = 'Hello';
 a = [1, 2, 3];
 ```
 
-### 数字
+## 内置数据结构
 
-#### 整型直接量
+### 数值类型与运算符
+
+#### 数字
+
+##### 整型直接量
 
 ```javascript
 0
@@ -227,7 +231,7 @@ a = [1, 2, 3];
 0377 // 八进制 <-> 255（十进制） 在ES6的严格模式下是禁止的
 ```
 
-#### 浮点型直接量
+##### 浮点型直接量
 
 ```javascript
 3.14
@@ -276,7 +280,7 @@ isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
 1 / 0 !== 1 / -0 // 只有在这个时候，0 和 -0 才不相等
 ```
 
-#### 浮点数精度
+##### 浮点数精度
 
 ```javascript
 (.3 - .2) !== (.2 - .1) // => true: 因为 JS 中的浮点数只是对应实数的近似表示
@@ -284,19 +288,7 @@ isFinite(x) // 只有在参数为 NaN、Infinity 或 -Infinity 时才为 false
 
 **解决方法**：对于精度要求高的场合，可用大整数进行运算，记得保证最终值的小数点位数不要错就可以。
 
-#### 日期和时间
-
-```javascript
-var then = new Date(2011, 0, 1, 17, 10, 30);
-var now = new Date();
-var elapsed = now - then; // 单位为毫秒
-now.getFullYear() // => 2017
-now.getMonth() // => 8: 从 0 开始的月份，而不是从 1
-now.getDate() // => 19: 从 1 开始的天数
-now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
-```
-
-### 文本
+### 字符串
 
 #### 字符集和内码
 
@@ -413,4 +405,16 @@ text.search(pattern) // => 9: 首次匹配成功的字符串中第一个字符�
 text.match(pattern) // => ['1', '2', '3']: 所有匹配成功的内容组成的数组
 text.replace(pattern, '#') // => 'testing: #, #, #': 将所有匹配成功的内容换成 replace() 方法中第二个参数里的内容
 text.split(/\D+/) // => ['', '1', '2', '3']: 为什么截取出来的数组，第一个元素是空字符串？text.match(/\D+/) 得到的结果也只是 'testing: `，并不包含后面的 `, `
+```
+
+### 日期和时间
+
+```javascript
+var then = new Date(2011, 0, 1, 17, 10, 30);
+var now = new Date();
+var elapsed = now - then; // 单位为毫秒
+now.getFullYear() // => 2017
+now.getMonth() // => 8: 从 0 开始的月份，而不是从 1
+now.getDate() // => 19: 从 1 开始的天数
+now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
 ```
