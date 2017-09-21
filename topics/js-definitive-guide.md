@@ -432,3 +432,44 @@ now.getMonth() // => 8: 从 0 开始的月份，而不是从 1
 now.getDate() // => 19: 从 1 开始的天数
 now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
 ```
+
+### 特殊类型
+
+#### 布尔值
+
+用途：通常用于 Javascript 的控制结构中。
+
+仅有的几个会被转换成 `false` 的假值（可用 `undefined ? true : false` 进行判断，不能用 `undefined = false` 进行判断）：
+
+```javascript
+undefined
+null
+0
+-0
+NaN
+'' // 空字符串
+```
+
+除了上面的几个假值，其余的值全是真值。
+
+```javascript
+o !== null // 只要 o 不是 null，表达式就为 true
+o // o 必须是真值，表达式才为 true
+```
+
+##### 布尔运算符
+
+```javascript
+a && b // a 和 b 均为真值时才为真
+a || b // a 或 b 至少有一个为真值时就为真
+```
+
+#### null 和 undefined
+
+- null 可以用来表示数字、字符串和对象是“无值”的。
+- undefined 用来表示变量没有初始化，如果查询对象属性或数组元素的值时，返回 undefined 就说明这个属性或者元素不存在。无返回值的函数也会返回 undefined。
+
+```javascript
+typeof null // => 'object'
+typeof undefined // => 'undefined'
+```
