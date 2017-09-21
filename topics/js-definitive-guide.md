@@ -473,3 +473,11 @@ a || b // a 或 b 至少有一个为真值时就为真
 typeof null // => 'object'
 typeof undefined // => 'undefined'
 ```
+
+---
+
+## 为什么要用 Promises？什么时候用？
+
+## 小区里的新朋友：Observables
+
+## 总结
