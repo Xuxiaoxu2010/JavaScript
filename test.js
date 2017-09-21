@@ -86,3 +86,83 @@ var askMom = function () {
 };
 
 askMom();
+
+/* ES6 */
+const isMomHappy = Math.random() > 0.5;
+
+// 承诺
+const willIGetNewPhone = new Promise(
+    (resolve, reject) => { // 箭头函数
+        if (isMomHappy) {
+            const phone = {
+                '品牌': '苹果',
+                '颜色': '亮黑'
+            };
+            resolve(phone);
+        } else {
+            const reason = new Error('妈妈不高兴');
+            reject(reason);
+        }
+    }
+);
+
+const showOff = function (phone) {
+    const message = '小伙伴们，我有新的' + phone['颜色'] + phone['品牌'] + '手机啦';
+    return Promise.resolve(message);
+};
+
+// 开始要求兑现承诺
+const askMom = function () {
+    willIGetNewPhone
+        .then(showOff)
+        .then(fulfilled => console.log(fulfilled)) // 箭头函数
+        .catch(error => console.log(error.message)); // 箭头函数
+}
+
+/* ES7 */
+const isMomHappy = Math.random() > 0.5;
+
+// 承诺
+const willIGetNewPhone = new Promise(
+    (resolve, reject) => {
+        if (isMomHappy) {
+            const phone = {
+                '品牌': '苹果',
+                '颜色': '亮黑'
+            };
+            resolve(phone);
+        } else {
+            const reason = new Error('妈妈不高兴');
+            reject(reason);
+        }
+    }
+)
+
+// 第二个承诺
+async function showOff(phone) {
+    return new Promise(
+        (resolve, reject) => {
+            var message = '小伙伴们，我有新的' + phone['颜色'] + phone['品牌'] + '手机啦'; // 这里为什么用 var 而不是 const？
+            resolve(message);
+        }
+    )
+}
+
+// 开始要求兑现承诺
+async function askMom() {
+    try {
+        console.log('一会儿要问问妈妈买手机了没');
+
+        let phone = await willIGetNewPhone;
+        let message = await showOff(phone);
+
+        console.log(message);
+        console.log('问过妈妈了……');
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+(async () => {
+    await askMom();
+});

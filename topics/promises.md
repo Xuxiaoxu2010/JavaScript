@@ -195,3 +195,116 @@ var askMom = function () {
 打个比方：你这个小朋友在等妈妈买新手机的时候，肯定不是干等着吧？肯定是该玩玩，该吃吃，该睡睡吧？这就叫**异步**，当 JS 执行异步函数的之后，代码并不会停在这里等待结果，而是继续执行后面的代码。
 
 所以，如果有些事情是必须等 promise 执行完成之后才能做的，那就一定要把它放到 `.then` 里面去执行，就像上面的 `willIGetNewPhone.then(showOff)` 一样。
+
+## ES5, ES6/2015, ES7 及之后版本中的 Promises
+
+### ES5 - 大多数浏览器（文章发布时间：2016 年 12 月 1 日）
+
+如果引用了 [Bluebird](http://bluebirdjs.com/docs/getting-started.html) 这个 promise 库的话，文中的演示代码在所有的 ES5 环境中均可正常执行（所有的主流浏览器和 Node.js）。这是因为目前 ES5 对 promises 的支持还不够好，另一个著名的 promise 则是 Kris Kowal 写的 [Q](https://github.com/kriskowal/q)。
+
+### ES6/ES2015 - 现代浏览器，Node.js v6
+
+由于 ES6 原生支持 promises，所以文中的演示代码在 ES6 环境中无需额外设置，直接就可以执行。而且因为有了 ES6 的新特性，就可以用 `胖箭头（箭头函数）=>` 和 `const` 以及 `let` 来将代码进一步优化。
+
+下面是 ES6 版本的演示代码。
+
+```javascript
+/* ES6 */
+const isMomHappy = true;
+
+// Promise
+const willIGetNewPhone = new Promise(
+    (resolve, reject) => { // 箭头函数
+        if (isMomHappy) {
+            const phone = {
+                '品牌': '苹果',
+                '颜色': '亮黑'
+            };
+            resolve(phone);
+        } else {
+            const reason = new Error('妈妈不高兴');
+            reject(reason);
+        }
+    }
+);
+
+const showOff = function (phone) {
+    const message = '小伙伴们，我有新的' + phone['颜色'] + phone['品牌'] + '手机啦';
+    return Promise.resolve(message);
+};
+
+// 开始要求兑现承诺
+const askMom = function () {
+    willIGetNewPhone
+        .then(showOff)
+        .then(fulfilled => console.log(fulfilled)) // 箭头函数
+        .catch(error => console.log(error.message)); // 箭头函数
+}
+```
+
+看见上面的代码了么？所有的 `var` 关键字都替换成了 `const`。所有的 `function(resolve, reject)` 都简化成了 `(resolve, reject) =>`，这些新的写法有几个好处，具体请看下面两篇文章：
+
+- [JavaScript ES6 Variable Declarations with let and const](https://strongloop.com/strongblog/es6-variable-declarations/)
+- [An introduction to Javascript ES6 arrow functions](https://strongloop.com/strongblog/an-introduction-to-javascript-es6-arrow-functions/)
+
+### ES7 - Async Await 让代码看起来更舒服
+
+ES7 中引入了 `async` 和 `await` 这两个关键字，这两个关键字让异步代码看起来更美观，也更容易理解，相比 `.then` 和 `.catch` 而言。
+
+下面我们再用 ES7 的语法来重写 ES6 版本的示例代码。
+
+```javascript
+/* ES7 */
+const isMomHappy = Math.random() > 0.5;
+
+// 承诺
+const willIGetNewPhone = new Promise(
+    (resolve, reject) => {
+        if (isMomHappy) {
+            const phone = {
+                '品牌': '苹果',
+                '颜色': '亮黑'
+            };
+            resolve(phone);
+        } else {
+            const reason = new Error('妈妈不高兴');
+            reject(reason);
+        }
+    }
+)
+
+// 第二个承诺
+async function showOff(phone) {
+    return new Promise(
+        (resolve, reject) => {
+            var message = '小伙伴们，我有新的' + phone['颜色'] + phone['品牌'] + '手机啦'; // 这里为什么用 var 而不是 const？
+            resolve(message);
+        }
+    )
+}
+
+// 开始要求兑现承诺
+async function askMom() {
+    try {
+        console.log('一会儿要问问妈妈买手机了没');
+
+        let phone = await willIGetNewPhone;
+        let message = await showOff(phone);
+
+        console.log(message);
+        console.log('问过妈妈了……');
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+(async () => {
+    await askMom();
+});
+```
+
+然后来解释一下上面的代码：
+
+1. 需要在函数中返回 promise 的时候，定义函数时在代码最前面加上 `async` 关键字就行了，比如：`async function showOff(phone)`。
+1. 需要调用 promise 的时候，在函数名前面加上 `await` 关键字就行了，比如 `let phone = await willIGetNewPhone;` 和 `let message = await showOff(phone)`。
+1. 对于被 rejected - 拒绝了的 promise，用 `try { ... } catch (error) { ... }` 来捕获 promise 中的 error。
