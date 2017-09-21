@@ -165,22 +165,7 @@ str; // => 'Hello' 无法改变值
 
 ### 变量声明与赋值
 
-#### 区分大小写
-
-```js
-var a = 0;
-var A = 1;
-```
-
-### 变量无类型
-
-```javascript
-var a = 1.2;
-a = 'Hello';
-a = [1, 2, 3];
-```
-
-### 标识符
+#### 标识符
 
 ```js
 // 下面的都是合法的标识符
@@ -191,6 +176,32 @@ _dummy
 $str
 sí
 π
+```
+
+#### 区分大小写
+
+```js
+var a = 0;
+var A = 1;
+```
+
+#### 变量无类型
+
+```javascript
+var a = 1.2;
+a = 'Hello';
+a = [1, 2, 3];
+```
+
+#### 可选的分号
+
+```js
+var a
+a
+=
+3
+console.log(a)
+/* JavaScript 会识别为：var a; a = 3; console.log(a); */
 ```
 
 #### 保留字
@@ -212,17 +223,6 @@ private
 /* 全局变量和函数 */
 Infinity
 eval
-```
-
-### 可选的分号
-
-```js
-var a
-a
-=
-3
-console.log(a)
-/* JavaScript 会识别为：var a; a = 3; console.log(a); */
 ```
 
 ## 内置数据结构
