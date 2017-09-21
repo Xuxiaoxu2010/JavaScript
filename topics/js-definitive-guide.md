@@ -1,7 +1,11 @@
 # 《JavaScript 权威指南》学习笔记
 
-> 是否需要重新调整为 JS 文件？各章、节、小节依次是嵌套的对象，输入章、节、小节名称，即输出该小节关键知识点。
-> Lexical.Charset.CaseSensitive // 输出关键知识点
+```text
+是否需要重新调整为 JS 文件？各章、节、小节依次是嵌套的对象，输入章、节、小节名称，即输出该小节关键知识点。
+Lexical.Charset.CaseSensitive // 输出关键知识点
+```
+
+注：本学习笔记的知识结构按照 [《现代 JavaScript 开发：语法基础与工程实践》](https://github.com/wxyyxc1992/Domain-of-ProgrammingLanguage/tree/master/JavaScript/Modern-JavaScript-Development-Foundation) 一文中的目录层级进行了重新整理。
 
 ## 词法结构
 
