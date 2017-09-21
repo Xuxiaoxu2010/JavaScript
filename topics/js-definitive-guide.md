@@ -7,13 +7,6 @@
 
 ### 字符集
 
-#### 区分大小写
-
-```js
-var a = 0;
-var A = 1;
-```
-
 #### 转义序列
 
 ```js
@@ -49,51 +42,6 @@ true // 布尔值
 null // 空
 [1, 2, 3] // 数组
 a = { x: 1, y: 2 }; // 对象
-```
-
-### 标识符
-
-```js
-// 下面的都是合法的标识符
-i
-my_variable_name
-v8
-_dummy
-$str
-sí
-π
-```
-
-#### 保留字
-
-```js
-break
-null
-/* 未来版本的 ES 中会用到 */
-const
-super
-/* 在严格模式下是保留字 */
-let
-yield
-arguments
-eval
-/* Java 的关键字 */
-abstract
-private
-/* 全局变量和函数 */
-Infinity
-eval
-```
-
-### 可选的分号
-
-```js
-var a
-a
-=
-3
-console.log(a)
-/* JavaScript 会识别为：var a; a = 3; console.log(a); */
 ```
 
 ## 类型、值和变量
@@ -209,12 +157,72 @@ str; // => 'Hello' 无法改变值
 1 == true // => true
 ```
 
+---
+
+以上为尚未分类的内容。
+
+## 表达式与控制流
+
+### 变量声明与赋值
+
+#### 区分大小写
+
+```js
+var a = 0;
+var A = 1;
+```
+
 ### 变量无类型
 
 ```javascript
 var a = 1.2;
 a = 'Hello';
 a = [1, 2, 3];
+```
+
+### 标识符
+
+```js
+// 下面的都是合法的标识符
+i
+my_variable_name
+v8
+_dummy
+$str
+sí
+π
+```
+
+#### 保留字
+
+```js
+break
+null
+/* 未来版本的 ES 中会用到 */
+const
+super
+/* 在严格模式下是保留字 */
+let
+yield
+arguments
+eval
+/* Java 的关键字 */
+abstract
+private
+/* 全局变量和函数 */
+Infinity
+eval
+```
+
+### 可选的分号
+
+```js
+var a
+a
+=
+3
+console.log(a)
+/* JavaScript 会识别为：var a; a = 3; console.log(a); */
 ```
 
 ## 内置数据结构
