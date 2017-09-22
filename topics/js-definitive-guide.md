@@ -15,9 +15,6 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
     - [类型、值和变量](#%E7%B1%BB%E5%9E%8B%E3%80%81%E5%80%BC%E5%92%8C%E5%8F%98%E9%87%8F)
         - [数据类型分类](#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%88%86%E7%B1%BB)
             - [原始类型](#%E5%8E%9F%E5%A7%8B%E7%B1%BB%E5%9E%8B)
-            - [对象类型](#%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B)
-                - [类](#%E7%B1%BB)
-                - [面向对象特性](#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7)
             - [可变类型](#%E5%8F%AF%E5%8F%98%E7%B1%BB%E5%9E%8B)
             - [不可变类型](#%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%B1%BB%E5%9E%8B)
         - [类型转换](#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
@@ -55,8 +52,11 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
             - [布尔值](#%E5%B8%83%E5%B0%94%E5%80%BC)
                 - [布尔运算符](#%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97%E7%AC%A6)
             - [null 和 undefined](#null-%E5%92%8C-undefined)
-        - [序列类型（数组？）](#%E5%BA%8F%E5%88%97%E7%B1%BB%E5%9E%8B%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%9F%EF%BC%89)
+        - [序列类型（数组？映射类型的子集？）](#%E5%BA%8F%E5%88%97%E7%B1%BB%E5%9E%8B%EF%BC%88%E6%95%B0%E7%BB%84%EF%BC%9F%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%90%E9%9B%86%EF%BC%9F%EF%BC%89)
         - [映射类型（对象？）](#%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%AF%B9%E8%B1%A1%EF%BC%9F%EF%BC%89)
+            - [对象类型](#%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B)
+                - [类](#%E7%B1%BB)
+                - [面向对象特性](#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7)
 
 ## 词法结构
 
@@ -72,68 +72,6 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
 true // 布尔类型
 null // 空
 undefined // 未定义
-```
-
-#### 对象类型
-
-```javascript
-// 普通对象
-Person: {
-    "name": "Henry",
-    "age": 28
-}
-
-// 数组对象
-num = [1, 1, 2, 3, 5, 7];
-
-// 函数对象
-function add(a, b) {
-    return a + b;
-}
-```
-
-##### 类
-
-```javascript
-// 数组类
-num = [1, 1, 2, 3, 5, 7];
-
-// 函数类
-function add(a, b) {
-    return a + b;
-}
-
-// 日期类
-var date = new Date();
-
-// 正则类
-var pattern = /s$/;
-
-// 错误类
-var err = new Error();
-```
-
-##### 面向对象特性
-
-```js
-sort(a); // 结构化编程语言，只能这样对数组排序
-a.sort(); // 面向对象语言，调用数组的方法即可
-```
-
-可以拥有方法的数据类型：
-
-```javascript
-// 对象类型
-Person.talk();
-
-// 数字类型
-(1.23e+20).toFixed(2)
-
-// 字符串类型
-'123-234-345'.split('-')
-
-// 布尔类型
-true.toString()
 ```
 
 #### 可变类型
@@ -533,6 +471,68 @@ typeof null // => 'object'
 typeof undefined // => 'undefined'
 ```
 
-### 序列类型（数组？）
+### 序列类型（数组？映射类型的子集？）
 
 ### 映射类型（对象？）
+
+#### 对象类型
+
+```javascript
+// 普通对象
+Person: {
+    "name": "Henry",
+    "age": 28
+}
+
+// 数组对象
+num = [1, 1, 2, 3, 5, 7];
+
+// 函数对象
+function add(a, b) {
+    return a + b;
+}
+```
+
+##### 类
+
+```javascript
+// 数组类
+num = [1, 1, 2, 3, 5, 7];
+
+// 函数类
+function add(a, b) {
+    return a + b;
+}
+
+// 日期类
+var date = new Date();
+
+// 正则类
+var pattern = /s$/;
+
+// 错误类
+var err = new Error();
+```
+
+##### 面向对象特性
+
+```js
+sort(a); // 结构化编程语言，只能这样对数组排序
+a.sort(); // 面向对象语言，调用数组的方法即可
+```
+
+可以拥有方法的数据类型：
+
+```javascript
+// 对象类型
+Person.talk();
+
+// 数字类型
+(1.23e+20).toFixed(2)
+
+// 字符串类型
+'123-234-345'.split('-')
+
+// 布尔类型
+true.toString()
+```
