@@ -57,7 +57,8 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
             - [对象类型](#%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B)
                 - [类](#%E7%B1%BB)
                 - [面向对象特性](#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7)
-            - [全局对象](#%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1)
+                - [全局对象](#%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1)
+                - [包装对象](#%E5%8C%85%E8%A3%85%E5%AF%B9%E8%B1%A1)
 
 ## 词法结构
 
@@ -427,7 +428,7 @@ now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
 
 #### 布尔值
 
-用途：通常用于 Javascript 的控制结构中。
+用途：通常用于 JavaScript 的控制结构中。
 
 仅有的几个会被转换成 `false` 的假值（可用 `undefined ? true : false` 进行判断，不能用 `undefined = false` 进行判断）：
 
@@ -538,4 +539,34 @@ Person.talk();
 true.toString()
 ```
 
-#### 全局对象
+##### 全局对象
+
+当 JavaScript 解释器启动时，或者任何 Web 浏览器加载新页面时，就会创建一个新的全局对象，并给它一组自定义的初始属性：
+
+- 全局属性，比如 undefined、Infinity 和 NaN
+- 全局函数，比如 isNan()、parseInt() 和 eval()
+- 构造函数，比如 Date()、RegExp()、String()、Object() 和 Array()
+- 全局对象，比如 Math 和 JSON
+
+全局对象的初始属性并不是保留字，但应该当做保留字来对待。
+
+在代码的最顶级，可以用 JavaScript 关键字 this 来引用全局对象：
+
+```javascript
+var global = this; // 定义一个引用全局对象的全局变量
+```
+
+对于客户端的 JavaScript，在其表示的浏览器窗口中的所有 JavaScript 代码中，Window 对象充当了全局对象。这个全局 Window 对象有一个属性 window 引用其自身，它可以代替 this 来引用全局对象。Window 对象不只是定义了核心的全局属性，还针对 Web 浏览器和客户端 JavaScript 定义了一小部分的其它全局属性。
+
+```javascript
+var global = window;
+global.Infinity; // => Infinity
+global.isNaN(1); // => false
+global.Date(); // => "Fri Sep 22 2017 23:46:10 GMT+0800 (CST)"
+global.Math.random() // => 0.26739690031767305
+```
+
+初次创建时，全局对象定义了 JavaScript 中所有的预定义全局值。这个特殊对象同样包含了为程序定义的全局值，如果代码中声明了一个全局变量，那么这个全局变量就是全局对象的一个属性。
+
+##### 包装对象
+
