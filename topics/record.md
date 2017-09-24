@@ -47,7 +47,7 @@
 
 - [What's the relationship between unix, BSD, Mac OS X, linux and GNU? [closed]](https://stackoverflow.com/a/26700489/2667665)：讲述了 Unix 这个操作系统大家族的简史。
 - [Is there a beginners guide to Unix from the OS X point of view?](https://apple.stackexchange.com/questions/9973/)：介绍了几个学习 Unix/macOS 终端命令的资源，仅供参考。
-- [Windows 下的类 Unix 工具](https://alternativeto.net/software/cygwin/)：对于想要在 Windows 下体验 Unix 命令行的朋友们，可以查看这个链接中提到的几款软件，比如 Cygwin、MSYS2、Babun 等。
+- [Windows 下的类 Unix 工具](https://alternativeto.net/software/cygwin/)：对于想要在 Windows 下体验 Unix 命令行的朋友们，可以查看左侧这个链接中提到的几款软件，比如 Cygwin、MSYS2、Babun 等。
 - [Windows 10 Installation Guide](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide)：对于 Win 10 用户，还可以参考这篇文章里的方法，安装 Linux 子系统（可选择 Ubuntu），这样就能在命令行中使用 `bash` 了 —— 在命令行中输入 `bash`，就会进入其运行环境了。
 
 ---
