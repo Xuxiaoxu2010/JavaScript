@@ -50,17 +50,6 @@
 - [Windows 下的类 Unix 工具](https://alternativeto.net/software/cygwin/)：对于想要在 Windows 下体验 Unix 命令行的朋友们，可以查看左侧这个链接中提到的几款软件，比如 Cygwin、MSYS2、Babun 等。
 - [Windows 10 Installation Guide](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide)：对于 Win 10 用户，还可以参考这篇文章里的方法，安装 Linux 子系统（可选择 Ubuntu），这样就能在命令行中使用 `bash` 了 —— 在命令行中输入 `bash`，就会进入其运行环境了。
 
-### 更新所 fork 的项目至本地和远程仓库
-
-```javascript
-// 假设已经进入了项目所在目录了
-git remote add upstream https:...git
-git checkout master
-git fetch upstream master
-git merge upstream/master
-git push origin master
-```
-
 ---
 
 已记录至 2017 年 08 月 10 日 23:14:10。
