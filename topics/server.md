@@ -4,7 +4,14 @@
 
 这个步骤很简单，选好配置，下单，付款，等几分钟服务器就自动运行起来了。
 
-我购买的服务器配置：1核、1G内存、20G SSD云盘、北京区域（离自己所在城市最近）。
+我购买的服务器配置：
+
+- CPU：1核
+- 内存：1G
+- 硬盘：20G SSD云盘
+- 区域：北京（离自己所在城市最近）
+- 操作系统：CentOS 7
+- 应用镜像：Node.js 4.8.4
 
 ## 远程登录服务器
 
@@ -83,7 +90,7 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 
 所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
 
-### 安装最新的稳定版的 node.js
+### 安装最新的稳定版 node.js
 
 ```shell
 > nvm install stable
