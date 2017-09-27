@@ -31,21 +31,21 @@ Mac 自带的终端或者 iTerm 就可以很好地完成这件事，无需另外
 本机存放 SSH 相关文件的目录位于 `~/.ssh` ，所以把前面下载到本地的 pem 文件复制到这里就行。
 
 ```shell
-cd ~/.ssh
-cp ~/Downloads/aliyun-server.pem aliyun-server.pem
+> cd ~/.ssh
+> cp ~/Downloads/aliyun-server.pem aliyun-server.pem
 ```
 
 然后设置 pem 文件的权限。
 
 ```shell
-chmod 400 aliyun-server.pem
+> chmod 400 aliyun-server.pem
 ```
 
 #### 步骤二：SSH 连接至服务器
 
 ```shell
 // 10.10.10.10仅作说明用，请将这个IP改成服务器的实际IP
-ssh root@10.10.10.10 -i ~/.ssh/aliyun-server.pem
+> ssh root@10.10.10.10 -i ~/.ssh/aliyun-server.pem
 ```
 
 输入上面的命令之后，如果成功登录，则会显示类似下面的信息，说明登录成功。
@@ -78,3 +78,54 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 - [通过本地 SSH 客户端连接服务器 - 本地为 Linux 或支持 SSH 命令的环境](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.2d2fedd63Boph1)：按照教程“本地为 Linux 或支持 SSH 命令的环境”这一小节里的说明，用 `chmod` 命令设置 pem 文件的权限。
 - [connecting to amazon aws linux server by ssh on mac](https://stackoverflow.com/a/14230817)：参考这个回答，将 pem 文件放到 `~/.ssh` 目录下。
 - [Fast SSH Windows With iTerm 2](https://hiltmon.com/blog/2013/07/18/fast-ssh-windows-with-iterm-2/)：参考这个回答，在 iTerm2 中保存 SSH 会话，通过快捷键可立即连接至服务器。
+
+## 更新 node 版本
+
+所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
+
+### 安装最新的稳定版的 node.js
+
+```shell
+> nvm install stable
+```
+
+上面的命令，会安装目前最新的稳定版 8.6.0。
+
+```shell
+> nvm ls
+->       v4.8.4
+         v8.6.0
+default -> 4 (-> v4.8.4)
+node -> stable (-> v8.6.0) (default)
+stable -> 8.6 (-> v8.6.0) (default)
+iojs -> N/A (default)
+lts/* -> lts/boron (-> N/A)
+lts/argon -> v4.8.4
+lts/boron -> v6.11.3 (-> N/A)
+```
+
+安装完成后，还需要配置 nvm 使用该版本，并将该版本设置成默认版本。因为如果不设置成默认版本，下次再连接服务器时，会发现默认版本还是之前的 4.8.4。
+
+```shell
+> nvm use 8.6.0
+> nvm alias default 8.6.0
+```
+
+这次断开连接之后，再重新连接服务器，啊哈！当前使用的版本和默认的版本就都是 8.6.0 啦。
+
+```shell
+> nvm ls
+         v4.8.4
+->       v8.6.0
+default -> 8.6.0 (-> v8.6.0)
+node -> stable (-> v8.6.0) (default)
+stable -> 8.6 (-> v8.6.0) (default)
+iojs -> N/A (default)
+lts/* -> lts/boron (-> N/A)
+lts/argon -> v4.8.4
+lts/boron -> v6.11.3 (-> N/A)
+```
+
+参考资料：
+
+- [Set default node version with NVM](https://eric.blog/2016/08/23/set-default-node-version-with-nvm/)
