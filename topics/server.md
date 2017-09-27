@@ -86,6 +86,16 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 - [connecting to amazon aws linux server by ssh on mac](https://stackoverflow.com/a/14230817)：参考这个回答，将 pem 文件放到 `~/.ssh` 目录下。
 - [Fast SSH Windows With iTerm 2](https://hiltmon.com/blog/2013/07/18/fast-ssh-windows-with-iterm-2/)：参考这个回答，在 iTerm2 中保存 SSH 会话，通过快捷键可立即连接至服务器。
 
+## 更新系统中所有程序包（package）
+
+装好了系统，先把所有程序都更新到最新版。
+
+```shell
+> yum update
+```
+
+执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有几个 packages 需要安装，按下 `y` 键，开始更新。
+
 ## 更新 node 版本
 
 所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
@@ -135,4 +145,4 @@ lts/boron -> v6.11.3 (-> N/A)
 
 参考资料：
 
-- [Set default node version with NVM](https://eric.blog/2016/08/23/set-default-node-version-with-nvm/)
+- [Set default node version with NVM](https://eric.blog/2016/08/23/set-default-node-version-with-nvm/)：文章里给出了设置 nvm 中默认 node 版本的方法。
