@@ -27,7 +27,7 @@
 
 Windows 下的操作流程，按照官方文档来就可以了，每一步都列出来了，照着操作就行。
 
-[通过本地 SSH 客户端连接服务器](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq)：见“本地为 Windows 环境”这一小节。
+具体操作步骤请查看[通过本地 SSH 客户端连接服务器](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq)一文中，“本地为 Windows 环境”的这一小节。
 
 ### Mac 下通过终端连接至服务器
 
@@ -195,3 +195,7 @@ lts/boron -> v6.11.3 (-> N/A)
 Google 一番，发现原来需要在服务器控制台的“防火墙”中开放 3000 这个端口，于是新建一个应用类型为“自定义”的端口，协议选择“TCP”，端口号设置为“3000”。
 
 然后再重启刚才新建的 Express 项目，并访问上面的那个网址，啊哈，可以访问了！
+
+参考资料：
+
+- [阿里云ubuntu nginx无法访问，求解答](https://segmentfault.com/q/1010000009437407)
