@@ -39,7 +39,7 @@ Mac 自带的终端或者 iTerm 就可以很好地完成这件事，无需另外
 
 ```shell
 > cd ~/.ssh
-> cp ~/Downloads/swas.pem swas.pem
+> sudo cp ~/Downloads/swas.pem swas.pem
 ```
 
 然后设置 pem 文件的权限。
@@ -86,6 +86,24 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 - [connecting to amazon aws linux server by ssh on mac](https://stackoverflow.com/a/14230817)：参考这个回答，将 pem 文件放到 `~/.ssh` 目录下。
 - [Fast SSH Windows With iTerm 2](https://hiltmon.com/blog/2013/07/18/fast-ssh-windows-with-iterm-2/)：参考这个回答，在 iTerm2 中保存 SSH 会话，通过快捷键可立即连接至服务器。
 
+### 步骤四：启用之前被禁用的密码登录方式
+
+由于启用 SSH 登录方式之后，服务器默认会将 root 帐号密码登录的方式禁用掉。而自己不知道做了什么修改，使得在 Mac 下无法通过密钥登录，只好再次开启密码登录的方式。
+
+在 Windows 上登录服务器，然后做如下操作。
+
+```shell
+sudo vi /etc/ssh/sshd_config
+// 在 vim 中将 PasswordAuthentication no 改为 PasswordAuthentication yes，然后保存退出
+sudo systemctl restart sshd
+// 上面的命令重启了 sshd，这样在 Mac 中就可以用密码登录 root 帐号了
+```
+
+参考资料：
+
+- [启用密钥后恢复账号密码登录](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.244123376jXRwl#activeroot)
+- [ssh : Permission denied (publickey,gssapi-with-mic)](https://stackoverflow.com/questions/36300446/ssh-permission-denied-publickey-gssapi-with-mic)
+
 ## 更新系统中所有程序包（package）
 
 装好了系统，先把所有程序都更新到最新版。
@@ -96,7 +114,7 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 
 执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有几个 packages 需要安装，按下 `y` 键，开始更新。
 
-## 升级 node 环境
+## 配置 node 环境
 
 所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
 
@@ -148,3 +166,32 @@ lts/boron -> v6.11.3 (-> N/A)
 参考资料：
 
 - [Set default node version with NVM](https://eric.blog/2016/08/23/set-default-node-version-with-nvm/)：文章里给出了设置 nvm 中默认 node 版本的方法。
+
+## 配置 Express 框架
+
+### 安装 Express
+
+基本的 node.js 环境建立起来了，那就先用 Express 搭建一个简单的网页框架。
+
+```shell
+> npm install -g express
+> npm install -g express-generator
+```
+
+### 创建项目
+
+然后再用 Express 这个框架创建一个默认的项目。
+
+```shell
+> express test
+> cd test
+> npm install
+```
+
+### 启动项目
+
+项目建立起来之后，当然要运行一下看看啦。好，那就执行 `npm start`，然后在网页中访问 [http://10.10.10.10:3000](http://10.10.10.10:3000)，嗯？为什么打不开呢？想起来购买的这个服务器还装了 nginx 这个反向代理，是不是和它有关？
+
+Google 一番，发现原来需要在服务器控制台的“防火墙”中开放 3000 这个端口，于是新建一个应用类型为“自定义”的端口，协议选择“TCP”，端口号设置为“3000”。
+
+然后再重启刚才新建的 Express 项目，并访问上面的那个网址，啊哈，可以访问了！
