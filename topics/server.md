@@ -96,17 +96,19 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 
 执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有几个 packages 需要安装，按下 `y` 键，开始更新。
 
-## 更新 node 版本
+## 升级 node 环境
 
 所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
 
-### 安装最新的稳定版 node.js
+### 安装最新版 node.js
 
 ```shell
-> nvm install stable
+> nvm install latest
+// 有时 nvm 不识别 latest 指令，就得明确指定 node 的版本了
+> nvm install 8.6.0
 ```
 
-上面的命令，会安装目前最新的稳定版 8.6.0。
+上面的命令，会安装最新版 8.6.0。
 
 ```shell
 > nvm ls
