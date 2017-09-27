@@ -39,20 +39,20 @@ Mac 自带的终端或者 iTerm 就可以很好地完成这件事，无需另外
 
 ```shell
 > cd ~/.ssh
-> cp ~/Downloads/aliyun-server.pem aliyun-server.pem
+> cp ~/Downloads/swas.pem swas.pem
 ```
 
 然后设置 pem 文件的权限。
 
 ```shell
-> chmod 400 aliyun-server.pem
+> chmod 400 swas.pem
 ```
 
 #### 步骤二：SSH 连接至服务器
 
 ```shell
 // 10.10.10.10仅作说明用，请将这个IP改成服务器的实际IP
-> ssh root@10.10.10.10 -i ~/.ssh/aliyun-server.pem
+> ssh root@10.10.10.10 -i ~/.ssh/swas.pem
 ```
 
 输入上面的命令之后，如果成功登录，则会显示类似下面的信息，说明登录成功。
