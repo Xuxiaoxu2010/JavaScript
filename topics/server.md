@@ -49,7 +49,7 @@ ssh root@10.10.10.10 -i ~/.ssh/aliyun-server.pem
 输入上面的命令之后，如果成功登录，则会显示类似下面的信息，说明登录成功。
 
 ```shell
-Last login: Wed Sep 27 10:18:43 2017 from 223.81.135.42
+Last login: Wed Sep 27 10:18:43 2017 from 22.22.22.22
 
 Welcome to Alibaba Cloud Elastic Compute Service !
 
