@@ -1,10 +1,10 @@
-# 阿里云服务器使用教程
+# 阿里云轻量应用服务器教程
 
 ## 服务器购买及开通
 
 这个步骤很简单，选好配置，下单，付款，等几分钟服务器就自动运行起来了。
 
-我购买的服务器配置：1核、1G内存、20G SSD云盘、北京区域（离山东最近）。
+我购买的服务器配置：1核、1G内存、20G SSD云盘、北京区域（离自己所在城市最近）。
 
 ## 远程登录服务器
 
@@ -26,7 +26,7 @@ Mac 自带的终端或者 iTerm 就可以很好地完成这件事，无需另外
 
 #### 步骤一：准备 pem 密钥文件
 
-本机存放 SSH 相关文件的目录位于 `~/.ssh` 目录下，所以把前面下载到本地的 pem 文件复制到这里就行。
+本机存放 SSH 相关文件的目录位于 `~/.ssh` ，所以把前面下载到本地的 pem 文件复制到这里就行。
 
 ```shell
 cd ~/.ssh
@@ -45,6 +45,20 @@ chmod 400 aliyun-server.pem
 // 10.10.10.10仅作说明用，请将这个IP改成服务器的实际IP
 ssh root@10.10.10.10 -i ~/.ssh/aliyun-server.pem
 ```
+
+输入上面的命令之后，如果成功登录，则会显示类似下面的信息，说明登录成功。
+
+```shell
+Last login: Wed Sep 27 10:18:43 2017 from 223.81.135.42
+
+Welcome to Alibaba Cloud Elastic Compute Service !
+
+-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+manpath: can't set the locale; make sure $LC_* and $LANG are correct
+[root@XXXX ~]#
+```
+
+然后我们再输入 `exit` 关闭 SSH 连接，进行下面的操作。
 
 ### 步骤三：保存 SSH 会话：好人做到底，送佛送到西
 
