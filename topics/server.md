@@ -171,7 +171,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 ### 安装 Express
 
-基本的 node.js 环境建立起来了，那就先用 Express 搭建一个简单的网页框架。
+基本的 node.js 环境建立起来了，那就先用 Express 搭建一个简单的网页框架，首先把 Express 框架安装好。
 
 ```shell
 > npm install -g express
@@ -183,8 +183,8 @@ lts/boron -> v6.11.3 (-> N/A)
 然后再用 Express 这个框架创建一个默认的项目。
 
 ```shell
-> express test
-> cd test
+> express blog
+> cd blog
 > npm install
 ```
 
