@@ -18,7 +18,7 @@
 
 ### Windows 下通过 SSH 客户端连接至服务器
 
-待完成。
+Windows 下的操作流程，按照官方文档来就可以了，每一步都列出来了，照着操作就行：[通过本地 SSH 客户端连接服务器 - 本地为 Windows 环境](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq#本地为 Windows 环境)。
 
 ### Mac 下通过终端连接至服务器
 
