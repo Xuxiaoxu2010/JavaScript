@@ -19,7 +19,8 @@
         - [启动项目](#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
     - [配置域名](#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
         - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
-        - [设置 DNS](#%E8%AE%BE%E7%BD%AE-dns)
+        - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
+        - [设置 阿里云云解析](#%E8%AE%BE%E7%BD%AE-%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
 
 ## 服务器购买及开通
 
@@ -227,11 +228,23 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 买了服务器，不能只是用 IP 来访问，当然要买个域名了。上网查了一番，决定购买 GoDaddy 家的域名，比了比后缀和价格，最后买下了 [hewei.in](http://hewei.in) 这个域名。
 
-### 设置 DNS
+### 设置 GoDaddy 域名解析
 
-买了域名之后，还要设置 DNS 用于域名的解析。有两种方式：第一种方式是用 GoDaddy 自家的域名解析服务，参照下图中进行设置即可。红圈标注的地方设置为服务器的 IP，其它选项全用默认值。
+买了域名之后，还要设置 DNS 用于域名的解析。有两种方式：
+
+第一种方式是用 GoDaddy 自家的域名解析服务，参照下图中设置 GoDaddy 的域名解析。红圈标注的地方设置为服务器的 IP，其它选项全用默认值。
 
 ![GoDaddy DNS Setting](https://raw.githubusercontent.com/Dream4ever/Pics/master/godaddy-dns-setting.png)
+
+然后还要在阿里云的云解析中，添加域名的 A 记录和 CNAME 记录。
+
+![AliYun DNS Setting](https://raw.githubusercontent.com/Dream4ever/Pics/master/aliyun-dns-setting.png)
+
+然后等待十分钟左右，域名解析生效了，就可以访问啦~
+
+### 设置 阿里云云解析
+
+第二种设置域名解析的方式，是完全由阿里云来解析域名。这个就留给大家来自行探索吧！哈哈~
 
 参考资料：
 
