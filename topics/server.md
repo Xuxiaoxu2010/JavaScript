@@ -1,5 +1,26 @@
 # 阿里云轻量应用服务器教程
 
+- [阿里云轻量应用服务器教程](#%E9%98%BF%E9%87%8C%E4%BA%91%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B)
+    - [服务器购买及开通](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%AD%E4%B9%B0%E5%8F%8A%E5%BC%80%E9%80%9A)
+    - [远程登录服务器](#%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [设置密钥](#%E8%AE%BE%E7%BD%AE%E5%AF%86%E9%92%A5)
+        - [Windows 下通过 SSH 客户端连接至服务器](#windows-%E4%B8%8B%E9%80%9A%E8%BF%87-ssh-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [Mac 下通过终端连接至服务器](#mac-%E4%B8%8B%E9%80%9A%E8%BF%87%E7%BB%88%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+            - [步骤一：准备 pem 密钥文件](#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%87%86%E5%A4%87-pem-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6)
+            - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [步骤三：保存 SSH 会话：好人做到底，送佛送到西](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D%EF%BC%9A%E5%A5%BD%E4%BA%BA%E5%81%9A%E5%88%B0%E5%BA%95%EF%BC%8C%E9%80%81%E4%BD%9B%E9%80%81%E5%88%B0%E8%A5%BF)
+        - [步骤四：启用之前被禁用的密码登录方式](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E4%B9%8B%E5%89%8D%E8%A2%AB%E7%A6%81%E7%94%A8%E7%9A%84%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F)
+    - [更新系统中所有程序包（package）](#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
+    - [配置 node 环境](#%E9%85%8D%E7%BD%AE-node-%E7%8E%AF%E5%A2%83)
+        - [安装最新版 node.js](#%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88-nodejs)
+    - [配置 Express 框架](#%E9%85%8D%E7%BD%AE-express-%E6%A1%86%E6%9E%B6)
+        - [安装 Express](#%E5%AE%89%E8%A3%85-express)
+        - [创建项目](#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
+        - [启动项目](#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
+    - [配置域名](#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
+        - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
+        - [设置 DNS](#%E8%AE%BE%E7%BD%AE-dns)
+
 ## 服务器购买及开通
 
 这个步骤很简单，选好配置，下单，付款，等几分钟服务器就自动运行起来了。
@@ -199,3 +220,19 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 参考资料：
 
 - [阿里云ubuntu nginx无法访问，求解答](https://segmentfault.com/q/1010000009437407)
+
+## 配置域名
+
+### 购买域名
+
+买了服务器，不能只是用 IP 来访问，当然要买个域名了。上网查了一番，决定购买 GoDaddy 家的域名，比了比后缀和价格，最后买下了 [hewei.in](http://hewei.in) 这个域名。
+
+### 设置 DNS
+
+买了域名之后，还要设置 DNS 用于域名的解析。有两种方式：第一种方式是用 GoDaddy 自家的域名解析服务，参照下图中进行设置即可。红圈标注的地方设置为服务器的 IP，其它选项全用默认值。
+
+![GoDaddy DNS Setting](https://raw.githubusercontent.com/Dream4ever/Pics/master/godaddy-dns-setting.png)
+
+参考资料：
+
+- [GoDaddy 域名修改 DNS 方法](https://help.aliyun.com/knowledge_detail/39851.html)
