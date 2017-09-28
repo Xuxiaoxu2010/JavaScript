@@ -17,6 +17,7 @@
         - [安装 Express](#%E5%AE%89%E8%A3%85-express)
         - [创建项目](#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
         - [启动项目](#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
+        - [配置 nginx 映射项目](#%E9%85%8D%E7%BD%AE-nginx-%E6%98%A0%E5%B0%84%E9%A1%B9%E7%9B%AE)
     - [配置域名](#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
         - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
         - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
@@ -134,7 +135,7 @@ sudo systemctl restart sshd
 > yum update
 ```
 
-执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有几个 packages 需要安装，按下 `y` 键，开始更新。
+执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有附带的 packages 需要安装，按下 `y` 键并回车，开始更新即可。
 
 ## 配置 node 环境
 
@@ -148,7 +149,7 @@ sudo systemctl restart sshd
 > nvm install 8.6.0
 ```
 
-上面的命令，会安装最新版 8.6.0。
+上面的命令，会安装最新版 8.6.0。安装完成后，我们再看看系统中有哪些版本的 node.js。
 
 ```shell
 > nvm ls
@@ -163,7 +164,7 @@ lts/argon -> v4.8.4
 lts/boron -> v6.11.3 (-> N/A)
 ```
 
-安装完成后，还需要配置 nvm 使用该版本，并将该版本设置成默认版本。因为如果不设置成默认版本，下次再连接服务器时，会发现默认版本还是之前的 4.8.4。
+从上面的输出结果可以看到，好几个地方用的还是旧版的 4.8.4。一方面需要配置 nvm 使用最新的 8.6.0，另一方面还要将该版本设置成默认版本（default）否则下次再连接服务器时，默认版本就又恢复成 4.8.4 了。
 
 ```shell
 > nvm use 8.6.0
@@ -202,7 +203,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 ### 创建项目
 
-然后再用 Express 这个框架创建一个默认的项目。
+然后再用 Express 这个框架创建一个项目。
 
 ```shell
 > express blog
@@ -221,6 +222,10 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 参考资料：
 
 - [阿里云ubuntu nginx无法访问，求解答](https://segmentfault.com/q/1010000009437407)
+
+### 配置 nginx 映射项目
+
+待完成。
 
 ## 配置域名
 
