@@ -28,6 +28,8 @@
         - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
         - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
         - [设置 阿里云云解析](#%E8%AE%BE%E7%BD%AE-%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
+    - [设置 Git 仓库](#%E8%AE%BE%E7%BD%AE-git-%E4%BB%93%E5%BA%93)
+        - [初始化仓库](#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93)
 
 ## 服务器购买及开通
 
@@ -345,3 +347,15 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 参考资料：
 
 - [GoDaddy 域名修改 DNS 方法](https://help.aliyun.com/knowledge_detail/39851.html)
+
+## 设置 Git 仓库
+
+### 初始化仓库
+
+在项目所在目录中初始化仓库。
+
+```shell
+> git init --bare
+```
+
+会新建 branches、config、description、HEAD、hooks、info、objects、refs 这几个文件夹。
