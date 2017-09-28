@@ -21,8 +21,9 @@
         - [创建项目](#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
         - [启动项目](#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
     - [配置 nginx 映射项目](#%E9%85%8D%E7%BD%AE-nginx-%E6%98%A0%E5%B0%84%E9%A1%B9%E7%9B%AE)
-        - [转发至本地端口](#%E8%BD%AC%E5%8F%91%E8%87%B3%E6%9C%AC%E5%9C%B0%E7%AB%AF%E5%8F%A3)
-        - [重定向 www 域名至非 www 域名修](#%E9%87%8D%E5%AE%9A%E5%90%91-www-%E5%9F%9F%E5%90%8D%E8%87%B3%E9%9D%9E-www-%E5%9F%9F%E5%90%8D%E4%BF%AE)
+        - [安装 nginx](#%E5%AE%89%E8%A3%85-nginx)
+        - [转发至 Express 程序](#%E8%BD%AC%E5%8F%91%E8%87%B3-express-%E7%A8%8B%E5%BA%8F)
+        - [重定向 www 域名至非 www 域名](#%E9%87%8D%E5%AE%9A%E5%90%91-www-%E5%9F%9F%E5%90%8D%E8%87%B3%E9%9D%9E-www-%E5%9F%9F%E5%90%8D)
     - [配置域名](#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
         - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
         - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
@@ -250,42 +251,66 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 注意，以下 nginx 相关的操作，都要在 root 用户中执行，为什么非 root 用户不能操作呢？请看这篇文章：[Why does nginx starts process as root?](https://unix.stackexchange.com/questions/134301/why-does-nginx-starts-process-as-root)。
 
-### 转发至本地端口
+### 安装 nginx
+
+```shell
+> sudo yum install epel-release
+> sudo yum install nginx
+```
+
+然后启动 nginx，并使其开机自动启动。
+
+```shell
+> reboot
+> sudo systemctl start nginx
+> sudo systemctl enable nginx
+```
+
+参考资料：
+
+- [How To Install Nginx on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-7)
+
+### 转发至 Express 程序
 
 首先，查找 nginx 所在的路径。
 
 ```shell
 > whereis nginx
-nginx: /usr/local/nginx
+nginx: /usr/sbin/nginx /usr/lib64/nginx /etc/nginx /usr/share/nginx /usr/share/man/man8/nginx.8.gz /usr/share/man/man3/nginx.3pm.gz
 ```
 
-然后编辑该路径内的配置文件。
+依次查看上面几个路径可知，/etc/nginx 文件夹里包含了 nginx.conf 这个配置文件。
 
 ```shell
-> sudo vi /usr/local/nginx/conf/nginx.conf
+> sudo vi /etc/nginx/nginx.conf
 ```
 
-将下面的这段代码中的 80 改为 3000。
+在 location 字段中增加下面这段代码，记得先将 10.10.10.10 改成服务器的外网 IP。
 
 ```shell
 location / {
-    root   html;
-    index  index.html index.htm;
-proxy_pass http://127.0.0.1:3000;
+    proxy_pass http://10.10.10.10:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
 }
+```
+
+然后重启 nginx，设置完成。
+
+```shell
+> sudo systemctl restart nginx
 ```
 
 参考资料：
 
-- [在阿里云上配置Node.js环境](http://kongfangyu.com/2015/12/03/aliyun-nodejs/)：其中的“三、安装Nginx”这一小节。
+- [How To Set Up a Node.js Application for Production on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7)：参考其中的“Set Up Reverse Proxy Server”这一小节。
 
-### 重定向 www 域名至非 www 域名修
+### 重定向 www 域名至非 www 域名
 
-依然是编辑上面的配置文件 nginx.conf。
-
-```shell
-
-```
+待完成。
 
 ## 配置域名
 
