@@ -30,6 +30,9 @@
         - [设置 阿里云云解析](#%E8%AE%BE%E7%BD%AE-%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
     - [设置 Git 仓库](#%E8%AE%BE%E7%BD%AE-git-%E4%BB%93%E5%BA%93)
         - [初始化仓库](#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93)
+        - [关联仓库和项目](#%E5%85%B3%E8%81%94%E4%BB%93%E5%BA%93%E5%92%8C%E9%A1%B9%E7%9B%AE)
+        - [本机建立对应项目](#%E6%9C%AC%E6%9C%BA%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%BA%94%E9%A1%B9%E7%9B%AE)
+        - [更改本地项目并推送](#%E6%9B%B4%E6%94%B9%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%B9%B6%E6%8E%A8%E9%80%81)
 
 ## 服务器购买及开通
 
@@ -352,7 +355,7 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 ### 初始化仓库
 
-在项目所在目录中初始化仓库。
+在当前用户的根目录下，专门新建一个 repo 文件夹，用于接收本地的推送并自动更新至前面建立的项目目录。
 
 ```shell
 > cd ~
@@ -361,7 +364,57 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 > git init --bare
 ```
 
-会新建 branches、hooks、info、objects、refs 这几个文件夹，和 HEAD、config、description 这几个文件。
+上面最后一步的命令会新建 branches、hooks、info、objects、refs 这几个文件夹，和 HEAD、config、description 这几个文件。
+
+### 关联仓库和项目
+
+```shell
+> cd hooks
+> cat > post-receive
+```
+
+执行完这两行指令之后，输入下面的文字，并按 Ctrl+d 键保存。
+
+```shell
+#!/bin/sh
+git --work-tree=/home/www/hewei.in --git-dir=/home/www/repo/site.git checkout -f
+```
+
+上面的两行文字中，`/home/www/hewei.in` 为前面新建的网站项目所在的目录，由于已经申请了域名，所以用域名为名称重新建立了网站项目；`home/www/repo/site.git` 则是刚才新建的仓库文件夹。这两个目录的实际路径要结合自己的实际情况来确定，不要照搬。
+
+然后再执行下面的命令，设置刚才新建文件的权限，以保证它能够正常运行。
+
+```shell
+> chmod +x post-receive
+```
+
+### 本机建立对应项目
+
+在本机上也建立同名的项目，便于管理。下面的命令行代码以 Mac 为例，Windows 类似。
+
+```shell
+> cd ~/Code
+> mkdir hewei.in && cd hewei.in
+> mkdir .git && cd .git
+> git init
+> git remote add live ssh://www@10.10.10.10/home/www/repo/site.git
+```
+
+上面命令中的最后一行代码，将远程服务器上刚才新建的仓库，命名为 live，并与本地仓库关联。
+
+### 更改本地项目并推送
+
+建立了关联之后，测试一下在本地的修改是否能成功推送到服务器上。将之前做的一个简单的网页内容复制到了 `/views/index.ejs` 中，然后执行下面的命令，开始上传。
+
+```shell
+git add .
+git commit -m "init"
+git push --set-upstream live master
+```
+
+由于是首次往服务器通过 git 上传文件，所以需要用最后一条命令，在远程服务器建立 master 分支，并将本地当前 master 分支的内容推送上去。
+
+之后需要推送的话，只用执行 `git push` 命令就可以了。
 
 参考资料：
 
