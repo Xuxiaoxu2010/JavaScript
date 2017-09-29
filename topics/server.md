@@ -355,7 +355,14 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 在项目所在目录中初始化仓库。
 
 ```shell
+> cd ~
+> mkdir repo && cd repo
+> mkdir site.git && cd site.git
 > git init --bare
 ```
 
-会新建 branches、config、description、HEAD、hooks、info、objects、refs 这几个文件夹。
+会新建 branches、hooks、info、objects、refs 这几个文件夹，和 HEAD、config、description 这几个文件。
+
+参考资料：
+
+- [How To Set Up Automatic Deployment with Git with a VPS](https://www.digitalocean.com/community/tutorials/how-to-set-up-automatic-deployment-with-git-with-a-vps)：大体思路参考这篇文章，但是在此基础上有所修改。
