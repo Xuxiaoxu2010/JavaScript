@@ -8,8 +8,8 @@
         - [Mac 下通过终端连接至服务器](#mac-%E4%B8%8B%E9%80%9A%E8%BF%87%E7%BB%88%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
             - [步骤一：准备 pem 密钥文件](#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%87%86%E5%A4%87-pem-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6)
             - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-        - [步骤三：保存 SSH 会话：好人做到底，送佛送到西](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D%EF%BC%9A%E5%A5%BD%E4%BA%BA%E5%81%9A%E5%88%B0%E5%BA%95%EF%BC%8C%E9%80%81%E4%BD%9B%E9%80%81%E5%88%B0%E8%A5%BF)
-        - [步骤四：启用密码登录](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95)
+            - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
+            - [步骤四：启用密码登录](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95)
     - [更新系统中所有程序包（package）](#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
     - [用户配置](#%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE)
         - [建立普通权限用户](#%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
@@ -100,7 +100,7 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 
 然后我们再输入 `exit` 关闭 SSH 连接，进行下面的操作。
 
-### 步骤三：保存 SSH 会话：好人做到底，送佛送到西
+#### 步骤三：保存 SSH 会话
 
 在 Mac 下，自然要用 iTerm2 这款强大的终端软件。通过在软件中设置 Profile，就能方便地一键连接至服务器。
 
@@ -117,7 +117,7 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 - [connecting to amazon aws linux server by ssh on mac](https://stackoverflow.com/a/14230817)：参考这个回答，将 pem 文件放到 `~/.ssh` 目录下。
 - [Fast SSH Windows With iTerm 2](https://hiltmon.com/blog/2013/07/18/fast-ssh-windows-with-iterm-2/)：参考这个回答，在 iTerm2 中保存 SSH 会话，通过快捷键可立即连接至服务器。
 
-### 步骤四：启用密码登录
+#### 步骤四：启用密码登录
 
 由于启用 SSH 登录方式之后，服务器默认会将 root 帐号密码登录的方式禁用掉。而自己不知道做了什么修改，使得在 Mac 下无法通过密钥登录，只好再次开启密码登录的方式。
 
