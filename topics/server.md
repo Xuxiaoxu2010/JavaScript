@@ -4,8 +4,8 @@
     - [服务器购买及开通](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%AD%E4%B9%B0%E5%8F%8A%E5%BC%80%E9%80%9A)
     - [远程登录服务器](#%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8)
         - [设置密钥](#%E8%AE%BE%E7%BD%AE%E5%AF%86%E9%92%A5)
-        - [Windows 下通过 SSH 客户端连接至服务器](#windows-%E4%B8%8B%E9%80%9A%E8%BF%87-ssh-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-        - [Mac 下通过终端连接至服务器](#mac-%E4%B8%8B%E9%80%9A%E8%BF%87%E7%BB%88%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [Windows 连接至服务器](#windows-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [Mac 连接至服务器](#mac-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
             - [步骤一：准备 pem 密钥文件](#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%87%86%E5%A4%87-pem-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6)
             - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
             - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
@@ -27,12 +27,14 @@
     - [配置域名](#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
         - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
         - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
-        - [设置 阿里云云解析](#%E8%AE%BE%E7%BD%AE-%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
+        - [设置阿里云云解析](#%E8%AE%BE%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
+        - [服务器/域名备案](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88)
     - [设置 Git 仓库](#%E8%AE%BE%E7%BD%AE-git-%E4%BB%93%E5%BA%93)
         - [初始化仓库](#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93)
         - [关联仓库和项目](#%E5%85%B3%E8%81%94%E4%BB%93%E5%BA%93%E5%92%8C%E9%A1%B9%E7%9B%AE)
         - [本机建立对应项目](#%E6%9C%AC%E6%9C%BA%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%BA%94%E9%A1%B9%E7%9B%AE)
         - [更改本地项目并推送](#%E6%9B%B4%E6%94%B9%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%B9%B6%E6%8E%A8%E9%80%81)
+    - [配置守护进程](#%E9%85%8D%E7%BD%AE%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B)
 
 ## 服务器购买及开通
 
@@ -57,13 +59,13 @@
 
 为了保证远程登录的安全，阿里云会要求生成密钥并下载 pem 文件至本地，登录时需要用到这个文件。下面就分别说一下在 Windows 和 Mac 下如何建立 SSH 安全连接。
 
-### Windows 下通过 SSH 客户端连接至服务器
+### Windows 连接至服务器
 
 Windows 下的操作流程，按照官方文档来就可以了，每一步都列出来了，照着操作就行。
 
 具体操作步骤请查看[通过本地 SSH 客户端连接服务器](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq)一文中，“本地为 Windows 环境”的这一小节。
 
-### Mac 下通过终端连接至服务器
+### Mac 连接至服务器
 
 Mac 自带的终端或者 iTerm 就可以很好地完成这件事，无需另外安装软件。
 
@@ -343,13 +345,17 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 而 CNAME 记录，则是将其它域名重定向到自己购买的域名，最常见的，就是将带了 `www.` 前缀的域名，指向自己购买的域名。像上图中那样，添加了主机记录为 www 的 CNAME 记录之后，访问 www.hewei.in，就会自动重定向到 hewei.in 了。
 
-### 设置 阿里云云解析
+### 设置阿里云云解析
 
 第二种设置域名解析的方式，是完全由阿里云来解析域名。这个就留给大家来自行探索吧！哈哈~
 
 参考资料：
 
 - [GoDaddy 域名修改 DNS 方法](https://help.aliyun.com/knowledge_detail/39851.html)
+
+### 服务器/域名备案
+
+待完成。
 
 ## 设置 Git 仓库
 
@@ -419,3 +425,7 @@ git push --set-upstream live master
 参考资料：
 
 - [How To Set Up Automatic Deployment with Git with a VPS](https://www.digitalocean.com/community/tutorials/how-to-set-up-automatic-deployment-with-git-with-a-vps)：大体思路参考这篇文章，但是在此基础上有所修改。
+
+## 配置守护进程
+
+待完成。
