@@ -434,6 +434,10 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 **本节内容有问题，待修改**。
 
+### 重新安装 Git
+
+参考这篇文章进行：[How to Install Git 2.0.5 on CentOS/RHEL 7/6/5 and Fedora 22/21](https://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/)。
+
 ### 初始化仓库
 
 在当前用户的根目录下（`/home/www`），专门新建一个 repo 文件夹，用于接收本地的推送并自动更新至前面建立的项目目录。
