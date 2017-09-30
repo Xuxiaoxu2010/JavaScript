@@ -271,7 +271,7 @@ sudo systemctl restart sshd
 
 按下快捷键 `cw`，删除 yes 整个单词；再输入 no，然后按下 `Esc` 退出编辑模式，输入 `:x` 保存修改并关闭文件。
 
-执行完上面这些操作之后，重启 SSH 服务，使其生效。
+执行完上面这些操作之后，重启 SSH 服务，使其生效。如果重启 SSH 服务还不能禁止 root 用户的登录，那就执行 `reboot` 命令重启一下服务器吧。
 
 ```shell
 > systemctl reload sshd
