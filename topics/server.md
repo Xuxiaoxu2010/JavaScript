@@ -9,11 +9,16 @@
             - [步骤一：准备 pem 密钥文件](#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%87%86%E5%A4%87-pem-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6)
             - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
             - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
-            - [步骤四：启用密码登录](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95)
+            - [步骤四：启用密码登录（可选）](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
             - [解决 macOS SSH 登录时的警告](#%E8%A7%A3%E5%86%B3-macos-ssh-%E7%99%BB%E5%BD%95%E6%97%B6%E7%9A%84%E8%AD%A6%E5%91%8A)
-    - [三、更新系统中所有程序包（package）](#%E4%B8%89%E3%80%81%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
-    - [四、非 root 用户配置](#%E5%9B%9B%E3%80%81%E9%9D%9E-root-%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE)
-        - [建立普通权限用户](#%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
+    - [三、更新服务器系统所有程序包（package）](#%E4%B8%89%E3%80%81%E6%9B%B4%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
+    - [四、服务器安全设置（可选）](#%E5%9B%9B%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
+        - [服务器建立普通权限用户](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
+        - [赋予 root 权限](#%E8%B5%8B%E4%BA%88-root-%E6%9D%83%E9%99%90)
+        - [添加公钥验证](#%E6%B7%BB%E5%8A%A0%E5%85%AC%E9%92%A5%E9%AA%8C%E8%AF%81)
+            - [本机生成密钥对](#%E6%9C%AC%E6%9C%BA%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9)
+            - [复制公钥至服务器](#%E5%A4%8D%E5%88%B6%E5%85%AC%E9%92%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
+        - [配置 SSH 守护进程](#%E9%85%8D%E7%BD%AE-ssh-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B)
     - [五、配置 node 环境](#%E4%BA%94%E3%80%81%E9%85%8D%E7%BD%AE-node-%E7%8E%AF%E5%A2%83)
         - [为普通权限用户安装 nvm](#%E4%B8%BA%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85-nvm)
         - [安装最新版 node.js](#%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88-nodejs)
@@ -123,7 +128,9 @@ manpath: can't set the locale; make sure $LC_* and $LANG are correct
 - [connecting to amazon aws linux server by ssh on mac](https://stackoverflow.com/a/14230817)：参考这个回答，将 pem 文件放到 `~/.ssh` 目录下。
 - [Fast SSH Windows With iTerm 2](https://hiltmon.com/blog/2013/07/18/fast-ssh-windows-with-iterm-2/)：参考这个回答，在 iTerm2 中保存 SSH 会话，通过快捷键可立即连接至服务器。
 
-#### 步骤四：启用密码登录
+#### 步骤四：启用密码登录（可选）
+
+可以正常登录的，不用看这一步。
 
 由于启用 SSH 登录方式之后，服务器默认会将 root 帐号密码登录的方式禁用掉。而自己不知道做了什么修改，使得在 Mac 下无法通过密钥登录，只好再次开启密码登录的方式。
 
@@ -159,7 +166,7 @@ sudo systemctl restart sshd
 
 - [OS X Terminal: -bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory Fix](https://www.cyberciti.biz/faq/os-x-terminal-bash-warning-setlocale-lc_ctype-cannot-change-locale/)
 
-## 三、更新系统中所有程序包（package）
+## 三、更新服务器系统所有程序包（package）
 
 装好了系统，先把所有程序都更新到最新版。
 
@@ -169,9 +176,9 @@ sudo systemctl restart sshd
 
 执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有附带的 packages 需要安装，按下 `y` 键并回车，开始更新即可。
 
-## 四、非 root 用户配置
+## 四、服务器安全设置（可选）
 
-### 建立普通权限用户
+### 服务器建立普通权限用户
 
 由于用 root 用户登录服务器可能带来安全问题，比如误删文件等等，所以需要建立一个普通权限的用户进行日常操作。
 
@@ -181,9 +188,100 @@ sudo systemctl restart sshd
 // 输入第二条命令之后，会提示输入两次密码，输入密码的过程中不会显示任何内容，盲打即可
 ```
 
+### 赋予 root 权限
+
+有时候还是需要 root 权限的，但是注销当前普通权限的用户再用 root 用户登录实在太麻烦了，直接给普通用户赋予 root 权限就好了。这样以后就可以在这个用户下直接用 `sudo` 执行命令了。
+
+```shell
+> gpasswd -a www wheel
+```
+
+上面的命令将前面新建的 www 用户加入了 `wheel` 这个用户组，而这个用户组是有权限执行 `sudo` 命令的。
+
+### 添加公钥验证
+
+通过在用户的电脑上生成 SSH 密钥对，并将公钥放到服务器上，可以增强服务器安全。
+
+#### 本机生成密钥对
+
+执行下面的命令（Windows 下在 Git Bash 中，Mac 下在终端里），一路回车即可。
+
+```shell
+> ssh-kekygen
+```
+
+上面的命令，会在本机当前用户的 `.ssh` 目录下，生成 `id_rsa` 和 `id_rsa.pub` 两个文件。前面的一个文件是用户的私钥，后面的一个文件是用户的公钥。
+
+#### 复制公钥至服务器
+
+首先在本机的终端里显示公钥的内容。
+
+```shell
+> cat ~/.ssh/id_rsa.pub
+```
+
+然后完整复制显示出来的一长串文字。
+
+接着在服务器上切换至用户 www。
+
+```shell
+> su - www
+```
+
+然后新建 `.ssh` 目录并限制权限。
+
+```shell
+> mkdir .ssh
+> chmod 700 .ssh
+```
+
+接着新建 `authorized_keys` 文件。
+
+```shell
+> vi .ssh/authorized_keys
+```
+
+按下 `i` 键进入编辑模式，然后按下 `Shift+Insert` 键将刚才在本机上复制的公钥粘贴进去。按下 `Esc` 键退出编辑模式，输入 `:x` 保存修改并关闭文件。
+
+然后再设置 `authorized_keys` 文件的权限。
+
+```shell
+> chmod 600 .ssh/authorized_keys
+```
+
+最后执行 `exit` 便可退出 www 用户，切换回 root 用户。
+
+这个时候，用户在本机就可以通过 `ssh www@10.10.10.10 -i ~/.ssh/swas.pem` 这样的命令，以 www 用户的身份登录至服务器了。
+
+### 配置 SSH 守护进程
+
+配置好了普通用户之后，还可以禁止 root 用户的 SSH 登录，以进一步提升安全性。
+
+执行下面的命令，将会进入 vim，编辑 SSH 配置文件。
+
+```shell
+> vi /etc/ssh/sshd_config
+```
+
+需要修改的这一行为 `#PermitRootLogin yes`。输入 `/PermitRoot` 并回车，会定位至 `#PermitRoot` 所在的行，并且定位在字母 P 上。
+
+按下快捷键 `Shift+x`，删除字母 P 前面的井号 `#`。
+
+按下快捷键 `Ctrl+→`，光标跳到下一个单词的 yes 首字母上。
+
+按下快捷键 `cw`，删除 yes 整个单词；再输入 no，然后按下 `Esc` 退出编辑模式，输入 `:x` 保存修改并关闭文件。
+
+执行完上面这些操作之后，重启 SSH 服务，使其生效。
+
+```shell
+> systemctl reload sshd
+```
+
+注意！前面的操作禁止了 root 用户的 SSH 登录，为了安全起见，需要先测试一下 www 用户是否真的能够成功 SSH 登录，确保 www 用户的登录没问题之后，才可以注销当前的 root 用户。
+
 参考资料：
 
--[How To Add and Delete Users on a CentOS 7 Server](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-a-centos-7-server)
+-[Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7)
 
 ## 五、配置 node 环境
 
