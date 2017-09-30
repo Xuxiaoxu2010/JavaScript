@@ -155,6 +155,10 @@ sudo systemctl restart sshd
 
 ![Disable automaticlly set locale variables](https://raw.githubusercontent.com/Dream4ever/Pics/master/iterm2-ssh-bash-warning.png)
 
+参考资料：
+
+- [OS X Terminal: -bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory Fix](https://www.cyberciti.biz/faq/os-x-terminal-bash-warning-setlocale-lc_ctype-cannot-change-locale/)
+
 ## 三、更新系统中所有程序包（package）
 
 装好了系统，先把所有程序都更新到最新版。
