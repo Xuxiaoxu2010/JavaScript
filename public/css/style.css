@@ -11,7 +11,7 @@
     padding: 40px 0 70px;
     /* 后面尝试采用medium的方法，先加载一张模糊但是尺寸很小的缩略图，然后再加载原图
        https://jmperezperez.com/medium-image-progressive-loading-placeholder/ */
-    background: url("../images/bg.png") no-repeat;
+    background: url("../images/bg.jpg") no-repeat;
     background-size: 100%;
     box-sizing: border-box;
 }
