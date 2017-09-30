@@ -11,7 +11,7 @@
             - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
             - [步骤四：启用密码登录](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95)
     - [更新系统中所有程序包（package）](#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
-    - [用户配置](#%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE)
+    - [非 root 用户配置](#%E9%9D%9E-root-%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE)
         - [建立普通权限用户](#%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
     - [配置 node 环境](#%E9%85%8D%E7%BD%AE-node-%E7%8E%AF%E5%A2%83)
         - [为普通权限用户安装 nvm](#%E4%B8%BA%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85-nvm)
@@ -150,7 +150,7 @@ sudo systemctl restart sshd
 
 执行了上面的命令之后，会提示有许多 packages 需要更新，可能还有附带的 packages 需要安装，按下 `y` 键并回车，开始更新即可。
 
-## 用户配置
+## 非 root 用户配置
 
 ### 建立普通权限用户
 
