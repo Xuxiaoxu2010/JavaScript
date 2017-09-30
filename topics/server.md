@@ -27,7 +27,7 @@
 
 Windows 下的操作流程，按照官方文档来就可以了，每一步都列出来了，照着操作就行。
 
-具体操作步骤请查看[通过本地 SSH 客户端连接服务器](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq)一文中，“本地为 Windows 环境”的这一小节。
+具体操作步骤请查看[通过本地 SSH 客户端连接服务器](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.378f90fd0Orgcq)一文中，“本地为 Windows 环境”这一小节。
 
 ### Mac 连接至服务器
 
@@ -62,8 +62,6 @@ Last login: Wed Sep 27 10:18:43 2017 from 22.22.22.22
 
 Welcome to Alibaba Cloud Elastic Compute Service !
 
--bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
-manpath: can't set the locale; make sure $LC_* and $LANG are correct
 [root@XXXX ~]#
 ```
 
