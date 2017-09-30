@@ -1,47 +1,5 @@
 # 阿里云轻量应用服务器教程
 
-- [阿里云轻量应用服务器教程](#%E9%98%BF%E9%87%8C%E4%BA%91%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B)
-    - [一、服务器购买及开通](#%E4%B8%80%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B4%AD%E4%B9%B0%E5%8F%8A%E5%BC%80%E9%80%9A)
-    - [二、远程登录服务器](#%E4%BA%8C%E3%80%81%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8)
-        - [设置密钥](#%E8%AE%BE%E7%BD%AE%E5%AF%86%E9%92%A5)
-        - [Windows 连接至服务器](#windows-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-        - [Mac 连接至服务器](#mac-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-            - [步骤一：准备 pem 密钥文件](#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%87%86%E5%A4%87-pem-%E5%AF%86%E9%92%A5%E6%96%87%E4%BB%B6)
-            - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-            - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
-            - [步骤四：启用密码登录（可选）](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
-            - [解决 macOS SSH 登录时的警告](#%E8%A7%A3%E5%86%B3-macos-ssh-%E7%99%BB%E5%BD%95%E6%97%B6%E7%9A%84%E8%AD%A6%E5%91%8A)
-    - [三、更新服务器系统所有程序包（package）](#%E4%B8%89%E3%80%81%E6%9B%B4%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
-    - [四、服务器安全设置（可选）](#%E5%9B%9B%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
-        - [服务器建立普通权限用户](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
-        - [赋予 root 权限](#%E8%B5%8B%E4%BA%88-root-%E6%9D%83%E9%99%90)
-        - [添加公钥验证](#%E6%B7%BB%E5%8A%A0%E5%85%AC%E9%92%A5%E9%AA%8C%E8%AF%81)
-            - [本机生成密钥对](#%E6%9C%AC%E6%9C%BA%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9)
-            - [复制公钥至服务器](#%E5%A4%8D%E5%88%B6%E5%85%AC%E9%92%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
-        - [配置 SSH 守护进程](#%E9%85%8D%E7%BD%AE-ssh-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B)
-    - [五、配置 node 环境](#%E4%BA%94%E3%80%81%E9%85%8D%E7%BD%AE-node-%E7%8E%AF%E5%A2%83)
-        - [为普通权限用户安装 nvm](#%E4%B8%BA%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85-nvm)
-        - [安装最新版 node.js](#%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88-nodejs)
-    - [六、配置 Express 框架](#%E5%85%AD%E3%80%81%E9%85%8D%E7%BD%AE-express-%E6%A1%86%E6%9E%B6)
-        - [安装 Express](#%E5%AE%89%E8%A3%85-express)
-        - [创建项目](#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE)
-        - [启动项目](#%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE)
-    - [七、配置 nginx 映射项目](#%E4%B8%83%E3%80%81%E9%85%8D%E7%BD%AE-nginx-%E6%98%A0%E5%B0%84%E9%A1%B9%E7%9B%AE)
-        - [安装 nginx](#%E5%AE%89%E8%A3%85-nginx)
-        - [转发至 Express 程序](#%E8%BD%AC%E5%8F%91%E8%87%B3-express-%E7%A8%8B%E5%BA%8F)
-        - [重定向 www 域名至非 www 域名](#%E9%87%8D%E5%AE%9A%E5%90%91-www-%E5%9F%9F%E5%90%8D%E8%87%B3%E9%9D%9E-www-%E5%9F%9F%E5%90%8D)
-    - [八、配置域名](#%E5%85%AB%E3%80%81%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D)
-        - [购买域名](#%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D)
-        - [设置 GoDaddy 域名解析](#%E8%AE%BE%E7%BD%AE-godaddy-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90)
-        - [设置阿里云云解析](#%E8%AE%BE%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E8%A7%A3%E6%9E%90)
-        - [服务器/域名备案](#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88)
-    - [九、设置 Git 仓库](#%E4%B9%9D%E3%80%81%E8%AE%BE%E7%BD%AE-git-%E4%BB%93%E5%BA%93)
-        - [初始化仓库](#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93)
-        - [关联仓库和项目](#%E5%85%B3%E8%81%94%E4%BB%93%E5%BA%93%E5%92%8C%E9%A1%B9%E7%9B%AE)
-        - [本机建立对应项目](#%E6%9C%AC%E6%9C%BA%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%BA%94%E9%A1%B9%E7%9B%AE)
-        - [更改本地项目并推送](#%E6%9B%B4%E6%94%B9%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%B9%B6%E6%8E%A8%E9%80%81)
-    - [十、配置守护进程](#%E5%8D%81%E3%80%81%E9%85%8D%E7%BD%AE%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B)
-
 ## 一、服务器购买及开通
 
 这个步骤很简单，选好配置，下单，付款，等几分钟服务器就自动运行起来了。
@@ -281,7 +239,7 @@ sudo systemctl restart sshd
 
 参考资料：
 
--[Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7)
+- [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7)
 
 ## 五、配置 node 环境
 
