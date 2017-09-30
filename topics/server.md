@@ -146,7 +146,7 @@ sudo systemctl restart sshd
 
 ### 赋予 root 权限
 
-有时候还是需要 root 权限的，但是注销当前普通权限的用户再用 root 用户登录实在太麻烦了，直接给普通用户赋予 root 权限就好了。这样以后就可以在这个用户下直接用 `sudo` 执行命令了。
+有时候需要用 root 权限的用户进行操作，但是注销当前普通权限的用户，再用 root 用户登录实在太麻烦了，直接给普通用户赋予 root 权限就好了，这样以后就可以在这个用户下直接用 `sudo` 执行命令了。
 
 ```shell
 > gpasswd -a www wheel
@@ -184,7 +184,7 @@ sudo systemctl restart sshd
 > su - www
 ```
 
-然后新建 `.ssh` 目录并限制权限。
+然后新建 `.ssh` 目录并设置权限。
 
 ```shell
 > mkdir .ssh
