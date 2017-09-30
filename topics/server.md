@@ -492,7 +492,7 @@ git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 > mkdir blog && cd blog
 > mkdir .git && cd .git
 > git init
-> git remote add blog ssh://www@10.10.10.10/home/www/repo/blog.git
+> git remote add blog www@10.10.10.10:/home/www/repo/blog.git
 ```
 
 上面命令中的最后一行代码，将远程服务器上刚才新建的仓库，命名为 blog，并与本地仓库关联。
@@ -504,7 +504,7 @@ git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 ```shell
 git add .
 git commit -m "init"
-git push --set-upstream live master
+git push --set-upstream blog master
 ```
 
 由于是首次往服务器通过 git 上传文件，所以需要用最后一条命令，在远程服务器建立 master 分支，并将本地当前 master 分支的内容推送上去。
