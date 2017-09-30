@@ -10,7 +10,7 @@
             - [步骤二：SSH 连接至服务器](#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9Assh-%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8)
             - [步骤三：保存 SSH 会话](#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E4%BF%9D%E5%AD%98-ssh-%E4%BC%9A%E8%AF%9D)
             - [步骤四：启用密码登录](#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A%E5%90%AF%E7%94%A8%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95)
-        - [解决 macOS SSH 登录时的警告](#%E8%A7%A3%E5%86%B3-macos-ssh-%E7%99%BB%E5%BD%95%E6%97%B6%E7%9A%84%E8%AD%A6%E5%91%8A)
+            - [解决 macOS SSH 登录时的警告](#%E8%A7%A3%E5%86%B3-macos-ssh-%E7%99%BB%E5%BD%95%E6%97%B6%E7%9A%84%E8%AD%A6%E5%91%8A)
     - [三、更新系统中所有程序包（package）](#%E4%B8%89%E3%80%81%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%89%80%E6%9C%89%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%88package%EF%BC%89)
     - [四、非 root 用户配置](#%E5%9B%9B%E3%80%81%E9%9D%9E-root-%E7%94%A8%E6%88%B7%E9%85%8D%E7%BD%AE)
         - [建立普通权限用户](#%E5%BB%BA%E7%AB%8B%E6%99%AE%E9%80%9A%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7)
@@ -141,7 +141,7 @@ sudo systemctl restart sshd
 - [启用密钥后恢复账号密码登录](https://help.aliyun.com/document_detail/59083.html?spm=5176.10173289.0.0.244123376jXRwl#activeroot)
 - [ssh : Permission denied (publickey,gssapi-with-mic)](https://stackoverflow.com/questions/36300446/ssh-permission-denied-publickey-gssapi-with-mic)
 
-### 解决 macOS SSH 登录时的警告
+#### 解决 macOS SSH 登录时的警告
 
 在 macOS 下通过终端登录时，会给出下面的提示：
 
