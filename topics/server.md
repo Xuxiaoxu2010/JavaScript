@@ -441,7 +441,7 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 ```shell
 > cd ~
 > mkdir repo && cd repo
-> mkdir site.git && cd site.git
+> mkdir blog.git && cd blog.git
 > git init --bare
 ```
 
@@ -458,10 +458,10 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 ```shell
 #!/bin/sh
-git --work-tree=/home/www/hewei.in --git-dir=/home/www/repo/site.git checkout -f
+git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 ```
 
-上面的两行文字中，`/home/www/hewei.in` 为前面新建的网站项目所在的目录，由于已经申请了域名，所以用域名为名称重新建立了网站项目；`home/www/repo/site.git` 则是刚才新建的仓库文件夹。这两个目录的实际路径要结合自己的实际情况来确定，不要照搬。
+上面的两行文字中，`/home/www/blog` 为前面新建的网站项目所在的目录，由于已经申请了域名，所以用域名为名称重新建立了网站项目；`home/www/repo/blog.git` 则是刚才新建的仓库文件夹。这两个目录的实际路径要结合自己的实际情况来确定，不要照搬。
 
 然后再执行下面的命令，设置刚才新建文件的权限，以保证它能够正常运行。
 
@@ -475,13 +475,13 @@ git --work-tree=/home/www/hewei.in --git-dir=/home/www/repo/site.git checkout -f
 
 ```shell
 > cd ~/Code
-> mkdir hewei.in && cd hewei.in
+> mkdir blog && cd blog
 > mkdir .git && cd .git
 > git init
-> git remote add live ssh://www@10.10.10.10/home/www/repo/site.git
+> git remote add blog ssh://www@10.10.10.10/home/www/repo/blog.git
 ```
 
-上面命令中的最后一行代码，将远程服务器上刚才新建的仓库，命名为 live，并与本地仓库关联。
+上面命令中的最后一行代码，将远程服务器上刚才新建的仓库，命名为 blog，并与本地仓库关联。
 
 ### 更改本地项目并推送
 
