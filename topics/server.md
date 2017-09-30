@@ -251,7 +251,7 @@ sudo systemctl restart sshd
 
 最后执行 `exit` 便可退出 www 用户，切换回 root 用户。
 
-这个时候，用户在本机就可以通过 `ssh www@10.10.10.10 -i ~/.ssh/swas.pem` 这样的命令，以 www 用户的身份登录至服务器了。
+这个时候，用户在本机就可以通过 `ssh www@10.10.10.10 -i ~/.ssh/id_rsa` 这样的命令，以 www 用户的身份登录至服务器了。
 
 ### 配置 SSH 守护进程
 
