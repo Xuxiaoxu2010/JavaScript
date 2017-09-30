@@ -438,6 +438,16 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 参考这篇文章进行：[How to Install Git 2.0.5 on CentOS/RHEL 7/6/5 and Fedora 22/21](https://tecadmin.net/install-git-2-0-on-centos-rhel-fedora/)。
 
+### 服务器开启 RSA 认证
+
+在文件 `/etc/ssh/sshd_config` 中添加下列三行内容（如果已经有则不必重复添加）:
+
+```shell
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile  .ssh/authorized_keys
+```
+
 ### 初始化仓库
 
 在当前用户的根目录下（`/home/www`），专门新建一个 repo 文件夹，用于接收本地的推送并自动更新至前面建立的项目目录。
