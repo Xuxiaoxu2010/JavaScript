@@ -5,7 +5,7 @@
 Lexical.Charset.CaseSensitive // 输出关键知识点
 ```
 
-注：本学习笔记的知识结构按照 [《现代 JavaScript 开发：语法基础与工程实践》](https://github.com/wxyyxc1992/Domain-of-ProgrammingLanguage/tree/master/JavaScript/Modern-JavaScript-Development-Foundation) 一文中的目录层级进行了重新整理。
+注：本学习笔记的知识结构按照 [《现代 JavaScript 开发：语法基础与工程实践》](https://github.com/wxyyxc1992/Domain-of-ProgrammingLanguage/tree/master/JavaScript/Modern-JavaScript-Development-Foundation) 一文中的目录层级进行了对应调整。
 
 ## 词法结构
 
@@ -62,7 +62,7 @@ a === b // => true: a 和 b 引用的是同一个数组，当然相等
 
 由上面的代码可以看到，把对象赋值给变量时，只是把对象的“引用”赋值过去了，并没有把对象再复制一份。如果用这种方式把一个对象赋值给多个变量，那么任意一个变量修改了对象，其它变量都会受影响。
 
-如果想要像不可变类型那样，每个变量都对应的是自己的“值”，就需要把对象的每个属性（数组的每个元素）显式地复制一份，下面的例子就是这样做的：
+如果想要像不可变类型那样，每个变量都对应的是自己的“值”，就要像下面的例子一样，把对象的每个属性（数组的每个元素）显式地复制一份。
 
 ```javascript
 var a = { x: 1, y: 2 }; // 待复制的对象
