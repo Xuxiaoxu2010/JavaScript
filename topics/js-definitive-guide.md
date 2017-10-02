@@ -489,7 +489,7 @@ a.sort(); // 面向对象语言，调用数组的方法即可
 
 ```javascript
 // 对象类型
-Person.talk();
+Person.talk()
 
 // 数字类型
 (1.23e+20).toFixed(2)
