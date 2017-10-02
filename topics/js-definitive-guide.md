@@ -333,7 +333,7 @@ line"
 
 ```javascript
 msg = 'Hello' + ', ' + 'world' // 字符串直接量的拼接
-greeting = msg + ' ' + name // 字符串直接量和字符串变量的拼接
+greeting = msg + ' ' + name // 字符串直接量和变量的拼接
 s.length // 字符串的长度
 var s = 'hello, world' // 定义字符串
 s.charAt(0) // => 'h': 第一个字符
