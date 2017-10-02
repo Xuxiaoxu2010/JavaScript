@@ -381,7 +381,7 @@ RegExp 对象定义了很多有用的方法，字符串同样具有可以接收 
 ```javascript
 var text = 'testing: 1, 2, 3'; // 定义用于演示文本匹配的字符串
 var pattern = /\d+/g // 匹配包含至少一个数字的实例
-pattern.test(text) // => true: 匹配成功，pattern.test(text) 表示测试 text 中是否匹配 pattern 这个模式
+pattern.test(text) // => true: 匹配成功，pattern.test(text) 表示测试字符串 text 是否匹配 pattern 这个模式
 text.search(pattern) // => 9: 首次匹配成功的字符串中第一个字符的位置
 text.match(pattern) // => ['1', '2', '3']: 所有匹配成功的内容组成的数组
 text.replace(pattern, '#') // => 'testing: #, #, #': 将所有匹配成功的内容换成 replace() 方法中第二个参数里的内容
@@ -395,6 +395,8 @@ var then = new Date(2011, 0, 1, 17, 10, 30);
 var now = new Date();
 var elapsed = now - then; // 单位为毫秒
 now.getFullYear() // => 2017
+//TODO
+// 为什么月份从 0 开始，而天数从 1 开始？按欧美的星期记法，每周也是从 0，即周日开始？
 now.getMonth() // => 8: 从 0 开始的月份，而不是从 1
 now.getDate() // => 19: 从 1 开始的天数
 now.getDay() // => 2: 周一至周六分别为 1~6，周日为 0
