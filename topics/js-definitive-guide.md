@@ -445,8 +445,6 @@ typeof null // => 'object'
 typeof undefined // => 'undefined'
 ```
 
-### 序列类型（数组？映射类型的子集？）
-
 ### 映射类型（对象？）
 
 #### 对象类型
@@ -574,3 +572,5 @@ var N = new Number(n); // 一个数值对象
 var B = new Boolean(b); // 一个布尔对象
 S === s; // => false: s 是一个字符串，而 S 则是一个字符串对象，注意两者的区别
 ```
+
+### 序列类型（数组？映射类型的子集？）
