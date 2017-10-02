@@ -423,11 +423,11 @@ NaN
 ##### 布尔运算符
 
 ```javascript
-a && b // a 和 b 均为真值时才为真
-a || b // a 或 b 至少有一个为真值时就为真
+a && b // a 和 b 均为真值时，表达式才为真
+a || b // a 或 b 至少有一个为真值时，表达式就为真
 ```
 
-#### null 和 undefined
+#### null 和 undefined 的区别
 
 | null | undefined |
 | - | - |
