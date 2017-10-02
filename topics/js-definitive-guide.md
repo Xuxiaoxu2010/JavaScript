@@ -341,8 +341,8 @@ s.charAt(s.length - 1) // => 'd': 最后一个字符
 s.substring(1,4) // => 'ell': 游标在 1~3 之间的字符，即第 2~4 个字符
 s.slice(-3) // => 'rld': 最后 3 个字符
 s.indexOf('l') // => 2: 字符 l 第一次出现时的游标
-s.lastIndexOf('l') // => 10: 字符 l 最后一次出现时的游标
 s.indexOf('l', 3) // => 3: 在位置 3 及之后第一次出现字符 l 的位置
+s.lastIndexOf('l') // => 10: 字符 l 最后一次出现时的游标
 s.split(', ') // 用 ', ' 逗号加空格将字符串分割成数组
 s.replace('l', 'L') // => 'heLlo, world': 替换字符串中首个小写字符 l 为大写字符 Latin
 s.toUpperCase() // => 'HELLO, WORLD': 字符串中所有字母变为大写
