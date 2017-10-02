@@ -385,6 +385,7 @@ pattern.test(text) // => true: 匹配成功，pattern.test(text) 表示测试字
 text.search(pattern) // => 9: 首次匹配成功的字符串中第一个字符的位置
 text.match(pattern) // => ['1', '2', '3']: 所有匹配成功的内容组成的数组
 text.replace(pattern, '#') // => 'testing: #, #, #': 将所有匹配成功的内容换成 replace() 方法中第二个参数里的内容
+// TODO
 text.split(/\D+/) // => ['', '1', '2', '3']: 为什么截取出来的数组，第一个元素是空字符串？text.match(/\D+/) 得到的结果也只是 'testing: `，并不包含后面的 `, `
 ```
 
