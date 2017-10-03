@@ -434,15 +434,28 @@ typeof undefined // => 'undefined'
 
 ### 类型转换
 
+#### 特殊值
+
 以下仅列出几种特殊情况：
 
 1. 对应的布尔值为 false 的值：undefined、null、""（空字符串）、0、-0、NaN
 1. 对应的数字为 NaN 的值：undefined、"one"、['a']、function(){}（任意函数）
-1. 对应的对象会抛出异常的值：undefined、null（均会 throws TypeError）
+1. 对应的对象会抛出异常的值：undefined、null（均会 throws TypeError，比如调用 `toString()` 方法时）
 
 参考资料：
 
 - [对于以下现象，有没有一种通用的判断规则？](https://segmentfault.com/q/1010000010976877?)：回答中详细讲解了 JavaScript 中的类型转换。
+
+#### 显式类型转换
+
+方法一：使用各种类型的构造函数进行转换。
+
+```javascript
+Number('3') // => 3
+String(false) // => 'false': 使用 false.toString() 也有同样效果
+Boolean([]) // => true: 空数组也为 true，这是个知识点
+Object(3) // => 结果等同于 new Number(3)
+```
 
 ### 映射类型
 
