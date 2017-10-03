@@ -505,6 +505,40 @@ n.toPrecision(7); // => '123456.8'
 n.toPrecision(10); // => '123456.7890'
 ```
 
+##### 解析字符串中的数字
+
+`parseInt()` 用于解析字符串中的数字并转换成整数，但是数字之前只能有空格或者正负号，如果有其它字符，则都会返回 `NaN`。
+
+```javascript
+parseInt('3 a'); // => 3
+parseInt('  +3'); // => 3
+parseInt('0x3'); // => 3
+parseInt('-3.2'); // => -3
+parseInt('  -+3'); // => NaN
+parseInt('.3'); // => NaN
+parseInt('$3'); // => NaN
+parseInt('~3'); // => NaN
+parseInt('a3'); // => NaN
+```
+
+`parseInt()` 还可接收第二个参数，用于指定第一个参数的进制。如果第一个参数中的部分数字不属于第二个参数指定的进制，那么就直接忽略。
+
+```javascript
+parseInt('10', 2); // => 2
+parseInt('112', 2); // => 3
+parseInt('077', 8); // => 63
+```
+
+`parseFloat()` 与 `parseInt()` 类似，但不接受用于指定进制的第二个参数。
+
+```javascript
+parseFloat('3.14 ab 2.13');
+3.14
+parseFloat('0x112', 16);
+0
+
+```
+
 ### 映射类型
 
 对象本质上就是属性名（key）和属性值（value）之间的映射表。
