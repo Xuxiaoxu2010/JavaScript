@@ -457,6 +457,28 @@ Boolean([]) // => true: 空数组也为 true，这是个知识点
 Object(3) // => 结果等同于 new Number(3)
 ```
 
+#### 运算符的隐式类型转换
+
+```javascript
+1 + '2' // => '12'
++'1' // => 1: 等于 Number('1')
+!!null // => false: 可用于特殊类型的快速判断
+```
+
+#### 数字的解析和格式化
+
+##### 进制转换
+
+`toString()` 方法可以将数字转换为指定的进制。
+
+```javascript
+var n = 17;
+binarl_string = n.toString(2); // => '10001'
+octal_string = '0' + n.toString(8); // => '021'
+hex_string = '0x' + n.toString(16); // => '0x11'
+special_string = 'xx' + n.toString(7); // => 'xx23'
+```
+
 ### 映射类型
 
 对象本质上就是属性名（key）和属性值（value）之间的映射表。
