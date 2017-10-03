@@ -692,6 +692,31 @@ test({});
 // => j = 0
 ```
 
+JavaScript 的函数作用域，不仅是指在函数中声明的变量，在函数及内部嵌套的函数中均有定义；而且在函数声明之前就可以被使用。这个特性被称作声明提前（hoisting）。但是，只有函数的**声明**会被“提前”至函数体的顶部，赋值并不会被提前，见下面代码的直接结果。
+
+```javascript
+var scope = 'global';
+function f() {
+    console.log(scope);
+    var scope = 'local';
+    console.log(scope);
+};
+f();
+// => undefined
+// => local
+```
+
+上面的函数可以按下面的执行顺序来理解。
+
+```javascript
+function f() {
+    var scope;
+    console.log(scope);
+    scope = 'local';
+    console.log(scope);
+}
+```
+
 ---
 
 已阅读至《3.8.3 对象转换为原始值》。
