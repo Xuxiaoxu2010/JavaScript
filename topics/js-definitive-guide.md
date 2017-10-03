@@ -532,11 +532,8 @@ parseInt('077', 8); // => 63
 `parseFloat()` 与 `parseInt()` 类似，但不接受用于指定进制的第二个参数，其它方面和 `parseInt()` 都相同。
 
 ```javascript
-parseFloat('3.14 ab 2.13');
-3.14
-parseFloat('0x112', 16);
-0
-
+parseFloat('3.14 ab 2.13'); // => 3.14
+parseFloat('0x112', 16); // => 0
 ```
 
 ### 映射类型
