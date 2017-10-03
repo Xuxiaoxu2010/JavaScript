@@ -481,15 +481,25 @@ special_string = 'xx' + n.toString(7); // => 'xx23'
 
 ##### 设置小数点及有效数字位数
 
-`toFixed()` 不会使用科学记数法；`toExponential()` 则将数字转换为科学记数法，小数点前只有一个数字；`toPrecision()` 则根据设置的有效位数，来决定是使用普通记数法还是科学记数法。
+`toFixed()` 不会使用科学记数法。
 
 ```javascript
 var n = 123456.789;
 n.toFixed(0); // => '123457'
 n.toFixed(2); // => '123456.79'
 n.toFixed(5); // => '123456.78900'
+```
+
+`toExponential()` 则将数字转换为科学记数法，小数点前只有一个数字
+
+```javascript
 n.toExponential(1); // => '1.2e+5'
 n.toExponential(5); // => '1.23457e+5'
+```
+
+`toPrecision()` 则根据设置的有效位数，来决定是使用普通记数法还是科学记数法。
+
+```javascript
 n.toPrecision(4); // => '1.235e+5'
 n.toPrecision(7); // => '123456.8'
 n.toPrecision(10); // => '123456.7890'
