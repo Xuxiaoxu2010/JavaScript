@@ -122,6 +122,23 @@ eval
 
 优先级：在函数体内，局部变量的优先级高于同名的全局变量。
 
+#### 全局变量
+
+声明全局变量时，实际上是定义了全局对象的一个属性。
+
+如果用 var 声明全局变量，则这个变量/属性是不可删除的（无法用 `delete` 运算符删除）。
+
+如果未使用严格模式，并且直接给一个未声明的变量赋值的话，JavaScript 会自动创建一个全部变量，并且这个变量/属性是可删除的（可以用 `delete` 运算符删除）。
+
+```javascript
+var truevar = 1;
+fakevar = 2;
+this.fakevar2 = 3;
+console.log(delete truevar); // => false
+console.log(delete fakevar); // => true
+console.log(delete this.fakevar2); // => true
+```
+
 ## 内置数据结构
 
 ### 数据类型分类
@@ -716,6 +733,8 @@ function f() {
     console.log(scope);
 }
 ```
+
+基于 JavaScript 的这种特性，在函数内定义变量时，可以将变量声明整体放在函数体的顶部，这样能够清晰、准确地反映真实的变量作用域。
 
 ---
 
