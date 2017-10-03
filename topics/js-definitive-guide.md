@@ -479,6 +479,22 @@ hex_string = '0x' + n.toString(16); // => '0x11'
 special_string = 'xx' + n.toString(7); // => 'xx23'
 ```
 
+##### 设置小数点及有效数字位数
+
+`toFixed()` 不会使用科学记数法；`toExponential()` 则将数字转换为科学记数法，小数点前只有一个数字；`toPrecision()` 则根据设置的有效位数，来决定是使用普通记数法还是科学记数法。
+
+```javascript
+var n = 123456.789;
+n.toFixed(0); // => '123457'
+n.toFixed(2); // => '123456.79'
+n.toFixed(5); // => '123456.78900'
+n.toExponential(1); // => '1.2e+5'
+n.toExponential(5); // => '1.23457e+5'
+n.toPrecision(4); // => '1.235e+5'
+n.toPrecision(7); // => '123456.8'
+n.toPrecision(10); // => '123456.7890'
+```
+
 ### 映射类型
 
 对象本质上就是属性名（key）和属性值（value）之间的映射表。
