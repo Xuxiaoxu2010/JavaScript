@@ -53,7 +53,7 @@ var willIGetNewPhone = new Promise(
 上面的代码还算比较容易懂吧？不懂的话就补补相关的基础知识。下面来解释解释这段代码：
 
 1. 首先有一个布尔型变量 `isMomHappy`，它决定了妈妈的心情。
-1. 然后是一个 promise（承诺） `willIGetNewPhone`，它可能会被 `resolved`（实现）——妈妈给你买了一部新手机；也可能会被 `rejected`（拒绝）——妈妈不开心，不给你买手机了。
+1. 然后是一个 promise（承诺） `willIGetNewPhone`，它可能会被 `resolved`（实现）——妈妈给你买了一部新手机——`resolve(phone)`；也可能会被 `rejected`（拒绝）——妈妈不开心，不给你买手机了。
 1. [MDN上的文档](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)给出了定义一个 `Promise` 的标准格式：
 
 ```javascript
@@ -61,7 +61,7 @@ var willIGetNewPhone = new Promise(
 new Promise(/* executor */ function (resolve, reject) { ... });
 ```
 
-1. 当实现承诺的时候，就会执行 `resolve(要实现的内容)` 这个函数，否则的话，就会执行 `reject(拒绝的原因)` 这个函数。在上面的例子中，如果妈妈高兴，就会买手机，所以执行 `resolve` 函数并传入 `phone` 这个参数；如果妈妈不高兴，就执行 `reject` 函数并传入 `reason` 作为拒绝买手机的理由：`reject(reason)`。
+1. 当实现承诺的时候，就会执行 `resolve(要实现的内容)` 这个函数，否则的话，就会执行 `reject(拒绝的原因)` 这个函数。在上面的例子中，如果妈妈高兴，就会买手机，所以执行 `resolve` 函数并传入 `phone` 这个对象；如果妈妈不高兴，就执行 `reject` 函数并传入 `reason` 这个 `Error` 对象作为拒绝买手机的理由：`reject(reason)`。
 
 ## Consuming Promises（执行承诺）
 
@@ -90,8 +90,8 @@ askMom();
 
 1. 定义了函数 `askMom`，在这个函数中执行承诺 `willIGetNewPhone`（consume promise）。
 1. 想在实现承诺或者违背承诺的时候有所表示，所以用 `.then` 和 `.catch` 来控制我们的行为。
-1. 在这个示例中，把 `function(fulfilled) { ... }` 放到了 `.then` 中。`fuifilled` 的值是什么？其实就是在前面的 `resolve(要实现的内容)` 这个函数中，传到 `resolve` 里的参数。所以在这个示例中，传入的就是 `phone` 。
-1. 示例中还把 `function(error) { ... }` 放到了 `.catch` 中，`error` 的值你大概能猜到，就是在 `reject(拒绝的原因)` 这个函数中，传到 `reject` 里的参数。在这里，就是 `reason`。
+1. 在这个示例中，把 `function(fulfilled) { ... }` 放到了 `.then` 中。`fuifilled` 的值是什么？其实就是在前面的 `resolve(要实现的内容)` 这个函数中，传到 `resolve` 里的参数。所以在这个示例中，传入的就是 `phone` 这个对象。
+1. 示例中还把 `function(error) { ... }` 放到了 `.catch` 中，`error` 的值你大概能猜到，就是在 `reject(拒绝的原因)` 这个函数中，传到 `reject` 里的参数。在这里，就是 `reason` 这个 `Error` 对象。
 
 ## Chaining Promises（链式承诺）
 
