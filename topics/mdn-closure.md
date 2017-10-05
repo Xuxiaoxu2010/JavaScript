@@ -196,4 +196,40 @@ console.log(counter1.value()); // => 1
 console.log(counter2.value()); // => 0
 ```
 
-这里要注意两个计数器 `counter1` 和 `counter2` 是如何保持互相独立的。每个闭包都引用了各自版本的 `privateCounter`，每次调用计数器的时候，由于改变了 `privateCounter` 的值，计数器的词法环境都发生了变化。但是，一个闭包中变量值的变化并不会影响另一个闭包。
+注意这里的两个计数器 `counter1` 和 `counter2` 是如何保持互相独立的。每个（计数器的）闭包都引用了各自版本的私有变量 `privateCounter`，每次调用某个计数器的时候，因为 `privateCounter` 的值改变了，计数器的词法环境也对应改变了。但是，一个闭包中变量值的变化并不会影响另一个闭包。
+
+> 闭包的这种用法带来了很多便利性——尤其是数据隐藏和封装，这些便利性通常都是面向对象编程语言中所拥有的。
+
+## 在循环中创建闭包：常见的一种误用方式
+
+在 ES2015 引入 `let` 关键字之前，使用闭包时的一种常见问题是在循环中创建了闭包。看下面的代码：
+
+```html
+<p id="help">Helpful notes will appear here</p>
+<p>E-mail: <input type="text" id="email" name="email"></p>
+<p>Name: <input type="text" id="name" name="name"></p>
+<p>Age: <input type="text" id="age" name="age"></p>
+```
+
+```javascript
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+    document.getElementById(item.id).onfocus = function() {
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+```
