@@ -163,7 +163,7 @@ sudo systemctl restart sshd
 执行下面的命令（Windows 下在 Git Bash 中，Mac 下在终端里），一路回车即可。
 
 ```shell
-> ssh-kekygen
+> ssh-keygen
 ```
 
 上面的命令，会在本机当前用户的 `.ssh` 目录下，生成 `id_rsa` 和 `id_rsa.pub` 两个文件。前面的一个文件是用户的私钥，后面的一个文件是用户的公钥。
