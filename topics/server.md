@@ -243,7 +243,7 @@ sudo systemctl restart sshd
 
 建立 www 用户之后，就可以用这个用户登录了。
 
-首次登录时，提示 `-bash: /root/nvm/nvm.sh: Permission denied`。可以看出来，因为用非 root 用户登录，默认是没有权限使用 root 用户安装的 nvm的，那该怎么办呢？跟我来。
+~~首次登录时，提示 `-bash: /root/nvm/nvm.sh: Permission denied`。可以看出来，因为用非 root 用户登录，默认是没有权限使用 root 用户安装的 nvm的，那该怎么办呢？跟我来。~~（按照下面的设置依然无法解决每次登录时显示该提示的问题。）
 
 ### 为普通权限用户安装 nvm
 
@@ -289,7 +289,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 参考资料：
 
-- [creationix/nvm](https://github.com/creationix/nvm):nvm的官网，参考上面的安装流程。
+- [creationix/nvm](https://github.com/creationix/nvm)：nvm的官网，参考上面的安装流程。
 - [ubuntu中npm安装全局插件提示没有root管理员权限](https://zhouyuexie.github.io/ubuntu%E4%B8%ADnpm%E5%AE%89%E8%A3%85%E5%85%A8%E5%B1%80%E6%8F%92%E4%BB%B6%E6%8F%90%E7%A4%BA%E6%B2%A1%E6%9C%89root%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/)
 - [线上node服务的配置和维护，使用非root账户运行和sudo管理](https://cnodejs.org/topic/57216ea1fa48138c41110ec8)
 
