@@ -202,7 +202,7 @@ console.log(counter2.value()); // => 0
 
 ## 在循环中创建闭包：一种常见的误用方式
 
-在 ES2015 引入 `let` 关键字之前，使用闭包时的一种常见问题是在循环中创建了闭包。看下面的代码：
+在 ES2015 引入 `let` 关键字之前，使用闭包时的一种常见错误，就是在循环中创建了闭包。看下面的代码：
 
 ```html
 <p id="help">Helpful notes will appear here</p>
@@ -233,3 +233,94 @@ function setupHelp() {
 
 setupHelp();
 ```
+
+`helpText` 数组定义了三个提示信息，每个都和网页中一个 input 元素的 ID 相关联。`for` 循环遍历这个数组，将 `onfocus` 事件与显示对应提示信息的方法绑定在一起。
+
+执行一下上面的代码，你就会发现结果并不是预期中的那样——不管焦点在哪个 input 元素上，提示的都是年龄相关的那条信息。
+
+为什么会这样？罪魁祸首还是 **闭包**。与 `onfocus` 事件绑定的方法是闭包——它们包含 `setupHelp` 函数的定义，以及从该函数作用域中捕获到的（词法）环境。循环创建了三个闭包，但是它们共享同一个词法环境——其中包含自身的值在不断变化的变量 `item.help`。执行 `onfocus` 事件的回调时，`item.help` 的值才能确定。而这个时候，循环已经执行完毕了，那么 `item` 这个变量的值最终指向的就是 `helpText` 数组中的最后一个元素了。
+
+要解决这个问题，一种方法就是使用更多的闭包：比如利用前面讲过的函数工厂：
+
+```javascript
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function makeHelpCallback(help) {
+  return function() {
+    showHelp(help);
+  };
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    var item = helpText[i];
+    document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
+  }
+}
+
+setupHelp();
+```
+
+用这种方法能解决前面的问题——因为上面的 `makeHelpCallback` 函数为每次回调都单独创建了一个新的词法环境，在这个词法环境中，`help` 指向的是 `helpText` 数组中对应元素的 `help` 属性。
+
+还有一种方法，就是用前面说过的另一个知识点——匿名闭包：
+
+```javascript
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    (function() {
+       var item = helpText[i];
+       document.getElementById(item.id).onfocus = function() {
+         showHelp(item.help);
+       }
+    })(); // 会立刻将 item 当前的值与 onfocus 事件相关联
+  }
+}
+
+setupHelp();
+```
+
+如果不喜欢用这么多闭包的话，还可以用 ES2015/ES6 中新引入的关键字 `let`：
+
+```javascript
+function showHelp(help) {
+  document.getElementById('help').innerHTML = help;
+}
+
+function setupHelp() {
+  var helpText = [
+      {'id': 'email', 'help': 'Your e-mail address'},
+      {'id': 'name', 'help': 'Your full name'},
+      {'id': 'age', 'help': 'Your age (you must be over 16)'}
+    ];
+
+  for (var i = 0; i < helpText.length; i++) {
+    let item = helpText[i];
+    document.getElementById(item.id).onfocus = function() {
+      showHelp(item.help);
+    }
+  }
+}
+
+setupHelp();
+```
+
+这个例子中用的是 `let` 而不是 `var`，所以每个闭包都会与块级作用域变量相绑定，这样就不需要额外的闭包了（TODO: 没看懂……）。
