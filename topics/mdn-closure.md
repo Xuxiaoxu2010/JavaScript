@@ -379,4 +379,4 @@ MyObject.prototype.getMessage = function() {
 };
 ```
 
-在后两段示例代码中，所有对象都共享继承的原型，所以就不需要在每次创建对象的时候都出现一次方法的定义了，这样就节省了资源。
+在后两段示例代码中，所有对象都共享继承的原型，所以就不需要在每次创建对象的时候都出现一次方法的定义了，这样就不用消耗额外的硬件资源了。可以查看[《Details of the Object Model》](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model)以了解更深入的内容。
