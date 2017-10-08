@@ -324,3 +324,59 @@ setupHelp();
 ```
 
 这个例子中用的是 `let` 而不是 `var`，所以每个闭包都会与块级作用域变量相绑定，这样就不需要额外的闭包了（TODO: 没看懂……）。
+
+## 代码性能问题
+
+由于嵌套函数产生的闭包会显著影响代码的运行速度以及内存占用，所以要注意闭包的使用场合。
+
+比如在创建一个新的对象/类时，通常都会将方法关联到对象的原型上，而不是定义在构造函数内。因为每次调用构造函数的时候，在其中的方法都会被重新分配，如果要创建很多对象的话，这可是相当可观的一笔硬件开销。
+
+先看看反面例子：
+
+```javascript
+function MyObject(name, message) {
+  this.name = name.toString();
+  this.message = message.toString();
+  this.getName = function() {
+    return this.name;
+  };
+
+  this.getMessage = function() {
+    return this.message;
+  };
+}
+```
+
+上面的代码并没有利用闭包的优点，我们来改写成下面这样的：
+
+```javascript
+function MyObject(name, message) {
+  this.name = name.toString();
+  this.message = message.toString();
+}
+MyObject.prototype = {
+  getName: function() {
+    return this.name;
+  },
+  getMessage: function() {
+    return this.message;
+  }
+};
+```
+
+上面的代码比之前的是好一些，但一般不建议重新定义原型，所以下面的代码更好一些：
+
+```javascript
+function MyObject(name, message) {
+  this.name = name.toString();
+  this.message = message.toString();
+}
+MyObject.prototype.getName = function() {
+  return this.name;
+};
+MyObject.prototype.getMessage = function() {
+  return this.message;
+};
+```
+
+在后两段示例代码中，所有对象都共享继承的原型，所以就不需要在每次创建对象的时候都出现一次方法的定义了，这样就节省了资源。
