@@ -1,5 +1,7 @@
 # MDN - 闭包
 
+原文链接：[Closures - JavaScript - MDN - Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)。
+
 > 什么是闭包？闭包就是函数及声明函数时的词法环境（lexical environment）。
 
 ## 词法作用域（Lexical scoping）
