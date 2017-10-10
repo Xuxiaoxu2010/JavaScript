@@ -115,7 +115,7 @@ var showOff = function (phone) {
 
 注意：
 
-1. 在这段代码中，并没有调用 `reject` 函数，只是调用了 `resolve` 函数。因为 `rejevct` 函数并不是必需的。
+1. 在这段代码中，并没有调用 `reject` 函数，只是调用了 `resolve` 函数。因为 `reject` 函数并不是必需的。
 1. 上面的代码还可以用 `Promise.resolve` 来进行精简。
 
 ```javascript
