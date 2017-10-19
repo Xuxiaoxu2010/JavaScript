@@ -62,3 +62,9 @@ net:
 参考资料：
 
 [Install and config Redis on Mac OS X via Homebrew](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298)
+
+## 安装依赖
+
+```shell
+> make install # 安装 Nodeclub 项目的依赖包，会安装很多包，耐心等待即可
+```
