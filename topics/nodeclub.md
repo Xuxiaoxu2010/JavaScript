@@ -24,7 +24,7 @@
 
 ![Brew install MongoDB](https://raw.githubusercontent.com/Dream4ever/Pics/master/brew-install-mongodb.png)
 
-## 运行 MongoDB
+### 运行 MongoDB
 
 ```shell
 > sudo mkdir -p /data/db # 新建 MongoDB 默认使用的数据文件夹
@@ -45,4 +45,12 @@
 ```shell
 net:
   bindIp: 127.0.0.1
+```
+
+## 安装 Redis
+
+```shell
+> brew install redis # 通过 HomeBrew 安装 Redis
+> brew services start redis # 启动 Redis，并设置为开机启动
+> redis-cli ping # 如果显示 PONG，说明 Redis 已成功启动
 ```
