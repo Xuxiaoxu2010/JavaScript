@@ -68,3 +68,33 @@ net:
 ```shell
 > make install # 安装 Nodeclub 项目的依赖包，会安装很多包，耐心等待即可
 ```
+
+## 复制配置文件
+
+```shell
+> cp config.default.js config.js
+```
+
+## 执行测试
+
+```shell
+> make test
+```
+
+跑完测试后的结果如下。
+
+![Nodeclub Make Test Result](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-make-test.png)
+
+## 运行网站
+
+```shell
+> node app.js
+```
+
+执行上面的代码之后，网站就运行起来了！在终端能够看到下面这样的代码。
+
+![Nodeclub Running Status](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-running-status.png)
+
+访问 [http://localhost:3000/](http://localhost:3000/)，能够看到网页内容了~
+
+![Nodeclub Main Page](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-mainpage.png)
