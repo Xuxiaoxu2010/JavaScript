@@ -47,6 +47,10 @@ net:
   bindIp: 127.0.0.1
 ```
 
+参考资料：
+
+[Install MongoDB Community Edition on OS X](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
 ## 安装 Redis
 
 ```shell
@@ -54,3 +58,7 @@ net:
 > brew services start redis # 启动 Redis，并设置为开机启动
 > redis-cli ping # 如果显示 PONG，说明 Redis 已成功启动
 ```
+
+参考资料：
+
+[Install and config Redis on Mac OS X via Homebrew](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298)
