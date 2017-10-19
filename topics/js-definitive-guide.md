@@ -1238,3 +1238,5 @@ var data = [7, 8, 9];
 3 in data // => false: 数组不包含索引为 3 的元素
 7 in data // => false: 数组不包含索引为 7 的元素
 ```
+
+### `instanceof` 运算符
