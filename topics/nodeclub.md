@@ -29,7 +29,7 @@
 ```shell
 > sudo mkdir -p /data/db # 新建 MongoDB 默认使用的数据文件夹
 > sudo chmod 777 /data/db # 设置数据文件夹的权限
-> mongod #
+> mongod # 启动 MongoDB
 ```
 
 如果一切正常，MongoDB 运行起来后的状态如下图。
