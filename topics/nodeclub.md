@@ -39,3 +39,10 @@
 按下 `Ctrl+C` 停止 MongoDB，然后遵照下图的要求，配置它的安全设置。
 
 ![MongoDB Security Issue](https://raw.githubusercontent.com/Dream4ever/Pics/master/mongodb-security-issue.png)
+
+通过 [How to Create a configuration File For MongoDB](https://stackoverflow.com/a/14567161/2667665) 这里的回答可以看到，MongoDB 默认的配置文件位于 `/usr/local/etc/mongod.conf`，查看该配置文件，有下面的内容，说明已经默认限制 MongoDB 仅允许本机 IP 访问，那就暂时不用再额外设置了。
+
+```shell
+net:
+  bindIp: 127.0.0.1
+```
