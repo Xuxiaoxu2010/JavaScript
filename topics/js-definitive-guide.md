@@ -1322,3 +1322,28 @@ TODO: 本小节暂时跳过。
 ```javascript
 var greeting = 'hello ' + (username ? username : 'there');
 ```
+
+### `typeof` 运算符
+
+该运算符获取操作数的类型。
+
+| x | typeof x |
+| -- | -- |
+| undefined | 'undefined' |
+| null | 'object' |
+| true / false | 'boolean' |
+| 任意数字或 NaN | 'number' |
+| 任意字符串 | 'string' |
+| 任意函数 | 'function' |
+| 任意内置对象（非函数） | 'object' |
+| 任意宿主对象 | 由编译器各自实现的字符串，但不是 'undefined'、'boolean'、'number' 或者 'string'
+
+常见用法：`(typeof value == 'string') ? '"' + value + '"' : value` 。
+
+`typeof` 运算符也可以像函数一样带上圆括号，带不带括号，运行结果都是一样的。
+
+另外，由于 `typeof null` 的返回结果也是 `object`，所以需要区分 `null` 和对象的时候，还要用 `!!value` 单独判断一下。
+
+此外，客户端 JavaScript 中的大多数宿主对象都是 `object` 类型。
+
+如果想进一步区分对象的类，就需要使用 `instanceof` 运算符、`class` 特性以及 `constructor` 属性。
