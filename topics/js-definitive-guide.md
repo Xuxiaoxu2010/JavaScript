@@ -1240,3 +1240,19 @@ var data = [7, 8, 9];
 ```
 
 ### `instanceof` 运算符
+
+该运算符检查左操作数对象是否为右操作数构造函数的实例。
+
+```javascript
+var d = new Date(); // => 通过 Date() 构造函数来新建一个对象
+d instanceof Date; // => true: d 是由 Date() 构造函数创建的，所以是 Date 这个构造函数的实例
+d instanceof Date(); // => VM224:1 Uncaught TypeError: Right-hand side of 'instanceof' is not an object
+d instanceof Object; // => true: 所有的对象都是 Object 的实例
+d instanceof Number; // => false
+```
+
+所有的对象都是 `Object` 的实例，而通过 `instanceof` 判断一个对象是否是一个类的实例的时候，这个判断也会包含对“父类”（superclass）的检测（TODO: 没太看懂……）。
+
+`instanceof` 的左操作数不是对象的话，则返回 false；右操作数不是函数的话，就会抛出一个类型异常，看上面代码的第三就行。
+
+要理解 `instanceof` 是如何工作的，必须首先理解“原型链”（prototype chain）——即 JavaScript 的继承机制。
