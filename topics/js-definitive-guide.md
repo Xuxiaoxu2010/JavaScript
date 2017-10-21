@@ -1258,3 +1258,5 @@ d instanceof Number; // => false
 要理解 `instanceof` 是如何工作的，必须首先理解“原型链”（prototype chain）——即 JavaScript 的继承机制。
 
 计算表达式 `o instanceof f` 时，JavaScript 首先计算 `f.prototype`，然后在原型链中查找 `o`。如果能找到，则 `o` 是 `f`（或者 `f` 的父类）的一个实例，表达式返回 true；否则就说明 `o` 不是 `f` 的实例，表达式返回 false。
+
+### 逻辑表达式
