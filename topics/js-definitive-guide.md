@@ -1381,3 +1381,15 @@ delete x; // => true: 非严格模式下可删除，严格模式下需改成 del
 x // => 运行时错误，x 未定义
 Uncaught ReferenceError: x is not defined
 ```
+
+### `void` 运算符
+
+一元运算符 `void` 可以出现在任意类型的操作数之前,操作数会照常计算，但表达式永远返回 undefined。由于 `void` 会忽略操作数，所以操作数有副作用的时候可以搭配该运算符使用。
+
+该运算符常常用在客户端的 URL——javascript:URL 中，在 URL 可以放心地写带有副作用的表达式，`void` 则用来让浏览器不显示表达式的计算结果。
+
+```javascript
+<a href="javascript:void window.open();">打开一个新窗口</a>
+```
+
+但是在实际开发中其实不会这么写，而是给该节点的 `onclick` 绑定一个事件处理程序。
