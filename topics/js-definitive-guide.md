@@ -399,7 +399,7 @@ typeof undefined // => 'undefined'
 
 ## 全局对象
 
-当 JavaScript 解释器启动时，或者任何 Web 浏览器加载新页面时，就会创建一个新的全局对象，并给它一组自定义的初始属性：
+当 JavaScript 解释器启动时，或者 Web 浏览器加载新页面时，就会创建一个新的全局对象，并给它一组自定义的初始属性：
 
 - 全局属性，比如 undefined、Infinity 和 NaN
 - 全局函数，比如 isNan()、parseInt() 和 eval()
@@ -408,13 +408,13 @@ typeof undefined // => 'undefined'
 
 全局对象的初始属性并不是保留字，但应该当做保留字来对待。
 
-在代码的最顶级，可以用 JavaScript 关键字 `this` 来引用全局对象：
+在代码的最顶层，可以用 JavaScript 关键字 `this` 来引用全局对象：
 
 ```javascript
 var global = this; // 定义一个引用全局对象的全局变量
 ```
 
-对于客户端的 JavaScript，在其表示的浏览器窗口中的所有 JavaScript 代码中，`Window` 对象充当了全局对象。这个全局 Window 对象有一个属性 window 引用其自身，它可以代替 this 来引用全局对象。Window 对象不只是定义了核心的全局属性，还针对 Web 浏览器和客户端 JavaScript 定义了一小部分的其它全局属性。
+对于客户端 JavaScript，在其表示的浏览器窗口中的所有 JavaScript 代码中，`Window` 对象充当了全局对象。这个全局 Window 对象有一个属性 window 引用其自身，它可以代替 this 来引用全局对象。Window 对象不只是定义了核心的全局属性，还针对 Web 浏览器和客户端 JavaScript 定义了一小部分的其它全局属性。
 
 ```javascript
 var global = window;
@@ -435,7 +435,7 @@ var s = 'hello world'; // 定义字符串
 var word = s.substring(s.indexOf(' ') + 1, s.length); // 使用字符串的属性
 ```
 
-只要引用了字符串 s 的属性，JavaScript 就会将字符串的**值**，通过调用 new String(s) 的方式转换成对象，这个由值转换而来的对象，继承了字符串的方法，并被用来处理**属性的引用**。一旦属性引用结束，这个新创建的对象就会被销毁。
+因为只要引用了字符串 s 的属性，JavaScript 就会将字符串的**值**，通过调用 new String(s) 的方式转换成对象，这个由值转换而来的对象，继承了字符串的方法，并被用来处理**属性的引用**。一旦属性引用结束，这个新创建的对象就会被销毁。
 
 看看下面的代码，思考一下它的执行结果：
 
