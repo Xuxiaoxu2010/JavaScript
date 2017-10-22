@@ -1393,3 +1393,13 @@ Uncaught ReferenceError: x is not defined
 ```
 
 但是在实际开发中其实不会这么写，而是给该节点的 `onclick` 绑定一个事件处理程序。
+
+### 逗号运算符（,）
+
+逗号运算符是二元运算符，它依次计算左操作数和右操作数的值，然后返回右操作数的值。该运算符最常用的场景在 `for` 循环中：
+
+```javascript
+for ( var i = 0, j = 10; i < j; i++, j--) {
+    console.log(i + j);
+}
+```
