@@ -1347,3 +1347,37 @@ var greeting = 'hello ' + (username ? username : 'there');
 此外，客户端 JavaScript 中的大多数宿主对象都是 `object` 类型。
 
 如果想进一步区分对象的类，就需要使用 `instanceof` 运算符、`class` 特性以及 `constructor` 属性。
+
+### `delete` 运算符
+
+该运算符用来删除对象的属性或者数组的元素。删除后的属性或者元素将不再存在，可以用 `in` 运算符来检查属性（名称）或者数组元素（索引）是否还存在。
+
+```javascript
+var o = { x: 1, y: 2 };
+delete o.x; // => true: 成功删除属性
+'x' in o; // => false: 属性不再存在
+'y' in o; // => true: 该属性还存在
+
+var a = [4, 5, 6];
+delete a[2]; // => true: 成功删除元素
+2 in a; // => false: 元素索引不再存在
+1 in a; // => true: 该元素索引还存在
+a.length // => 3: 数组长度未变！删除操作虽然删除了元素，但是并没有修改数组长度，所以该运算符在操作数组元素时要慎用。
+```
+
+如果 `delete` 的操作数不是左值，则运算符将不作任何操作并返回 true；否则，运算符将试图删除这个左值，成功的话返回 true。诸如内置核心属性、客户端属性、var 语句声明的属性、function 语句定义的函数和函数参数都不能删除。
+
+在 ES5 严格模式中，如果 `delete` 的操作数是变量、函数参数或函数参数之类的非法操作数，则该操作将抛出一个语法错误（SyntaxError）异常；在删除不可配置的属性时，会抛出一个类型错误异常，只有操作数是属性访问表达式时才可删除。在非严格模式下，这些操作都不再报错，而只是简单地返回 false。
+
+```javascript
+var o = { x: 1, y: 2 };
+delete o.x; // => true: 成功删除对象属性
+typeof o.x; // => "undefined": 属性不再存在
+delete o.x; // => true: 删除不存在的属性也返回 true
+delete o; // => false: 不能删除 var 语句声明的变量
+delete 1; // => true: 参数不是左值，删除失败，但也返回 true
+this.x = 1; // => 1: 给全局对象定义一个属性
+delete x; // => true: 非严格模式下可删除，严格模式下需改成 delete this.x
+x // => 运行时错误，x 未定义
+Uncaught ReferenceError: x is not defined
+```
