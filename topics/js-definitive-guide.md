@@ -1479,6 +1479,33 @@ function f(x) { return x + 1; }
 
 ## 条件语句
 
+和其它语言的基本一样，只列出几个关键点。
+
+对于 `switch` 语句，关键字 `switch` 里的表达式和 `case` 子句中的表达式在比较的时候，用的是 `===` 这个严格相等运算符来比较的，不会做任何类型转换，这一点要注意。
+
+另外，`switch` 语句中的 `case` 表达式是在运行时计算的，从而导致该语句的效率会比较低。
+
+`for` 循环的工作流程，可以用一个等价的 `while` 循环来理解：
+
+```javascript
+initialize;
+while(test) {
+    statement;
+    increment;
+}
+// 等价于
+for(initialize; test; increment) { statement; }
+```
+
+下面的 `for` 循环活用里空语句来遍历链表数据结构，并返回链表中最后一个对象（即第一个不包含 `next` 属性的对象）：
+
+```javascript
+function tail(o) {
+    for (; o.next; o = o.next) /* empty */ ;
+    return o;
+}
+```
+
 ## 循环
 
 ## 跳转
