@@ -1716,4 +1716,29 @@ function f(o) {
 var hasStrictMode = (function() { "use strict"; return this === undefined; }());
 ```
 
+# 对象
+
+## 创建对象
+
+### 对象直接量
+
+对象的属性名可以是标识符也可以是字符串直接量（空字符串也可以），属性的值可以是任意类型的表达式，表达式的值就是属性的值。
+
+```javascript
+var empty = {}; // 没有任何属性的空对象
+var point = { x: 1, y: 1 }; // 两个属性
+var point2 = { x: point.x, y: point.y+1 }; // 更复杂的值
+var book = {
+    "main title": "JavaScript", // 属性名有空格，必须用字符串表示
+    "sub-title": "The Definitive Guide", // 属性名有连字符，必须用字符串表示
+    "for": "all audiences", // "for"是保留字，必须用引号
+    "author": { // 该属性的值是一个对象
+        firstname: "David", // 这里的属性名都没有引号
+        surname: "Flanagan"
+    }
+};
+```
+
+对象直接量是表达式，这个表达式的每次运算都会创建并初始化一个新的对象。每次计算对象直接量时，也都会计算它的每个属性的值。因此，**如果在一个重复调用的函数中的循环体内使用了对象直接量，它将创建很多新对象，并且每次创建的对象的属性值也有可能不同。**
+
 ## JavaScript 语句小结
