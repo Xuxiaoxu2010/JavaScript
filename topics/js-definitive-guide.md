@@ -1492,7 +1492,7 @@ function f(x) { return x + 1; }
 ```javascript
 initialize;
 while(test) {
-    statement;
+    statement
     increment;
 }
 // 等价于
@@ -1520,7 +1520,7 @@ for (var p in o) {
 
 ```javascript
 for (variable in object)
-    statement;
+    statement
 ```
 
 1. JavaScript 解释器首先计算 `object` 表达式，表达式如果为 null 或者 undefined，则解释器会跳过循环并执行后续的代码。
@@ -1656,5 +1656,36 @@ try {
 ```
 
 ## 其它语句类型
+
+### `with` 语句
+
+`with` 语句用于临时扩展作用域链，它将对象添加到作用域链头部，执行语句之后，再把作用域链恢复到原始状态。
+
+```javascript
+with (object)
+    statement
+```
+
+由于使用 `with` 语句的代码很难优化，并且运行速度也慢，所以非严格模式里不推荐使用，严格模式更是禁止使用。
+
+对象嵌套层次很深的时候，可以用 `with` 来简化代码。下面第一行的表达式如果则代码中多次出现，则可以用后面的 `with` 语句将 `form` 对象添加至作用域链的顶层：
+
+```javascript
+document.forms[0].address.value;
+with (document.forms[0]) {
+    // 直接访问表单元素：
+    name.value = "";
+    address.value = "";
+    email.value = "";
+}
+```
+
+注意：只有在查找标识符的时候才会用到作用域链，创建新变量的时候是用不着的：
+
+```javascript
+with (o) x = 1;
+```
+
+对于上面的代码，如果对象 `o` 有属性 `x`，则将会赋值 1；否则就是在当前作用域内新建变量 `x` 并赋值 1。
 
 ## JavaScript 语句小结
