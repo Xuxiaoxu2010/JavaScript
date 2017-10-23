@@ -1485,6 +1485,8 @@ function f(x) { return x + 1; }
 
 另外，`switch` 语句中的 `case` 表达式是在运行时计算的，从而导致该语句的效率会比较低。
 
+## 循环
+
 `for` 循环的工作流程，可以用一个等价的 `while` 循环来理解：
 
 ```javascript
@@ -1505,8 +1507,6 @@ function tail(o) {
     return o;
 }
 ```
-
-## 循环
 
 ## 跳转
 
