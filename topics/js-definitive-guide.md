@@ -1629,6 +1629,32 @@ compute_sum: if (matrix) {
 - 如果抛出异常的函数没有一个 `try/catch/finally` 语句来处理它，则异常将向上传播至调用该函数的代码。这样异常就会沿着方法的词法结构和调用栈向上传播。
 - 如果最后都没有找到任何异常处理程序，JavaScript 就会把异常当成程序错误来处理，并报告给用户。
 
+### `try/catch/finally` 语句
+
+需要处理异常的代码块位于 `try` 从句中，`catch` 从句跟随在 `try` 从句之后，处理 `try` 从句中的异常。最后跟着 `finally` 从句，放置清理代码，这里的代码总是会被执行到，只要 `try` 从句中有一部分代码执行了。
+
+`catch` 和 `finally` 至少要存在一个，并且三个从句里的代码块都要用花括号括起来。
+
+如果 `return`、`continue`、`break` 或者 `throw` 语句使 `finally` 块发生了跳转，或者它调用了会抛出异常的方法使其发生了跳转，解释器都会忽略所挂起的跳转，而去执行新的跳转（TODO: 没太看懂，结合后面的例子也没太看懂……）。比如 `finally` 从句如果抛出了异常，则该异常会代替之前正在处理的异常。如果 `finally` 从句运行到了 `return` 语句，则该方法会正常返回，之前所抛出且未处理的异常将不会被处理。
+
+```javascript
+try {
+  try {
+    throw new SyntaxError();
+  } catch (ex) {
+    ;
+  } finally {
+    throw new RangeError();
+  }
+} catch (ex) {
+  console.info(ex.name);
+} finally {
+  console.info('cleaned');
+}
+// => RangeError
+// => cleaned
+```
+
 ## 其它语句类型
 
 ## JavaScript 语句小结
