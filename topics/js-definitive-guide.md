@@ -1579,6 +1579,10 @@ identifier: statement
 
 通过给循环定义一个标签，可以在循环体内部使用 `break` 和 `continue` 来退出循环，或者直接跳到下一个循环的开始处。`break` 和 `continue` 是 JavaScript 中仅有的可以使用标签的语句。
 
+### `break` 语句
+
+单独使用 `break` 会立即退出最内层循环或 `switch` 语句：`break;`。
+
 ## 其它语句类型
 
 ## JavaScript 语句小结
