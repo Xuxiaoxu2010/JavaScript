@@ -402,7 +402,7 @@ typeof undefined // => 'undefined'
 当 JavaScript 解释器启动时，或者 Web 浏览器加载新页面时，就会创建一个新的全局对象，并给它一组自定义的初始属性：
 
 - 全局属性，比如 undefined、Infinity 和 NaN
-- 全局函数，比如 isNan()、parseInt() 和 eval()
+- 全局函数，比如 isNaN()、parseInt() 和 eval()
 - 构造函数，比如 Date()、RegExp()、String()、Object() 和 Array()
 - 全局对象，比如 Math 和 JSON
 
@@ -1582,6 +1582,31 @@ identifier: statement
 ### `break` 语句
 
 单独使用 `break` 会立即退出最内层循环或 `switch` 语句：`break;`。
+
+`break` 和标签一起使用时，程序将跳转到这个标签所标识的语句块的结束处，或者直接终止闭合语句块的执行。由于 `break` 本身就能直接退出循环或 `switch` 语句，因此如果要和标签一起使用的话，标签应该标识的是由花括号括起来的一组语句。
+
+```javascript
+var matrix = getDate(); // 从某处获取一个二维数组
+// 对矩阵所有元素求和
+// 从标签名开始，以便报错时退出程序
+compute_sum: if (matrix) {
+    for (var x = 0; x < matrix.length; x++) {
+        var row = matrix[x];
+        if (!row) break compute_sum;
+        for (var y = 0; y < row.length; y++) {
+            var cell = row[y];
+            if (isNaN(cell)) break compute_sum;
+            sum += cell;
+        }
+    }
+    success = true;
+}
+// break 语句跳转至此
+// 如果在 success == false 的条件下到达这里，说明给出的矩阵中有错误
+// 否则将矩阵中所有的元素进行求和
+```
+
+最后还要注意：`break` 语句的控制权无法越过函数边界，即不能从函数内部跳转到函数外部。
 
 ## 其它语句类型
 
