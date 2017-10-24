@@ -518,3 +518,64 @@ git push --set-upstream blog master
 ## 十、配置守护进程
 
 待完成。
+
+---
+
+最新的服务器配置笔记。
+
+仅重置系统镜像，未选择应用镜像，重置完成后用 `yum list installed` 查看已安装的 packages，发现PHP、Node什么的都没装，是一个干净的新系统，可以从头开始配置了。
+
+通过轻量应用服务器控制台的 Web 端，远程连接至主机，执行 `sudo su root` 切换至 root 账户，再执行 `yum update`，将所有 packages 更新至最新版，然后执行 `reboot` 重启服务器。
+
+根据这篇文章 [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7) 里的建议，新建一个用户 www 并设置密码，然后赋予执行 `sudo` 命令的权限。
+
+```shell
+$ adduser www
+$ passwd www
+$ gpasswd -a www wheel
+```
+
+然后在本机生成密钥并复制公钥内容。
+
+```shell
+$ ssh-keygen
+$ cat ~/.ssh/id_rsa.pub
+```
+
+第一条命令在默认情况下，会在当前用户的 `.ssh` 目录下生成密钥文件 `id_rsa` 和公钥文件 `id_rsa.pub`。
+
+将公钥添加到服务器的 www 用户下。
+
+```shell
+$ mkdir .ssh
+$ chmod 700 .ssh
+vi .ssh/authorized_keys
+# 按下i进入编辑模式，粘贴公钥内容，按下Esc退出编辑模式，输入:x保存并退出
+$ chmod 600 .ssh/authorized_keys
+$ exit
+```
+
+最后再禁止 root 用户的 SSH 登录，以提升服务器安全性。
+
+```shell
+$ vi /etc/ssh/sshd_config
+# 输入/PermitRoot然后按下回车，编辑器就会定位至PermitRoot所在行的行首。如果行首有注释符号#，则按下Shift+x删除。然后光标移至后面的单词yes的首字母y上，输入cw删除该单词，再输入no，然后按下Esc结束编辑，最后输入:x保存并退出。
+$ systemctl reload sshd
+```
+
+先别关闭窗口。为了确保不会因为误操作导致 root 和 www 用户都无法登录服务器，先在本机测试一下：
+
+```shell
+$ ssh www@1.2.3.4
+$ sudo yum update
+```
+
+如果一切 OK，说明配置成功，可以放心使用 www 用户登录了。
+
+然后再按照这篇文章 [Additional Recommended Steps for New CentOS 7 Servers](https://www.digitalocean.com/community/tutorials/additional-recommended-steps-for-new-centos-7-servers) 进行一些建议的设置。
+
+首先配置好防火墙。
+
+```shell
+$ sudo systemctl start firewalld
+```
