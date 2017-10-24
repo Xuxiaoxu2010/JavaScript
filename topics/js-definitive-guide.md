@@ -1468,7 +1468,7 @@ function f(x) { return x + 1; }
 
 注意：function 语句里的花括号是必需的，即使只有一条语句也是如此。
 
-如果函数内还嵌套了函数，则内部嵌套的函数，其定义不能出现在 `if` 语句、`while` 循环或任何其它语句中，只能出现在所嵌套函数的顶部（TODO: 没太看懂……）。由于函数声明位置的这种限制，ES 规范因此并没有将函数声明归类为真正的语句。
+如果函数内还嵌套了函数，则内部嵌套的函数，其定义不能出现在 `if` 语句、`while` 循环或任何其它语句中，只能出现在所嵌套函数的顶部（TODO: 没太看懂……为什么不能出现？）。由于函数声明位置的这种限制，ES 规范因此并没有将函数声明归类为真正的语句。
 
 函数声明语句和函数定义表达式的区别：
 
@@ -1635,7 +1635,7 @@ compute_sum: if (matrix) {
 
 `catch` 和 `finally` 至少要存在一个，并且三个从句里的代码块都要用花括号括起来。
 
-如果 `return`、`continue`、`break` 或者 `throw` 语句使 `finally` 块发生了跳转，或者它调用了会抛出异常的方法使其发生了跳转，解释器都会忽略所挂起的跳转，而去执行新的跳转（TODO: 没太看懂，结合后面的例子也没太看懂……）。比如 `finally` 从句如果抛出了异常，则该异常会代替之前正在处理的异常。如果 `finally` 从句运行到了 `return` 语句，则该方法会正常返回，之前所抛出且未处理的异常将不会被处理。
+如果 `return`、`continue`、`break` 或者 `throw` 语句使 `finally` 块发生了跳转，或者它调用了会抛出异常的方法使其发生了跳转，解释器都会忽略所挂起的跳转，而去执行新的跳转（TODO: 后面的例子能看懂，但是这里的文字不太懂……）。比如 `finally` 从句如果抛出了异常，则该异常会代替之前正在处理的异常。如果 `finally` 从句运行到了 `return` 语句，则该方法会正常返回，之前所抛出且未处理的异常将不会被处理。
 
 ```javascript
 try {
@@ -1754,8 +1754,57 @@ var r = new RegExp("js"); // 创建一个可以进行模式匹配的 RegExp 对�
 
 ### 原型
 
+TODO: 没太看明白……
+
 在 JavaScript 中，每个对象（除了 null）都和另一个对象相关联——另一个对象就是原型。每个对象都从原型继承属性。
 
 通过对象直接量创建的所有对象具有共同的原型对象，并且可以通过 `Object.prototype` 获得对原型对象的引用。通过关键字 `new` 及构造函数所创建的对象，其原型就是构造函数的 `prototype` 属性的值。所以 `new Object()` 所创建的对象也继承自 `Object.prototype`，`new Array()` 创建的对象其原型就是 `Array.prototype`。
 
 只有少数对象没有原型，包括 `Object.prototype`，它不继承任何属性。其他的原型对象都是普通对象，普通对象都有原型。所有的内置构造函数以及大部分自定义的构造函数，都有一个继承自 `Object.prototype` 的原型，比如 `Date.prototype` 的属性就继承自 `Object.prototype`。因此，由 `new Date()` 创建的 Date 对象的属性，同时继承自 `Date.prototype` 和 `Object.prototype`，这一系列链接起来的原型对象就是所谓的“原型链”（prototype chain）。
+
+### `Object.create()`
+
+ES5 中定义了该方法用于创建对象。第一个参数为对象的原型，第二个可选参数用于进一步描述对象的属性。
+
+`Object.create()` 是一个静态函数，也就是说它不能被某个对象作为方法调用：
+
+```javascript
+var o1 = Object.create({x:1, y:2}); // o1 继承了属性 x 和 y
+```
+
+可以传入参数 null 来创建一个没有原型的对象，这个对象不会继承任何东西，包括 `toString()` 这样的基础方法。
+
+```javascript
+var o2 = Object.create(null); // 不继承任何属性和方法，在浏览器中输入o2，然后再输入一个点号的话，不会有任何自动完成的提示
+```
+
+如果想创建一个普通的空对象（就像 `{}` 或者 `new Object()` 创建的对象），要传入参数 `Object.prototype`：
+
+```javascript
+var o3 = Object.create(Object.prototype); // 和 {} 及 new Object() 一样
+```
+
+还可以通过任意原型创建新对象（也就是可以使任意对象可继承），下面的代码就模拟了原型继承：
+
+```javascript
+// TODO: 没太看明白……
+function inherit(p) {
+    if (p == null) throw TypeError(); // p必须是非null的对象
+    if (Object.create) return Object.create(p); // 该方法存在时，则直接使用
+    var t = typeof p; // 否则进一步检测
+    if (t !== "object" && t !== "function") throw TypeError();
+    function f() {}; // 定义空构造函数
+    f.prototype = p; // 令其原型为 p
+    return new f(); // 用 f() 创建 p 的继承对象
+}
+```
+
+上面创建的 `inherit()` 函数，作用之一就是防止库函数无意间修改了不受控制的对象。该方法不是直接将对象作为参数传入函数，而是将目标对象的继承对象传给函数（令返回的对象的原型为传入的对象）。这样函数在读取继承对象属性的时候，读取的就是继承过来的值。在给继承对象的属性赋值的时候，就只影响继承对象自身，不会影响原始对象了：
+
+```javascript
+var o1 = { x: 1 };
+var o2 = inherit(o1);
+o2.x = 2;
+o2.x // => 2
+o1.x // => 1: o2 继承自 o1，修改 o2 的属性 x，没有影响 o1 中的同名属性
+```
