@@ -1808,3 +1808,71 @@ o2.x = 2;
 o2.x // => 2
 o1.x // => 1: o2 继承自 o1，修改 o2 的属性 x，没有影响 o1 中的同名属性
 ```
+
+## 属性的查询和设置
+
+在 JavaScript 中，可以通过点号（`.`）或者方括号（`[]`）来获取或者设置属性的值：
+
+```javascript
+var author = book.author; // 获取 book 的 "author" 属性
+var title = book["main title"]; // 获取 book 的 "main title" 属性
+book.edition = 6; // 设置 book 的 edition 属性
+book["main title"] = "ECMAScript"; // 设置 book 的 "main title" 属性
+```
+
+使用点运算符时，右侧必须是以属性名称命名的简单标识符；对于方括号来说，方括号内必须是一个计算结果为字符串（或是一个可以转换为字符串的值）的表达式。
+
+### 作为关联数组的对象
+
+上面讲到的两种属性查询方法都能够查询对象属性的值，方括号的形式看起来更像数组，只是这个“数组”——对象的元素是通过字符串索引的，这种数组就叫关联数组（associative array）。
+
+在一些强类型语言中（如C、C++、Java等），对象的属性都是提前定义好的，无法动态增删。而 JavaScript 由于是弱类型语言，因此可以在任何对象中创建任意数量的属性。通过点号 `.` 访问对象属性时，属性名称为标识符，而标识符不是数据类型，因此无法修改。
+
+而用方括号 `[]` 来访问对象属性时，此时的属性名为字符串，字符串又是 JavaScript 的数据类型，所以在程序运行时可以修改或创建它们。假设要给 `portfolio` 这个对象动态添加新的属性——股票，就可以用 `[]` 运算符来实现：
+
+function addstock(portfolio, stockname, shares) {
+    portfolio[stockname] = shares;
+}
+
+再结合 `for/in` 循环，就可以很方便地遍历关联数组（对象）了：
+
+```javascript
+function getValue(portfolio) {
+    var total = 0.0;
+    for (stock in portfolio) { // 遍历 portfolio 中的每只股票
+        var shares = portfolio[stock]; // 获取每只股票的份额
+        var price = getQuote(stock); // 查找股票价格
+        total += shares * price; // 将结果累加至 total 中
+    }
+    return total; // 返回 total 的值
+}
+```
+
+### 继承
+
+JavaScript 中的对象，既有自有属性（own property），也有从原型对象继承来的属性。在查询对象 o 的属性 x 时，如果 o 中不存在 x，就会继续在 o 的原型对象中查询属性 x。如果原型对象也没有 x，但这个原型对象还有原型，就会继续在这个原型对象的原型中查询，直到找到 x 或者找到原型为 null 的对象为止。对象及其原型构成了一个“链条”，通过这个链条就实现了属性的继承。
+
+```javascript
+var o = {}; // o 通过这种形式从 Object.prototype 继承对象
+o.x = 1; // 给 o 定义属性 x
+var p = inherit(o); // p 继承 o 和 Object.prototype
+p.y = 2; // 给 p 定义属性 y
+var q = inherit(p); // q 继承 p、o 和 Object.prototype
+q.x = 3; // 给 q 定义同名属性 x
+var s = q.toString(); // toString 继承自 Object.prototype
+q.x + q.y; // => 3: x 用的是 q 中的自有属性，y 则继承自对象 p
+```
+
+假设现在要给对象 o 的属性 x 赋值，如果 o 中已经有了自有属性 x，则赋值操作就只改变这个自有属性的值。如果 o 中不存在属性 x，则赋值操作就给 o 添加一个新属性 x 并赋值。如果 o 的原型对象中有属性 x，那么在 o 中新建的属性 x 就会覆盖原型对象中的同名属性。
+
+给属性赋值时，首先会检查原型链，确认是否允许赋值。如果 o 继承自一个只读属性 x，则赋值操作是不允许的。如果允许赋值，也总是在原始对象上创建属性或对已有的属性赋值，并不会修改原型链——不会修改原型对象中的同名属性。因此，只有在查询属性时才能体会到继承的存在，设置属性就和继承无关了，这样可以让程序员选择性地覆盖（override）继承的属性。
+
+```javascript
+var unitcircle = { r: 1 }; // 用于继承的对象
+var c = inherit(unitcircle); // c 继承了属性 r
+c.x = 1; c.y = 1; // c 新定义两个属性
+c.r = 2; // c 覆盖了继承来的属性
+unitcircle.r; // => 1: 原型对象未被修改
+```
+
+给属性赋值，有几种可能的结果：要么失败，要么创建一个属性，要么在原始对象中设置属性（TODO: 是指修改原始对象现有属性的值？），只有一种例外：如果 o 继承了属性 x，而属性 x 是一个具有 `setter` 方法的 `accessor` 属性，这时将调用 `setter` 方法，而不会给 o 创建属性 x。注意：调用 `setter` 方法的将是 o，而不是定义这个属性的原型对象；因此，如果 `setter` 方法定义了属性的话，这个定义属性的操作是作用在 o 上的，而不是去修改原型链。
