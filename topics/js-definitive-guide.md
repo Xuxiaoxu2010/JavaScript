@@ -1743,7 +1743,7 @@ var book = {
 
 ### 通过 `new` 创建新对象
 
-关键字 `new` 的后面跟随一个函数调用，用来创建并初始化新对象。这里的函数为构造函数，语言核心中的原始类型都包含构造函数，也可以用自定义的构造函数来初始化新对象。
+关键字 `new` 的后面跟随一个函数调用，用来创建并初始化新对象。这里的函数为构造函数，语言核心中的原始类型都包含构造函数。也可以用自定义的构造函数来初始化新对象。
 
 ```javascript
 var o = new Object(); // 创建一个空对象，和 {} 一样
@@ -1752,4 +1752,10 @@ var d = new Date(); // 创建一个表示当前时间的 Date 对象
 var r = new RegExp("js"); // 创建一个可以进行模式匹配的 RegExp 对象
 ```
 
-## JavaScript 语句小结
+### 原型
+
+在 JavaScript 中，每个对象（除了 null）都和另一个对象相关联——另一个对象就是原型。每个对象都从原型继承属性。
+
+通过对象直接量创建的所有对象具有共同的原型对象，并且可以通过 `Object.prototype` 获得对原型对象的引用。通过关键字 `new` 及构造函数所创建的对象，其原型就是构造函数的 `prototype` 属性的值。所以 `new Object()` 所创建的对象也继承自 `Object.prototype`，`new Array()` 创建的对象其原型就是 `Array.prototype`。
+
+只有少数对象没有原型，包括 `Object.prototype`，它不继承任何属性。其他的原型对象都是普通对象，普通对象都有原型。所有的内置构造函数以及大部分自定义的构造函数，都有一个继承自 `Object.prototype` 的原型，比如 `Date.prototype` 的属性就继承自 `Object.prototype`。因此，由 `new Date()` 创建的 Date 对象的属性，同时继承自 `Date.prototype` 和 `Object.prototype`，这一系列链接起来的原型对象就是所谓的“原型链”（prototype chain）。
