@@ -1876,3 +1876,49 @@ unitcircle.r; // => 1: 原型对象未被修改
 ```
 
 给属性赋值，有几种可能的结果：要么失败，要么创建一个属性，要么在原始对象中设置属性（TODO: 是指修改原始对象现有属性的值？），只有一种例外：如果 o 继承了属性 x，而属性 x 是一个具有 `setter` 方法的 `accessor` 属性，这时将调用 `setter` 方法，而不会给 o 创建属性 x。注意：调用 `setter` 方法的将是 o，而不是定义这个属性的原型对象；因此，如果 `setter` 方法定义了属性的话，这个定义属性的操作是作用在 o 上的，而不是去修改原型链。
+
+### 属性访问错误
+
+本节讲讲查询或设置属性时，一些出错的情况。
+
+先讲讲查询属性：查询不存在的属性时不会报错，在对象的原型链上查找属性而该属性不存在时，就返回 undefined。
+
+```javascript
+book.subtitle; // => undefined: 属性不存在
+```
+
+但是，查询不存在的对象的属性时，就会报错了。null 和 undefined 都没有属性，所以查询它俩的属性就会报错：
+
+```javascript
+var len = book.subtitle.length;
+// 抛出一个类型错误异常，说 undefined 没有 length 属性
+// => TypeError: Cannot read property 'length' of undefined
+```
+
+为了避免出错，可以像下面这两种方法这样查询属性：
+
+```javascript
+// 第一种方法有些罗嗦，但容易看懂
+var len = undefined;
+if (book) {
+    if (book.subtitle) len = book.subtitle.length;
+}
+
+// 第二种方法则比较简练
+var len = book && book.subtitle && book.subtitle.length;
+```
+
+再讲讲设置属性：给 null 和 undefined 设置属性肯定会报类型错误，给只读属性设置值也会报错；但还有些不允许新增属性的对象，对其设置属性时，失败了却不会报错：
+
+```javascript
+// 内置构造函数的原型是只读的
+Object.prototype = 0; // 赋值失败，但没有报错，Object.prototype 没有被修改
+```
+
+这是个历史遗留问题，在 ES5 的严格模式中已经修复了。在严格模式中，任何失败的属性设置操作都会抛出一个类型错误异常。
+
+给对象 o 设置属性 p 会失败的场景总结如下（TODO: 这些先记下来，回头用的时候再弄清楚）：
+
+- o 中的属性 p 是只读的：不能给只读属性重新赋值（`defineProperty()` 方法中有个例外，可以对可配置的只读属性重新赋值）。
+- o 中的属性 p 是继承属性，且是只读的：不能通过同名自有属性覆盖只读的继承属性。
+- o 中不存在自有属性：o 没有使用 setter 方法继承属性 p，并且 o 的可扩展性（entensible attribute）为 false。如果 o 中不存在 p，并且没有 setter 方法可供调用，则 p 一定会添加至 o 中。但如果 o 是不可扩展的，在 o 中就不能定义新属性了。
