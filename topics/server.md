@@ -577,5 +577,44 @@ $ sudo yum update
 首先配置好防火墙。
 
 ```shell
+# 先开启防火墙
 $ sudo systemctl start firewalld
+# 防火墙中允许 SSH 服务，可以从输出结果看到默认已经允许了
+$ sudo firewall-cmd --permanent --add-service=ssh
+Warning: ALREADY_ENABLED: ssh
+success
+# 如果更改了服务器上的SSH端口，可以通过下面的命令在防火墙中添加对应规则，我是没有执行的
+$ sudo firewall-cmd --permanent --remove-service=ssh
+$ sudo firewall-cmd --permanent --add-port=4444/tcp
+# 分别启用HTTP、HTTPS和SMTP服务
+$ sudo firewall-cmd --permanent --add-service=http
+success
+$ sudo firewall-cmd --permanent --add-service=https
+success
+$ sudo firewall-cmd --permanent --add-service=smtp
+success
+# 下面的命令列出能够通过名称在防火墙中启用的服务
+$ sudo firewall-cmd --get-services
+# 下面的命令列出了防火墙当前的规则设置
+$ sudo firewall-cmd --permanent --list-all
+public
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources:
+  services: dhcpv6-client ssh http https smtp
+  ports:
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+# 要使设置生效，还需要重启防火墙
+$ sudo firewall-cmd --reload
+success
+# 最后再让防火墙开机启动
+$ sudo systemctl enable firewalld
+Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service to /usr/lib/systemd/system/firewalld.service.
+Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.
 ```
