@@ -1972,3 +1972,66 @@ this.x; // undefined
 delete x; // => Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.
 delete this.x; // => true
 ```
+
+## 检测属性
+
+JavaScript 中的对象可以看作是属性的集合，检测集合中成员所属关系——判断某个属性是否存在于某个对象中，是很常见的操作，可以通过 `in` 运算符、`hasOwnProperty()` 和 `propertyIsEnumerable()` 来完成这个工作，其实属性查询也可以做到这一点。
+
+前面已经讲过，`in` 运算符用于检查左侧的属性名是否为右侧对象的自有属性或继承属性：
+
+```javascript
+var o = { x: 1 };
+"x" in o; // => true: x 是 o 的属性
+"y" in o; // => false: y 不是 o 的属性
+"toString" in o; // => true: toString 是 o 继承来的属性
+```
+
+对象的 `hasOwnProperty()` 方法则更严格：它检查一个名称是否为对象的**自有**属性：
+
+```javascript
+var o = { x: 1 };
+o.hasOwnProperty('x'); // => true: x 是 o 的自有属性
+o.hasOwnProperty('y'); // => false: y 不是 o 的自有属性
+o.hasOwnProperty('toString'); // => false: toString 是继承属性
+```
+
+`propertyIsEnumerable()` 则又是 `hasOwnProperty()` 的增强版：只有该属性为自有属性，且该属性的可枚举性为 true 时，该方法才返回 true。某些内置属性是不可枚举的，JavaScript 代码创建的属性一般都是可枚举的（除非在 ES5 中用一个特殊方法改变属性的可枚举性）：
+
+```javascript
+var o = inherit({ y: 2 });
+o.x = 1; // => 1
+o.propertyIsEnumerable("x"); // => true: x 是 o 的可枚举的自有属性
+o.propertyIsEnumerable("y"); // => false: y 是继承属性
+Object.prototype.propertyIsEnumerable("toString"); // => false: toString 不可枚举
+```
+
+要判断属性的值是否为 undefined，除了可以使用 `in` 运算符，更简便的方法是使用 `!==` 来判断：
+
+```javascript
+var o = { x: 1 };
+o.x !== undefined; // => true: o 中有属性 x
+o.y !== undefined; // => false: o 中没有属性 y
+o.toString !== undefined; // => true: o 继承了属性 toString
+```
+
+但是，有一种场景只能用 `in` 运算符来判断：就是在区分属性是不存在，还是存在但是值为 undefined：
+
+```javascript
+var o = { x: undefined }; // 显式赋值属性 x 为 undefined
+o.x !== undefined; // => false: 属性存在，但值为 undefined
+o.y !== undefined; // => false: 属性不存在
+"x" in o; // => true: 属性存在
+"y" in o; // => false: 属性不存在
+delete o.x; // => true: 删除了属性 x
+"x" in o; // => false: 属性不再存在
+```
+
+注意：上面的代码用的 `!==` 运算符，而不是 `!=`。`!==` 可以区分 null 和 undefined，但有时候不需要这种区分：
+
+```javascript
+// 如果 o 中含有属性 x，且 x 的值不是 null 或 undefined，o.x 乘以 2
+if (o.x != null) o.x *= 2;
+// 如果 o 中含有属性 x，且 x 的值不能转换为 false，o.x 乘以 2
+// 如果 x 为 undefined、null、false、""、0 或 NaN，则保持不变
+if (o.x) o.x *= 2;
+```
