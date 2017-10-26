@@ -527,7 +527,7 @@ git push --set-upstream blog master
 
 通过轻量应用服务器控制台的 Web 端，远程连接至主机，执行 `sudo su root` 切换至 root 账户，再执行 `yum update`，将所有 packages 更新至最新版，然后执行 `reboot` 重启服务器。
 
-根据这篇文章 [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7) 里的建议，新建一个用户 www 并设置密码，然后赋予执行 `sudo` 命令的权限。
+根据这篇文章 [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7) 里的建议，新建用户 www 并设置密码，然后赋予执行 `sudo` 命令的权限。
 
 ```shell
 $ adduser www
@@ -535,14 +535,14 @@ $ passwd www
 $ gpasswd -a www wheel
 ```
 
-然后在本机生成密钥并复制公钥内容。
+在本机生成密钥并复制公钥内容。
 
 ```shell
 $ ssh-keygen
 $ cat ~/.ssh/id_rsa.pub
 ```
 
-第一条命令在默认情况下，会在当前用户的 `.ssh` 目录下生成密钥文件 `id_rsa` 和公钥文件 `id_rsa.pub`。
+第一条命令在默认情况下，会在当前用户的 `.ssh` 目录下生成私钥文件 `id_rsa` 和公钥文件 `id_rsa.pub`。
 
 将公钥添加到服务器的 www 用户下。
 
@@ -586,7 +586,7 @@ success
 # 如果更改了服务器上的SSH端口，可以通过下面的命令在防火墙中添加对应规则，我是没有执行的
 $ sudo firewall-cmd --permanent --remove-service=ssh
 $ sudo firewall-cmd --permanent --add-port=4444/tcp
-# 分别启用HTTP、HTTPS和SMTP服务
+# 分别允许HTTP、HTTPS和SMTP服务
 $ sudo firewall-cmd --permanent --add-service=http
 success
 $ sudo firewall-cmd --permanent --add-service=https
