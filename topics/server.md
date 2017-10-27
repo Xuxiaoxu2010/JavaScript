@@ -658,6 +658,58 @@ sudo swapon /swapfile
 sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 ```
 
+安装 Node 环境。
+
+```shell
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+$ export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+$ nvm list-remote
+$ nvm install node
+```
+
+安装 Express 框架并新建 blog 文件夹用于保存项目。
+
+```shell
+$ npm install -g express
+$ npm install -g express-generator
+$ express -v ejs blog
+$ cd blog && npm install
+```
+
+配置 Nginx。
+
+```shell
+$ sudo yum install epel-release
+$ sudo yum install nginx
+$ sudo systemctl start nginx
+$ sudo systemctl enable nginx
+```
+
+然后在浏览器中访问服务器的IP或者域名，如果显示 Nginx 相关的提示信息，说明运行成功。
+
+配置 Nginx 映射网站目录。
+
+```shell
+$ sudo vi /etc/nginx/nginx.conf
+# 然后将 location / 字段修改为如下内容
+        location / {
+                proxy_pass http://localhost:3000;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+        }
+```
+
+Nginx 的几个重要路径：
+
+- 默认的服务器根目录：`/usr/share/nginx/html`，这个默认路径要去 `/etc/nginx/conf.d/default.conf` 这个配置文件中修改。
+- Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/conf.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
+- Nginx 的全局配置文件：该文件路径为 `/etc/nginx/nginx.conf`。
+
 备注：
 
 为了了解 CentOS 的内存占用，看了这篇文章：[Linux Used内存到底哪里去了？](http://blog.yufeng.info/archives/2456)。
