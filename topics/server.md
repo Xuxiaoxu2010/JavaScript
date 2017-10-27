@@ -618,3 +618,70 @@ $ sudo systemctl enable firewalld
 Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service to /usr/lib/systemd/system/firewalld.service.
 Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.
 ```
+
+然后再配置服务器的时间。
+
+```shell
+# 列出所有可用的时区
+$ sudo timedatectl list-timezones
+# 然后设置服务器要使用的时区/区域
+sudo timedatectl set-timezone Asia/Shanghai
+# 最后查看时区的设置结果
+$ sudo timedatectl
+      Local time: Fri 2017-10-27 21:56:31 CST
+  Universal time: Fri 2017-10-27 13:56:31 UTC
+        RTC time: Fri 2017-10-27 21:56:30
+       Time zone: Asia/Shanghai (CST, +0800)
+     NTP enabled: no
+NTP synchronized: yes
+ RTC in local TZ: yes
+      DST active: n/a
+
+# 接着配置 NTP 同步
+$ sudo yum install ntp
+$ sudo systemctl start ntpd
+$ sudo systemctl enable ntpd
+```
+
+还要配置 Swap 文件。
+
+```shell
+# 小主机内存只有1G，所以创建2G的交换文件
+sudo fallocate -l 2G /swapfile
+# 限制其它用户或进程对该交换文件的权限
+sudo chmod 600 /swapfile
+# 让系统格式化该文件
+sudo mkswap /swapfile
+# 启用交换文件
+sudo swapon /swapfile
+# 每次启动时自动启用交换文件
+sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
+```
+
+备注：
+
+为了了解 CentOS 的内存占用，看了这篇文章：[Linux Used内存到底哪里去了？](http://blog.yufeng.info/archives/2456)。
+
+里面还提到了 `nmon` 这个工具非常好用，于是按照 [Install NMON](https://gist.github.com/sebkouba/f2a982ea1c2b658574dcc3da8de09de6) 中的方法，安装到了 CentOS 上。
+
+```shell
+# Get Root
+sudo su
+
+# Download NMON archive
+cd /tmp
+wget http://sourceforge.net/projects/nmon/files/nmon16e_mpginc.tar.gz
+
+# Untar archive
+tar -xzvf nmon16e_mpginc.tar.gz
+
+# Copy nmon file
+cp nmon_x86_64_centos7 /usr/local/bin/
+chmod a+x /usr/local/bin/nmon_x86_64_centos7
+
+# Create symbolic link
+ln -s /usr/local/bin/nmon_x86_64_centos7 /usr/local/bin/nmon
+
+# tidy up tmp
+rm -f nmon_*
+```
