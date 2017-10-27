@@ -1884,13 +1884,13 @@ unitcircle.r; // => 1: 原型对象未被修改
 
 本节讲讲查询或设置属性时，一些出错的情况。
 
-先讲讲查询属性：查询不存在的属性时不会报错，在对象的原型链上查找属性而该属性不存在时，就返回 undefined。
+先讲讲查询属性：查询不存在的属性时不会报错，在对象的原型链上查找不存在的属性时，返回 undefined。
 
 ```javascript
 book.subtitle; // => undefined: 属性不存在
 ```
 
-但是，查询不存在的对象的属性时，就会报错了。null 和 undefined 都没有属性，所以查询它俩的属性就会报错：
+但是，查询一个不存在的对象的属性时，就会报错了。null 和 undefined 都没有属性，所以查询它俩的属性就会报错：
 
 ```javascript
 var len = book.subtitle.length;
@@ -1898,17 +1898,23 @@ var len = book.subtitle.length;
 // => TypeError: Cannot read property 'length' of undefined
 ```
 
-为了避免出错，可以像下面这两种方法这样查询属性：
+为了避免出错，可以用下面两种方法查询属性：
 
 ```javascript
 // 第一种方法有些罗嗦，但容易看懂
 var len = undefined;
 if (book) {
     if (book.subtitle) len = book.subtitle.length;
+} else {
+    // Do something...
 }
+// ↑↑↑ 注意：book 对象不存在时，这样的代码还是会报错
+// Uncaught ReferenceError: book is not defined
+// 所以要用 try...catch 之类的错误处理语句进行处理
 
 // 第二种方法则比较简练
 var len = book && book.subtitle && book.subtitle.length;
+//问题同上
 ```
 
 再讲讲设置属性：给 null 和 undefined 设置属性肯定会报类型错误，给只读属性设置值也会报错；但还有些不允许新增属性的对象，对其设置属性时，失败了却不会报错：
@@ -1920,7 +1926,7 @@ Object.prototype = 0; // 赋值失败，但没有报错，Object.prototype 没�
 
 这是个历史遗留问题，在 ES5 的严格模式中已经修复了。在严格模式中，任何失败的属性设置操作都会抛出一个类型错误异常。
 
-给对象 o 设置属性 p 会失败的场景总结如下（TODO: 这些先记下来，回头用的时候再弄清楚）：
+给对象 o 设置属性 p 时，会失败的场景总结如下（TODO: 这些先记下来，回头用的时候再弄清楚）：
 
 - o 中的属性 p 是只读的：不能给只读属性重新赋值（`defineProperty()` 方法中有个例外，可以对可配置的只读属性重新赋值）。
 - o 中的属性 p 是继承属性，且是只读的：不能通过同名自有属性覆盖只读的继承属性。
@@ -1928,7 +1934,7 @@ Object.prototype = 0; // 赋值失败，但没有报错，Object.prototype 没�
 
 ## 删除属性
 
-`delete` 运算符可以删除对象的属性，但本质上只是断开属性和宿舍对象的关系，其实并不是将对象的属性从内存中删除。
+`delete` 运算符可以删除对象的属性，但本质上只是断开属性和所属对象的关系，其实并不是将对象的属性从内存中删除。
 
 ```javascript
 a = { p: { x: 1 } };
@@ -1937,7 +1943,7 @@ delete a.p;
 b.x; // => 1
 ```
 
-由于已经删除的属性的引用依然存在，所以如果代码写得不严谨，就容易造成内存泄漏。所以，在销毁对象的时候，要遍历属性中的属性，依次删除。
+由于已经删除的属性的引用依然存在，所以如果代码写得不严谨，就容易造成内存泄漏。因此，在销毁对象的时候，要遍历属性中的属性，依次删除。
 
 另外，`delete` 运算符只能删除自有属性，不能删除继承属性（只能从定义这个属性的原型对象上删除这个继承属性，而且这样会影响到所有继承自这个原型的对象）。
 
@@ -1951,7 +1957,7 @@ delete o.toString; // 什么都没做（不能删除继承属性）
 delete 1; // 无意义
 ```
 
-`delete` 也不能删除可配置性为 false 的属性（但可以删除不可扩展对象的可配置属性）。某些内置对象的属性就是不可配置的，比如通过变量声明和函数声明创建的全局对象的属性。在严格模式中，删除一个不可配置的属性会报类型错误。在非严格模式中，这类的 `delete` 操作会返回 false：
+`delete` 不能删除可配置性为 false 的属性（但可以删除不可扩展对象的可配置属性）。某些内置对象的属性就是不可配置的，比如通过变量声明和函数声明创建的全局对象的属性。在严格模式中，删除一个不可配置的属性会报类型错误。在非严格模式中，这类的 `delete` 操作会返回 false：
 
 ```javascript
 delete Object.prototype; // => false: 不能删除，属性不可配置
@@ -1969,7 +1975,7 @@ delete x; // true
 this.x; // undefined
 ```
 
-但是在非严格模式中这样删除会报语法错误，必须显示指定对象及其属性：
+但是在非严格模式中这样删除会报语法错误，必须显式指定对象及其属性：
 
 ```javascript
 delete x; // => Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.
@@ -1977,6 +1983,12 @@ delete this.x; // => true
 ```
 
 ## 检测属性
+
+一句话概括：
+
+- `in`：是属性就行（自有或继承）
+- `hasOwnProperty`：必须是自有（继承就不行）
+- `propertyIsEnumerable`：自有且可枚举
 
 JavaScript 中的对象可以看作是属性的集合，检测集合中成员所属关系——也就是判断某个属性是否存在于某个对象中，是很常见的操作，可以通过 `in` 运算符、`hasOwnProperty()` 和 `propertyIsEnumerable()` 来完成这个工作，其实属性查询也可以做到这一点。
 
@@ -1998,7 +2010,7 @@ o.hasOwnProperty('y'); // => false: y 不是 o 的自有属性
 o.hasOwnProperty('toString'); // => false: toString 是继承属性
 ```
 
-`propertyIsEnumerable()` 则又是 `hasOwnProperty()` 的增强版：只有该属性为自有属性，且该属性的可枚举性为 true 时，该方法才返回 true。某些内置属性是不可枚举的，JavaScript 代码创建的属性一般都是可枚举的（除非在 ES5 中用一个特殊方法改变属性的可枚举性）：
+`propertyIsEnumerable()` 则又是 `hasOwnProperty()` 的增强版：只有该属性为自有属性，且该属性的可枚举性为 true 时，该方法才返回 true。某些内置属性是不可枚举的，不过 JavaScript 代码创建的属性一般都是可枚举的（除非在 ES5 中用一个特殊方法改变了属性的可枚举性）：
 
 ```javascript
 var o = inherit({ y: 2 });
@@ -2017,7 +2029,7 @@ o.y !== undefined; // => false: o 中没有属性 y
 o.toString !== undefined; // => true: o 继承了属性 toString
 ```
 
-但是，有一种场景只能用 `in` 运算符来判断：就是在区分属性是不存在，还是存在但是值为 undefined：
+但是，有一种场景只能用 `in` 运算符来判断：就是需要区分属性究竟是不存在，还是存在但是值为 undefined 的情况：
 
 ```javascript
 var o = { x: undefined }; // 显式赋值属性 x 为 undefined
@@ -2029,7 +2041,7 @@ delete o.x; // => true: 删除了属性 x
 "x" in o; // => false: 属性不再存在
 ```
 
-注意：上面的代码用的 `!==` 运算符，而不是 `!=`。`!==` 可以区分 null 和 undefined，但有时候不需要这种区分：
+注意：上面的代码用的是 `!==` 运算符，而不是 `!=`。`!==` 可以区分 null 和 undefined，但有时候不需要这种区分，可以用 `!=` 或者直接什么都不用：
 
 ```javascript
 // 如果 o 中含有属性 x，且 x 的值不是 null 或 undefined，o.x 乘以 2
@@ -2040,6 +2052,12 @@ if (o.x) o.x *= 2;
 ```
 
 ## 枚举属性
+
+一句话概括：
+
+- `for/in`：只需可枚举（自有或继承）
+- `Object.keys()`：可枚举+自有
+- `Object.getOwnPropertyNames()`：只需自有（包含不可枚举的）
 
 前面提到过的 `for/in` 循环，可以遍历对象所有**可枚举的**属性（包括自有属性和继承属性），然后将**属性名称**赋值给循环变量。对象继承来的内置方法不可枚举，而在代码中给对象添加的属性都是可枚举的（也有例外）：
 
