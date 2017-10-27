@@ -13,26 +13,26 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
 
 ### 区分大小写
 
-```js
+```javascript
 var a = 0;
 var A = 1;
 ```
 
 ### Unicode 转义序列
 
-```js
+```javascript
 "café" === "caf\u00e9" // => true: \u00e9 的含义见下面“字符串”一节中的“字符集和内码”这一小节
 ```
 
 ### 标准化
 
-```js
+```javascript
 "caf\u00e9".normalize() // => "café": 返回标准化的 Unicode 字符串
 ```
 
 ## 注释
 
-```js
+```javascript
 //  单行注释
 /* 注释段 */ // 另一个注释段
 
@@ -43,7 +43,7 @@ var A = 1;
 
 ## 直接量
 
-```js
+```javascript
 12 // 数字
 1.2 // 小数
 "hello js" // 字符串
@@ -57,7 +57,7 @@ a = { x: 1, y: 2 }; // 对象
 
 ## 标识符和保留字
 
-```js
+```javascript
 // 下面的都是合法的标识符
 i
 my_variable_name
@@ -68,7 +68,7 @@ sí
 π
 ```
 
-```js
+```javascript
 // 以下是各类保留字
 break
 null
@@ -90,7 +90,7 @@ eval
 
 ## 可选的分号
 
-```js
+```javascript
 var a
 a
 =
@@ -134,7 +134,7 @@ var err = new Error();
 
 JavaScript 是面向对象语言。
 
-```js
+```javascript
 sort(a); // 结构化编程语言，只能这样对数组排序
 a.sort(); // 面向对象语言，调用数组的方法即可
 ```
@@ -965,7 +965,7 @@ a[0].x // => 1: 表达式 a[0] 的属性 x
 
 - 虽然用标识符访问属性的写法更简单，但这种写法只适用于属性名是合法标识符，并且已经知道属性名的情况。
 - 如果属性名是保留字或者包含空格和标点符号，或者是数字（对于数组而言），就必须使用方括号。
-- 属性名不是固定值而是计算得出的值，也必须用方括号。
+- 如果属性名不是固定值而是计算得出的值，也必须用方括号。
 
 ## 调用表达式
 
@@ -1289,6 +1289,7 @@ function copy(o, p) {
 
 ```javascript
 i = j = k = 0;
+i++ = ++j = 0; // 自增表达式不能作为左值
 ```
 
 ### 带操作的赋值运算
@@ -1787,7 +1788,7 @@ var o3 = Object.create(Object.prototype); // 和 {} 及 new Object() 一样
 还可以通过任意原型创建新对象（也就是可以使任意对象可继承），下面的代码就模拟了原型继承：
 
 ```javascript
-// TODO: 没太看明白……
+// TODO: 为什么是让一个空构造函数的原型为p？而不是让一个空对象原型为p？这是用构造函数新建对象的方式？
 function inherit(p) {
     if (p == null) throw TypeError(); // p必须是非null的对象
     if (Object.create) return Object.create(p); // 该方法存在时，则直接使用
@@ -1830,9 +1831,11 @@ book["main title"] = "ECMAScript"; // 设置 book 的 "main title" 属性
 
 而用方括号 `[]` 来访问对象属性时，此时的属性名为字符串，字符串又是 JavaScript 的数据类型，所以在程序运行时可以修改或创建它们。假设要给 `portfolio` 这个对象动态添加新的属性——股票，就可以用 `[]` 运算符来实现：
 
+```javascript
 function addstock(portfolio, stockname, shares) {
     portfolio[stockname] = shares;
 }
+```
 
 再结合 `for/in` 循环，就可以很方便地遍历关联数组（对象）了：
 
@@ -1975,7 +1978,7 @@ delete this.x; // => true
 
 ## 检测属性
 
-JavaScript 中的对象可以看作是属性的集合，检测集合中成员所属关系——判断某个属性是否存在于某个对象中，是很常见的操作，可以通过 `in` 运算符、`hasOwnProperty()` 和 `propertyIsEnumerable()` 来完成这个工作，其实属性查询也可以做到这一点。
+JavaScript 中的对象可以看作是属性的集合，检测集合中成员所属关系——也就是判断某个属性是否存在于某个对象中，是很常见的操作，可以通过 `in` 运算符、`hasOwnProperty()` 和 `propertyIsEnumerable()` 来完成这个工作，其实属性查询也可以做到这一点。
 
 前面已经讲过，`in` 运算符用于检查左侧的属性名是否为右侧对象的自有属性或继承属性：
 
@@ -2035,3 +2038,87 @@ if (o.x != null) o.x *= 2;
 // 如果 x 为 undefined、null、false、""、0 或 NaN，则保持不变
 if (o.x) o.x *= 2;
 ```
+
+## 枚举属性
+
+前面提到过的 `for/in` 循环，可以遍历对象所有**可枚举的**属性（包括自有属性和继承属性），然后将**属性名称**赋值给循环变量。对象继承来的内置方法不可枚举，而在代码中给对象添加的属性都是可枚举的（也有例外）：
+
+```javascript
+var o = { x: 1, y: 2, z: 3 }; // 三个可枚举的自有属性
+o.propertyIsEnumerable('toString'); // => false: 继承来的内置方法，不可枚举
+for (p in o) console.log(p); // => x y z: 只输出可枚举的属性
+```
+
+许多实用工具库都向 `Object.prototype` 中添加了各种方法或属性，这些方法和属性可以被所有对象继承并使用。但是在 ES5 标准之前，添加的这些方法和属性无法设置为不可枚举，所以会在 `for/in` 循环中枚举出来，而用户其实不需要把这些方法或属性枚举出来。所以为了避免买这种情况，就需要过滤 `for/in` 循环返回的属性，下面列出两种过滤不需要的属性的最常见的方式：
+
+```javascript
+for (p in o) {
+    if (!o.hasOwnProperty(p)) continue; // 跳过继承的属性
+}
+for (p in o) {
+    if (typeof o[p] === 'function') continue; // 跳过方法
+}
+```
+
+下面的代码定义了一些实用的工具函数来操控对象的属性，这些函数都用到了 `for/in` 循环。其中的 `extend()` 函数实际上经常出现在 JavaScript 的实用工具库中。
+
+```javascript
+// 把 p 中的可枚举属性复制/扩展到 o 中并返回 o
+// p 会覆盖 o 中的同名属性
+// 但不会处理 getter 和 setter 以及复制属性: TODO: 这里需要看了后面的相关知识才能弄明白……
+function extend(o, p) {
+    for (prop in p) { // 遍历 p 中所有可枚举属性
+        o[prop] = p[prop]; // 将属性添加至 o 中
+    }
+    return o;
+}
+
+// 把 p 中的可枚举属性复制/合并到 o 中并返回 o
+// p 不会覆盖 o 中的同名属性
+// 并且不会处理 getter 和 setter 以及复制属性
+function merge(o, p) {
+    for (prop in p) { // 遍历 p 中所有可枚举属性
+        if (o.hasOwnProperty[prop]) continue; // 过滤掉已经存在于 o 中的属性
+        o[prop] = p[prop]; // 将属性添加至 o 中
+    }
+    return o;
+}
+
+// 删除 o 独有的属性，并返回 o
+function restrict(o, p) {
+    for (prop in o) { // 遍历 p 中所有可枚举属性
+        if (!(prop in p)) delete o[prop]; // 不存在于 p 中的话就删除
+    }
+    return o;
+}
+
+// 从 o 中删除 p 中也有的同名属性，并返回 o
+function subtract(o, p) {
+    for (prop in p) { // 遍历 p 中所有可枚举属性
+        delete o[prop]; // 从 o 中删除（删除不存在的属性也不会报错）
+    }
+    return o;
+}
+
+// 返回一个同时拥有 o 和 p 的属性的新对象
+// 对于重名属性，用 p 中的属性值
+function union(o, p) { return extend(extend({}, o), p); }
+
+
+// 返回一个对象，拥有 o 和 p 的同名属性，采用 o 中的属性值
+function intersection(o, p) { return restrict(extend({}, o), p); }
+
+// 返回一个数组，包含 o 中可枚举的自有属性的名称
+function keys(o) {
+    if (typeof o !== 'object') throw TypeError(); // 参数必须是对象
+    var result = []; // 保存属性名称的数组
+    for (var prop in o) {
+        if (o.hasOwnProperty(prop)) result.push(prop); // 只添加可枚举的自有属性
+    }
+    return result;
+}
+```
+
+遍历属性的方法，除了 `for/in` 循环，还有 ES5 所定义的两个函数：`Object.keys()` 返回一个数组，元素为对象中**可枚举的自有属性**，工作原理和上面代码中的工具函数 `keys()` 类似。
+
+还有一个函数是 `Object.getOwnPropertyNames()`，它和 `Object.keys()` 类似，只不过返回的是**所有的自有属性**的名称，包括那些不可枚举的属性。
