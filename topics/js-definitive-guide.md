@@ -2140,3 +2140,101 @@ function keys(o) {
 遍历属性的方法，除了 `for/in` 循环，还有 ES5 所定义的两个函数：`Object.keys()` 返回一个数组，元素为对象中**可枚举的自有属性**，工作原理和上面代码中的工具函数 `keys()` 类似。
 
 还有一个函数是 `Object.getOwnPropertyNames()`，它和 `Object.keys()` 类似，只不过返回的是**所有的自有属性**的名称，包括那些不可枚举的属性。
+
+## 属性 `getter` 和 `setter`
+
+对象的属性，是由名字、值和一组特性（attribute）组成的，而在 ES5 中，属性的值可以用两个方法替代：`getter` 和 `setter`。这两个方法定义的属性称为“存取器属性”（accessor property），和前面所讲的“数据属性”（data attribute）不一样——数据属性只有一个简单的值。
+
+程序在**查询**存取器属性的值的时候，就会不带参数地调用 `getter` 方法，其返回值就是属性存取表达式的值。程序在**设置**存取器属性的值的时候，就会调用 `setter` 方法，将赋值表达式右侧的值当作参数传入 `setter`——可以将这个方法看作是在负责“设置”属性的值。`setter` 方法的返回值可以忽略。
+
+存取器属性和数据属性不一样，存取器属性不具有可写性（writable attribute）。同时具有 `getter` 和 `setter` 方法的属性是读/写属性，只有 `getter` 方法的是只读属性，只有 `setter` 方法的则是只写属性，读取只写属性会得到 undefined。
+
+可以用对象直接量语法的一种扩展写法来定义存取器属性：
+
+```javascript
+var o = {
+    data_prop: value, // 普通的数据属性
+
+    // 存取器属性都是成对定义的函数
+    get accessor_prop() { /* 函数体 */ },
+    set accessor_prop(value)  { /* 函数体 */ },
+};
+```
+
+`getter` 和 `setter` 函数的函数名必须相同，用关键字 `get` 及 `set` 而不是 `function` 来定义，且 `getter` 方法和 `setter` 方法之间需要用逗号分隔开。
+
+```javascript
+var p = {
+    // x 和 y 是普通的可读写的数据属性
+    x: 1.0,
+    y: 1.0,
+
+    // r 是可读写的存取器属性，同时有 getter 和 setter
+    // 如果函数体之后还有别的属性定义，函数体后面要带逗号
+    get r() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    },
+    set r(newValue) {
+        var oldValue = Math.sqrt(this.x * this.x + this.y * this.y);
+        var ratio = newValue / oldValue;
+        this.x *= ratio;
+        this.y *= ratio;
+    },
+
+    // theta 是只读存取器属性，只有 getter 方法
+    get theta() {
+        return Math.atan2(this.y, this.x);
+    }
+};
+```
+
+注意上面代码中，`getter` 和 `setter` 里 `this` 关键字的用法：JavaScript 是把这些（存取器属性中定义的）函数当作对象的方法来调用的，所以在函数体内的 `this` 指向的是表示这个点的对象。因此，属性 `r` 的 `getter` 方法可以通过 `this.x` 这样的格式引用对象中的属性。
+
+另外，这段代码使用存取器属性定义 API，提供了表示同一组数据的两种方法（笛卡尔座标系和极座标系表示法）。
+
+存取器属性和数据属性一样是可继承的，因此上面代码中的对象 p 可以是另一个“点”的原型。以 p 为原型定义一个新对象的话，可以给新对象重新定义属性 x 和 y，然后继承属性 r 和 theta：
+
+```javascript
+var q = inherit(p); // 创建一个继承了 getter 和 setter 的新对象
+q.x = 1, q.y = 1, // 给 q 添加两个自有属性，覆盖了原型中的同名属性
+console.log(q.r); // 使用继承来的存取器属性中的 getter 方法
+console.log(q.theta);
+```
+
+还有很多场景可以用到存取器属性，比如智能检测属性的写入值，以及在每次属性读取时返回不同的值：
+
+```javascript
+// 该对象产生严格自增的序列号
+var serialNum = {
+    // 该数据属性包含下一个序列号
+    // $ 符号暗示该属性为私有属性
+    $n: 0,
+
+    // 返回当前值，然后自增
+    get next() { return this.$n++; },
+
+    // 设置 $n 的新值，但只有大于等于当前值时才成功
+    set next(n) {
+        if (n >= this.$n) this.$n = n;
+        else throw '序列号的值不能比当前值小';
+    }
+};
+```
+
+最后再看一个例子，它使用 `getter` 方法实现一种“神奇”的属性：
+
+```javascript
+// 该对象有一个可以返回随机数的存取器属性
+// 比如表达式 random.octet 会产生一个在 0~255 之间的随机数
+var random = {
+    get octet() = {
+        return Math.floor(Math.random() * 256);
+    },
+    get uint16() {
+        return Math.floor(Math.random() * 65536);
+    },
+    get int16() {
+        return Math.floor(Math.random() * 65536) - 32768;
+    }
+}
+```
