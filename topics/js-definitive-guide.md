@@ -2227,7 +2227,7 @@ var serialNum = {
 // 该对象有一个可以返回随机数的存取器属性
 // 比如表达式 random.octet 会产生一个在 0~255 之间的随机数
 var random = {
-    get octet() = {
+    get octet() {
         return Math.floor(Math.random() * 256);
     },
     get uint16() {
@@ -2237,4 +2237,57 @@ var random = {
         return Math.floor(Math.random() * 65536) - 32768;
     }
 }
+```
+
+## 属性的特性
+
+| 数据属性 | 存取器属性 |
+| -- | -- |
+| 值 value | 读取 get |
+| 可写性 writable | 写入 set |
+| 可枚举性 enumerable | 可枚举性 enumerable |
+| 可配置性 configurable | 可配置性 configurable |
+
+上表中列出的是数据属性和存取器属性各自的四个特性，为了查询/设置属性的特性，ES5 中定义了“属性描述符”（property descriptor）这个对象，该对象代表那四个特性，且描述符对象的属性和它们所描述的属性特性是同名的。所以，数据属性的描述符对象，包含 `value`、`writable`、`enumerable` 和 `configurable` 这四个属性，存取器属性的描述符对象，则包含 `get`、`set`、`enumerable` 和 `configurable` 这四个属性，其中 `writable`、`enumerable` 和 `configurable` 都是布尔值，而 `get` 和 `set` 则是函数值。
+
+`Object.getOwnPropertyDescirptor()` 可以获取某个对象特定属性的属性描述符：
+
+```javascript
+Object.getOwnPropertyDescriptor({ x: 1}, 'x');
+// => {value: 1, writable: true, enumerable: true, configurable: true}
+// 查询前面定义的 random 对象的 octet 属性
+Object.getOwnPropertyDescriptor(random, 'octet');
+// => {set: undefined, enumerable: true, configurable: true, get: ƒ}
+// 查询继承属性或不存在的属性时返回 undefined
+Object.getOwnPropertyDescriptor({}, 'x');
+// => undefined
+Object.getOwnPropertyDescriptor({}, 'toString');
+// => undefined
+```
+
+`Object.getOwnPropertyDescirptor()` 只能得到对象自有属性的描述符，要想获取继承属性的特性，就需要遍历原型链了。
+
+要设置属性的特性，或者想让新建属性具有某种特性，就要用 `Object.defineProperty()`：
+
+```javascript
+var o = {}; // 创建一个空对象
+// 添加一个不可枚举的数据属性，并赋值为 1
+Object.defineProperty(o, 'x', { value: 1, writable: true, enumerable: false, configurable: true});
+
+// 属性存在，但不可枚举
+o.x; // => 1
+Object.keys(o); // => []
+
+// 让属性变为只读
+Object.defineProperty(o, 'x', { writable: false });
+o.x = 2; // => 2
+o.x; // => 1
+
+// 虽然是只读，但是可配置，所以依然可以用 Object.defineProperty 修改属性的值
+Object.defineProperty(o, 'x', { value: 3 });
+o.x; // => 3
+
+// 将 x 从数据属性更改为存取器属性
+Object.defineProperty(o, 'x', { get: function() { return 0; }});
+o.x; // => 0
 ```
