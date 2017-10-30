@@ -2250,7 +2250,7 @@ var random = {
 
 上表中列出的是数据属性和存取器属性各自的四个特性，为了查询/设置属性的特性，ES5 中定义了“属性描述符”（property descriptor）这个对象，该对象代表那四个特性，且描述符对象的属性和它们所描述的属性特性是同名的。所以，数据属性的描述符对象，包含 `value`、`writable`、`enumerable` 和 `configurable` 这四个属性，存取器属性的描述符对象，则包含 `get`、`set`、`enumerable` 和 `configurable` 这四个属性，其中 `writable`、`enumerable` 和 `configurable` 都是布尔值，而 `get` 和 `set` 则是函数值。
 
-`Object.getOwnPropertyDescirptor()` 可以获取某个对象特定属性的属性描述符：
+`Object.getOwnPropertyDescriptor()` 可以获取某个对象特定属性的属性描述符：
 
 ```javascript
 Object.getOwnPropertyDescriptor({ x: 1}, 'x');
@@ -2265,7 +2265,7 @@ Object.getOwnPropertyDescriptor({}, 'toString');
 // => undefined
 ```
 
-`Object.getOwnPropertyDescirptor()` 只能得到对象自有属性的描述符，要想获取继承属性的特性，就需要遍历原型链了。
+`Object.getOwnPropertyDescriptor()` 只能得到对象自有属性的描述符，要想获取继承属性的特性，就需要遍历原型链了。
 
 要设置属性的特性，或者想让新建属性具有某种特性，就要用 `Object.defineProperty()`：
 
@@ -2290,4 +2290,62 @@ o.x; // => 3
 // 将 x 从数据属性更改为存取器属性
 Object.defineProperty(o, 'x', { get: function() { return 0; }});
 o.x; // => 0
+```
+
+传入 `Object.defineProperty()` 的属性描述符对象，不需要包含所有四个属性，就像上面的代码那样，包含至少一个属性就可以了。新创建的属性，其默认的特性值是 `false` 或 `undefined`。修改已有属性时，不会修改默认的特性值。该方法不能修改继承属性，只能修改已有属性或新建自有属性。
+
+要同时修改或创建多个对象时，就要用该方法的复数形式——`Object.defineProperties()`——第一个参数是所要修改的对象，第二个参数是个映射表：包含所要修改/新建的属性的名称，及各属性的属性描述符：
+
+```javascript
+var p = Object.defineProperties({}, {
+    x: { value: 1, writable: true, enumerable: true, configurable: true },
+    y: { value: 1, writable: true, enumerable: true, configurable: true },
+    r: {
+        get: function() { return Math.sqrt(this.x * this.x + this.y * this.y)},
+        enumerable: true,
+        configurable: true
+    }
+});
+```
+
+上面这段代码给一个空对象添加了两个数据属性和一个只读存取器属性，然后将修改后的对象返回给变量 p。
+
+对于不允许被创建或修改的属性来说，用 `Object.defineProperty()` 或其复数形式对其进行操作（新建或修改）就会抛出类型错误异常，比如给不可扩展的对象新增属性时。这些方法抛出类型错误异常的其它原因则和特性本身相关，以下是完整的规则，违反规则使用 `Object.defineProperty()` 或其复数形式都会抛出类型错误异常：
+
+- 对于不可扩展对象，可编辑已有的自有属性，但不可新增属性。
+- 对于不可配置属性，不能修改可配置性和可枚举性。
+- 对于不可配置的存取器属性，不能修改其 `getter` 和 `setter` 方法，也不能将其转换为数据属性。
+- 对于不可配置的数据属性，不能将其转换为存取器属性。
+- 对于不可配置的数据属性，不能将其可写性从 `false` 修改为 `true`，但可以从 `true` 修改为 `false`。
+- 对于不可配置且不可写的数据属性，不能修改它的值。但可配置不可写的属性的值是可以修改的（其实是先将其标记为可写的，然后修改值，再标记成不可写的）。
+
+**枚举属性**这一节中的 `extend()` 函数，把一个对象的属性复制到另一个对象中，但只是简单地复制属性名和值，没有复制属性的特性，也没有复制存取器属性的 `getter` 和 `setter` 方法，只是简单地将其转换为静态的数据属性。下面的代码则给出了改进的 `extend()` 方法，使用 `Object.getOwnPropertyDescriptor()` 和 `Object.defineProperty()` 对属性的所有特性进行复制。改进后的方法作为不可枚举属性被添加到 `Object.prototype` 中，因此它是在 `Object` 上定义的新方法，并不是一个独立的函数。
+
+```javascript
+// （TODO: 没太看懂……）
+// 给 Object.prototype 添加一个不可枚举的 extend() 方法
+// 该方法继承自调用它的对象，将作为参数传入的对象的属性逐一进行复制
+// 不仅复制值，也复制属性的所有特性，除非在目标对象中存在同名属性
+// 参数对象的所有自有对象（自有属性？）（包括不可枚举的属性）也会被逐一复制
+Object.defineProperty(Object.prototype, 'extend',
+    {
+        writable: true,
+        enumerable: false,
+        configurable: true,
+        value: function(o) { // 值就是这个函数
+            // 得到所有的自有属性，包括不可枚举属性
+            var names = Object.getOwnPropertyNames(o);
+            // 遍历这些属性
+            for (var i = 0; i < names.length; i++) {
+                // 如果属性已存在，则跳过
+                if (names[i] in this) continue;
+                // 获得 o 中的属性描述符
+                var desc = Object.getOwnPropertyDescriptor(o, names[i]);
+                // 用它给 this 创建一个属性
+                Object.defineProperty(this, names[i], desc);
+            }
+        }
+    });
+// TODO: 执行这段代码之后，定义一个对象 p，然后执行 Object.extend(p)，再查看 Object.prototype 的属性，没有发现 p 中的属性；再执行 Object.prototype.extend(p)，则直接是 jQuery 的报错信息了，是在百度的首页环境下，在浏览器控制台中测试的
+// TODO: 所以上面代码中的 this 究竟指的是什么？又将传入参数的对象的属性，复制到什么地方去了？
 ```
