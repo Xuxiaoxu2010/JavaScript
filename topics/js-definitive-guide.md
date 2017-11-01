@@ -2349,3 +2349,9 @@ Object.defineProperty(Object.prototype, 'extend',
 // TODO: 执行这段代码之后，定义一个对象 p，然后执行 Object.extend(p)，再查看 Object.prototype 的属性，没有发现 p 中的属性；再执行 Object.prototype.extend(p)，则直接是 jQuery 的报错信息了，是在百度的首页环境下，在浏览器控制台中测试的
 // TODO: 所以上面代码中的 this 究竟指的是什么？又将传入参数的对象的属性，复制到什么地方去了？
 ```
+
+### getter 和 setter 的老式 API
+
+对象直接量语法可以给新对象定义存取器属性，但无法查询属性的 `getter` 和 `setter` 方法，或给已有的对象添加新的存取器属性。ES5 中可以通过 `Object.getOwnPropertyDescriptor()` 和 `Object.defineProperty()` 来完成这些工作，但是在 ES5 发布之前，各大浏览器是如何实现这些功能的呢？其实在 ES5 标准被采纳之前，大多数的 JavaScript 的实现（IE 除外）就已经可以支持对象直接量语法中的 `get` 和 `set` 写法了，这些实现提供了非标准的老式 API 来查询和设置 `getter` 和 `setter`，这些 API 由四个方法组成，所有对象都有这些方法：`__lookupGetter__()` 和 `__lookupSetter__()` 用来返回一个命名属性的 `getter` 和 `setter` 方法，`__defineGetter__()` 和 `__defineSetter__()` 则用来定义 `getter` 和 `setter`。前后的两条下划线，用来表明它们是非标准的方法。
+
+## 对象的三个属性
