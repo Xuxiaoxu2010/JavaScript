@@ -70,7 +70,7 @@ Starting server ...
 Serving book on http://localhost:4000
 ```
 
-由于服务器上安装了 Nginx，所以需要配置 Nginx，使其将本地的 4000 端口映射至域名的指定路径下。配置方法用的是 [Gitbook 使用 Nginx 做為 Proxy](https://cowmanchiang.me/gitbook/gitbook/contents/proxy.html) 这篇文章中所展示的代码。
+由于服务器上安装了 Nginx，所以需要配置 Nginx，使其将本地的 4000 端口映射至域名的指定路径下，这样外网才能访问服务器上运行的 GitBook。配置方法用的是 [Gitbook 使用 Nginx 做為 Proxy](https://cowmanchiang.me/gitbook/gitbook/contents/proxy.html) 这篇文章中所展示的代码。
 
 ```shell
 $ sudo vi /etc/nginx/nginx.conf
@@ -89,3 +89,5 @@ $ systemctl status nginx.service
 Nov 02 18:12:09 iz2zea3zhcnw9obutgqr57z systemd[1]: Started The nginx HTTP an...
 # 只要在最后能够看到 Started 字样，就说明重启成功
 ```
+
+好了，大功告成，访问 [http://hewei.in/gitbook/](http://hewei.in/gitbook/) 看看效果吧！
