@@ -2,6 +2,8 @@
 
 最开始是参照着简书上的 [Centos 7 下 GitBook 的安装与使用](http://cdn2.jianshu.io/p/a78e3dda4d87) 这篇文章，执行了 `sudo yum install gcc-c++` 命令，但是后来又想到应该去官方看最新的安装教程，所以简书这篇教程里的内容没有再看，不知道后面会不会用到 `gcc-c++`。
 
+## 安装 GitBook 脚手架工具 GitBook-Cli
+
 然后按照官网的教程：[gitbook-cli](https://github.com/GitbookIO/gitbook-cli)，依次执行以下操作：
 
 ```shell
@@ -26,6 +28,8 @@ $ gitbook update
 
 GitBook has been updated to 3.2.3 # Are you serious?
 ```
+
+## 配置 GitBook
 
 最基本的安装完成了，接下来……得去看看官方的文档 [Setup and Installation of GitBook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md)，弄清楚这个 GitBook 该怎么用。
 
@@ -70,7 +74,9 @@ Starting server ...
 Serving book on http://localhost:4000
 ```
 
-由于服务器上安装了 Nginx，所以需要配置 Nginx，使其将本地的 4000 端口映射至域名的指定路径下，这样外网才能访问服务器上运行的 GitBook。配置方法用的是 [Gitbook 使用 Nginx 做為 Proxy](https://cowmanchiang.me/gitbook/gitbook/contents/proxy.html) 这篇文章中所展示的代码。
+## 配置 Nginx
+
+由于服务器上安装了 Nginx，所以需要配置 Nginx，使其将本地的 4000 端口映射至域名的指定路径下，这样外网才能访问服务器上运行的 GitBook。配置方法用的是 [GitBook 使用 Nginx 做為 Proxy](https://cowmanchiang.me/gitbook/gitbook/contents/proxy.html) 这篇文章中所展示的代码。
 
 ```shell
 $ sudo vi /etc/nginx/nginx.conf
@@ -91,3 +97,9 @@ Nov 02 18:12:09 iz2zea3zhcnw9obutgqr57z systemd[1]: Started The nginx HTTP an...
 ```
 
 好了，大功告成，访问 [http://hewei.in/gitbook/](http://hewei.in/gitbook/) 看看效果吧！
+
+## 如何将写好的 Markdown 文档作为文章放到服务器上？
+
+初步查看了一下 `gitbook` 这个文件夹的结构，在根目录下是两个 md 文件，那么自己的文章照着这个目录结构放上来应该就行。
+
+服务器上的是 `README.md` 和 `SUMMARY.md` 两个文件，自己还可以试试只放其中一个文件是否能正常显示。
