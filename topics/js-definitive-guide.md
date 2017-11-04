@@ -2502,3 +2502,11 @@ new Date().toLocaleString() // => "11/4/2017, 4:58:27 PM"
 ```javascript
 new Date().toJSON(); // => "2017-11-04T10:16:19.305Z"
 ```
+
+### `valueOf()` 方法
+
+该方法和 `toString()` 方法非常相似，但一般是需要将对象转换为某种非字符串的原始值时才会调用它，尤其是转换为数字的时候。在需要使用原始值的上下文中使用了对象时， JavaScript 就会调用该方法。另外有些内置类还自定义了 `valueOf()` 方法。
+
+```javascript
+new Date().valueOf(); // => 1509790841639
+```
