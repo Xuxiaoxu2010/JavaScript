@@ -2384,3 +2384,32 @@ Object.prototype.isPrototypeOf(o); // => true: p 继承自 Object.prototype，�
 PS: Mozilla 实现的 JavaScript 对外暴露了一个命名为 `__proto__` 的属性，用来直接查询/设置对象的原型。虽然其它浏览器也部分支持，但不建议使用该属性。
 
 ### 类属性
+
+对象的类属性是一个字符串，表示对象的类型信息。ES3 和 ES5 都没有提供设置该属性的方法，只能通过一种间接的方法查询它。默认的 `toString()` 方法（继承自 `Object.prototype`）返回如下格式字符串：
+
+`[object class]`
+
+上面字符串中的 `class` 即为所查询目标的类型名称。由于很多对象所继承的 `toString()` 方法被该对象重写了，所以必须间接调用 `function.call()` 方法，下面的例子就用这种方法来返回任意对象所属的类：
+
+```javascript
+function classOf(o) {
+    if (o === undefined) return 'undefined';
+    if (o === null) return 'null';
+    return Object.prototype.toString.call(o).slice(8, -1);
+}
+
+classOf(1); // => "Number"
+classOf('1'); // => "String"
+classOf(true); // => "Boolean"
+classOf(null); // => "null"
+classOf(undefined); // => "undefined"
+classOf(new Date()); // => "Date"
+classOf(new Array()); // => "Array"
+classOf(new Object()); // => "Object"
+classOf(/./); // => "RegExp"
+function f() {};
+classOf(new f()); // => "Object"
+classOf(() => {}); // => "Function"
+```
+
+有了这个函数，就能够查询任意值的类型了。对于字符串、数字和布尔值这三种原始数据类型，其实是通过这些类型的变量调用的 `toString()` 方法，而不是通过它们的直接量调用的，因为 JavaScript 本身不允许直接量这样调用。这个函数还处理了 null 和 undefined 这两种特殊类型。`Array` 和 `Date` 这样通过内置构造函数创建的对象，其类属性与构造函数名称相匹配（相同）。宿主对象通常也有一些有意义的类属性，不过和具体的实现有关。由对象直接量或者 `Object.create` 创建的对象，其类属性是 `Object`。由自定义构造函数所创建的对象，其类属性也是 `Object`：因此对于自定义的类而言，没有办法通过类属性来区分对象的类。
