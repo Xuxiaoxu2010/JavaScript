@@ -2484,3 +2484,21 @@ var s = { x: 1, y: 1 }.toString(); // => s: "[object Object]"
 [1, 2, [3, 4, 5]].toString(); // => "1,2,3,4,5"
 (function f() { return x + y; }).toString(); // => "function f() { return x + y; }"
 ```
+
+### `toLocaleString()` 方法
+
+所有的对象还都会包含 `toLocaleString()` 方法：返回一个表示该对象的本地化字符串。`Object` 中默认的 `toLocaleString()` 方法并不做任何额外操作，只是调用 `toString()` 方法并返回对应值。`Date` 和 `Number` 类对 `toLocaleString()` 方法做了自定义，可以对数字、日期和时间做本地化的转换。`Array` 类的 `toLocaleString()` 方法和 `toString()` 方法很像，唯一不同的是每个数组元素都会调用 `toLocaleString()` 方法转换为字符串，而不是调用各自的 `toString()` 方法。
+
+```javascript
+new Date().toLocaleString() // => "11/4/2017, 4:58:27 PM"
+1E3.toLocaleString() // => "1,000"
+[1, 2, [3, 4, 5]].toLocaleString(); // => "1,2,3,4,5"
+```
+
+### `toJSON()` 方法
+
+实际上 `Object.prototype` 没有定义 `toJSON()` 方法，不过对于需要序列化的对象来说，`JSON.stringify()` 方法会调用 `toJSON()` 方法。如果需要序列化的对象存在这个方法，就会调用它，返回值就是序列化之后的结果，而不是原始的对象了。
+
+```javascript
+new Date().toJSON(); // => "2017-11-04T10:16:19.305Z"
+```
