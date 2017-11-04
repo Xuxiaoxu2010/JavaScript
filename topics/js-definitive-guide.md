@@ -2456,3 +2456,31 @@ JSON 支持对象、数组、字符串、有穷大数字、true、false 和 null
 `JSON.stringify()` 只能序列化对象可枚举的自有属性，其余不能序列化的属性，在序列化后的输出字符串中会将其省略掉。
 
 `JSON.stringify()` 和 `JSON.parse()` 都接收第二个可选参数，通过传入需要序列化或还原的属性列表，来自定义序列化或还原操作。
+
+```javascript
+var a = JSON.stringify({ x: 1 }); // => a: "{"x":1}"
+var b = JSON.parse(a); // => b: {x: 1}
+var c = JSON.stringify(new Date()); // => c: ""2017-11-04T08:25:59.683Z""
+var d = JSON.parse(c); // => d: "2017-11-04T08:25:59.683Z"
+```
+
+## 对象方法
+
+所有的 JavaScript 对象都从 `Object.prototype` 继承属性（除了那些不通过原型显式创建的对象），继承的这些属性主要是方法。前面已经讨论过 `hasOwnProperty()`、`propertyIsEnumerable()` 和 `isPrototypeOf()` 这三个方法，以及在 Object 这个构造函数里定义的静态函数 `Object.create()` 和 `Object.getPrototypeOf()` 等。本节将对定义在 `Object.prototype` 中的对象方法进行讲解，一些特定的类会重写这些方法。
+
+### `toString()` 方法
+
+该方法无参数，返回的是调用这个方法的对象的值的字符串。需要将对象转换为字符串的时候，JavaScript 都会调用这个方法，比如在用 `+` 运算符连接一个字符串和一个对象时，或者在希望使用字符串的方法中使用了对象时。
+
+该方法在默认情况下的返回值，信息量非常少：
+
+```javascript
+var s = { x: 1, y: 1 }.toString(); // => s: "[object Object]"
+```
+
+由于默认的 `toString()` 并不会输出多少有用的信息，所以很多类都会自定义 `toString()`。比如数组转换为字符串之后，结果就是数组元素组成的列表。函数转换为字符串之后，就是函数的源代码。
+
+```javascript
+[1, 2, [3, 4, 5]].toString(); // => "1,2,3,4,5"
+(function f() { return x + y; }).toString(); // => "function f() { return x + y; }"
+```
