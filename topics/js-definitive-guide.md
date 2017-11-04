@@ -2434,3 +2434,25 @@ ES5 中定义了查询/设置对象可扩展性的函数：`Object.isExtensible(
 // 创建了一个封闭的对象，包括一个冻结的原型和一个不可枚举的属性
 var o = Object.seal(Object.create(Object.freeze({ x: 1 }), {y: { value: 2, writable: true}}));
 ```
+
+### 序列化对象
+
+序列化（serialization）：将对象的状态转换为字符串。当然了，字符串也可以还原为对象。
+
+ES5 所提供的内置函数 `JSON.stringify()` 和 `JSON.parse()` 分别用来序列化和还原 JavaScript 对象，这两种方法都用 JSON 作为数据交换格式。
+
+```javascript
+o = { x: 1, y: { z: [false, null, '']}};
+s = JSON.stringify(o); // => "{"x":1,"y":{"z":[false,null,""]}}"
+p = JSON.parse(s); // => p 是 o 的深拷贝
+```
+
+JSON 支持对象、数组、字符串、有穷大数字、true、false 和 null，这些对象可以被序列化和还原。
+
+日期对象会被序列化为 ISO 格式的日期字符串，但无法还原成原始的日期对象，而是依然保留字符串形态。
+
+函数、RegExp、Error 对象和 undefined 不能被序列化和还原。
+
+`JSON.stringify()` 只能序列化对象可枚举的自有属性，其余不能序列化的属性，在序列化后的输出字符串中会将其省略掉。
+
+`JSON.stringify()` 和 `JSON.parse()` 都接收第二个可选参数，通过传入需要序列化或还原的属性列表，来自定义序列化或还原操作。
