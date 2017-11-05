@@ -428,7 +428,7 @@ global.Math.random() // => 0.26739690031767305
 
 ## 包装对象
 
-在 JavaScript 中，一般只有对象才有属性和/或方法（方法是不是也可以看作属性的一种？）。但为什么字符串、数字和布尔值也有属性和方法呢？
+在 JavaScript 中，一般只有对象才有属性和/或方法（方法是不是也可以看作属性的一种？）。但为什么原始类型的字符串、数字和布尔值也有属性和方法呢？
 
 ```javascript
 var s = 'hello world'; // 定义字符串
@@ -885,6 +885,8 @@ i // 返回变量 i 的值
 undefined // undefined 是全局变量，而 null 是一个关键字，它俩是不一样的
 ```
 
+JavaScript 代码中出现了标识符的话，就会将其当作变量去查找它的值。如果变量名不存在，对不存在的变量名进行求值就会抛出一个引用错误异常。
+
 ## 对象和数组的初始化表达式
 
 对象和数组的初始化表达式其实是新建的对象和数组，有时候也称作“对象直接量”和“数组直接量”。但是，它们不是原始表达式，因为它们所包含的成员或者元素都是子表达式。
@@ -902,7 +904,7 @@ var i = 0;
 var a = [++i, ++i, ++i]; // [1, 2, 3]
 ```
 
-数组直接量中的逗号间的元素可省略，会填充为 undefined。但是如果元素列表结尾处有一个逗号，逗号后就不会再创建一个 undefined 元素了。
+数组直接量中的逗号间的元素可省略，会填充为 undefined。但是如果元素列表结尾处有一个逗号，逗号后就不会再创建一个 undefined 元素了。不过访问数组元素时，数组索引表达式的值大于数组最后一个元素的索引的话，结果肯定就是 undefined 了。
 
 ```javascript
 var a = [1,,,,3]; // => [1, empty × 3, 3]
@@ -931,7 +933,7 @@ var square = { 'upperLeft': { x: p.x, y: p.y }, 'lowerRight': { x: p.x + side, y
 函数定义表达式的值就是新定义的函数，也可以叫做函数直接量。
 
 ```javascript
-var square = function(x) { return x * x; }
+var square = function(x) { return x * x; };
 ```
 
 ## 属性访问表达式
@@ -964,7 +966,7 @@ a[0].x // => 1: 表达式 a[0] 的属性 x
 - 如果查找的属性不存在，则整个属性访问表达式的值就是 undefined。
 
 - 虽然用标识符访问属性的写法更简单，但这种写法只适用于属性名是合法标识符，并且已经知道属性名的情况。
-- 如果属性名是保留字或者包含空格和标点符号，或者是数字（对于数组而言），就必须使用方括号。
+- 如果属性名包含空格或标点符号，或者是数字（对于数组而言），就必须使用方括号。
 - 如果属性名不是固定值而是计算得出的值，也必须用方括号。
 
 ## 调用表达式
@@ -1245,19 +1247,19 @@ var data = [7, 8, 9];
 
 ```javascript
 var d = new Date(); // => 通过 Date() 构造函数来新建一个对象
-d instanceof Date; // => true: d 是由 Date() 构造函数创建的，所以是 Date 这个构造函数的实例
-d instanceof Date(); // => VM224:1 Uncaught TypeError: Right-hand side of 'instanceof' is not an object
-d instanceof Object; // => true: 所有的对象都是 Object 的实例
-d instanceof Number; // => false
+d instanceof Date // => true: d 是由 Date() 构造函数创建的，所以是 Date 这个构造函数的实例
+d instanceof Date() // => VM224:1 Uncaught TypeError: Right-hand side of 'instanceof' is not an object
+d instanceof Object // => true: 所有的对象都是 Object 的实例
+d instanceof Number // => false
 ```
 
 所有的对象都是 `Object` 的实例，而通过 `instanceof` 判断一个对象是否是一个类的实例的时候，这个判断也会包含对“父类”（superclass）的检测（TODO: 没太看懂……）。
 
-`instanceof` 的左操作数不是对象的话，则返回 false；右操作数不是函数的话，就会抛出一个类型异常，看上面代码的第三就行。
+`instanceof` 的左操作数不是对象的话，则返回 false；右操作数不是对象所属的类的话，就会抛出一个类型异常，看上面代码的第三就行（TODO: 不正确，待修正）。
 
 要理解 `instanceof` 是如何工作的，必须首先理解“原型链”（prototype chain）——即 JavaScript 的继承机制。
 
-计算表达式 `o instanceof f` 时，JavaScript 首先计算 `f.prototype`，然后在原型链中查找 `o`。如果能找到，则 `o` 是 `f`（或者 `f` 的父类）的一个实例，表达式返回 true；否则就说明 `o` 不是 `f` 的实例，表达式返回 false。
+计算表达式 `o instanceof f` 时，JavaScript 首先计算 `f.prototype`，然后在原型链中查找 `o`。如果能找到，则 `o` 是 `f`（或者 `f` 的子类）的一个实例，表达式返回 true；否则就说明 `o` 不是 `f` 的实例，表达式返回 false。
 
 ## 逻辑表达式
 
@@ -1272,7 +1274,7 @@ d instanceof Number; // => false
 ```javascript
 // 将 o 的成员属性复制到 p 中，并返回 p
 function copy(o, p) {
-    p = p || {}; // 如果未向参数 p 传入对象，则使用一个新建的空对象。
+    p = o || {}; // 如果未向参数 p 传入对象，则使用一个新建的空对象。
     // 函数体主逻辑
 }
 ```
@@ -1363,7 +1365,7 @@ var a = [4, 5, 6];
 delete a[2]; // => true: 成功删除元素
 2 in a; // => false: 元素索引不再存在
 1 in a; // => true: 该元素索引还存在
-a.length // => 3: 数组长度未变！删除操作虽然删除了元素，但是并没有修改数组长度，所以该运算符在操作数组元素时要慎用。
+a.length // => 3: 数组长度未变！删除操作虽然删除了元素，但是并没有修改数组长度，这样就产生了一个稀疏数组。所以该运算符在操作数组元素时要慎用。
 ```
 
 如果 `delete` 的操作数不是左值，则运算符将不作任何操作并返回 true；否则，运算符将试图删除这个左值，成功的话返回 true。诸如内置核心属性、客户端属性、var 语句声明的属性、function 语句定义的函数和函数参数都不能删除。
@@ -1473,7 +1475,7 @@ function f(x) { return x + 1; }
 
 函数声明语句和函数定义表达式的区别：
 
-- 函数声明语句中的函数名是一个变量名，变量指向函数对象。和通过 `var` 声明的变量一样，函数声明语句中的函数（函数名及函数体）被显式地“提前”到了脚本或函数的顶部，因此它们在整个脚本或函数里都是可见的。
+- 函数声明语句中的函数名是一个变量名，变量指向函数对象。和通过 `var` 声明的变量一样，函数声明语句所定义的函数被显式地“提前”到了脚本或函数的顶部，因此它们在整个脚本或函数里都是可见的。
 - 用 `var` 声明的函数定义表达式，只有变量声明被提前了，变量初始化的代码还在原来的位置上。相比而言，脚本或函数里的函数声明语句会在所有代码之前执行。这样的话，可以在函数声明之前就调用它了。
 
 函数声明语句创建的变量和 `var` 语句创建的变量一样，都是无法删除的。但是函数声明语句创建的这些变量不是只读的，可以被重写。
@@ -1904,7 +1906,7 @@ var len = book.subtitle.length;
 // 第一种方法有些罗嗦，但容易看懂
 var len = undefined;
 if (book) {
-    if (book.subtitle) len = book.subtitle.length;
+    if ('subtitle' in book) len = book.subtitle.length;
 } else {
     // Do something...
 }
@@ -2085,7 +2087,7 @@ for (p in o) {
 // p 会覆盖 o 中的同名属性
 // 但不会处理 getter 和 setter 以及复制属性: TODO: 这里需要看了后面的相关知识才能弄明白……
 function extend(o, p) {
-    for (prop in p) { // 遍历 p 中所有可枚举属性
+    for (var prop in p) { // 遍历 p 中所有可枚举属性
         o[prop] = p[prop]; // 将属性添加至 o 中
     }
     return o;
@@ -2095,8 +2097,8 @@ function extend(o, p) {
 // p 不会覆盖 o 中的同名属性
 // 并且不会处理 getter 和 setter 以及复制属性
 function merge(o, p) {
-    for (prop in p) { // 遍历 p 中所有可枚举属性
-        if (o.hasOwnProperty[prop]) continue; // 过滤掉已经存在于 o 中的属性
+    for (var prop in p) { // 遍历 p 中所有可枚举属性
+        if (o.hasOwnProperty(prop)) continue; // 过滤掉已经存在于 o 中的属性
         o[prop] = p[prop]; // 将属性添加至 o 中
     }
     return o;
@@ -2104,7 +2106,7 @@ function merge(o, p) {
 
 // 删除 o 独有的属性，并返回 o
 function restrict(o, p) {
-    for (prop in o) { // 遍历 p 中所有可枚举属性
+    for (var prop in o) { // 遍历 p 中所有可枚举属性
         if (!(prop in p)) delete o[prop]; // 不存在于 p 中的话就删除
     }
     return o;
@@ -2112,7 +2114,7 @@ function restrict(o, p) {
 
 // 从 o 中删除 p 中也有的同名属性，并返回 o
 function subtract(o, p) {
-    for (prop in p) { // 遍历 p 中所有可枚举属性
+    for (var prop in p) { // 遍历 p 中所有可枚举属性
         delete o[prop]; // 从 o 中删除（删除不存在的属性也不会报错）
     }
     return o;
@@ -2213,9 +2215,9 @@ var serialNum = {
     // 返回当前值，然后自增
     get next() { return this.$n++; },
 
-    // 设置 $n 的新值，但只有大于等于当前值时才成功
+    // 设置 $n 的新值，但只有大于当前值时才成功
     set next(n) {
-        if (n >= this.$n) this.$n = n;
+        if (n > this.$n) this.$n = n;
         else throw '序列号的值不能比当前值小';
     }
 };
@@ -2368,7 +2370,7 @@ Object.defineProperty(Object.prototype, 'extend',
 - 由 `new` 创建的对象，其原型为构造函数的 `prototype` 属性。
 - 由 `Object.create()` 创建的对象，其原型为第一个参数（或者 null）。
 
-在 ES5 中，用 `Object.getPrototypeOf()` 可以查询所传入的对象的原型。ES3 中虽然没有等价的函数，但可以用表达式 `o.constructor.prototype` 来检测对象的原型。`new` 创建的对象通常会继承 `constructor` 属性，这个属性指代创建这个对象的构造函数。而构造函数所拥有的 `prototype` 属性，定义了用该构造函数所创建出的对象的原型。后面会解释为什么这种方法（`o.constructor.prototype`）检测对象原型并不是100%可靠。通过对象直接量或者 `Object.create()` 所创建的对象，都有一个 `constructor` 属性，该属性就是 `Object()` 这个构造函数。因此，`constructor.prototype` 是对象直接量的原型，但不一定是 `Object.create()` 的原型（TODO: 为什么呢？）。
+在 ES5 中，用 `Object.getPrototypeOf()` 可以查询所传入的对象的原型。ES3 中虽然没有等价的函数，但可以用表达式 `o.constructor.prototype` 来检测对象的原型。`new` 创建的对象通常会继承 `constructor` 属性，这个属性指代创建这个对象的构造函数。而构造函数所拥有的 `prototype` 属性，定义了用该构造函数所创建出的对象的原型。后面会解释为什么这种方法（`o.constructor.prototype`）检测对象原型并不是100%可靠。通过对象直接量或者 `Object.create()` 传入对象直接量作为第一个参数所创建的对象，都有一个 `constructor` 属性，该属性就是 `Object()` 这个构造函数。因此，`constructor.prototype` 是对象直接量的原型，但不一定是 `Object.create()` 的原型（TODO: 为什么呢？）。
 
 `isPrototypeOf()` 方法能够检测一个对象是否为另一个对象的原型，或者是否在另一个对象的原型链上：
 
@@ -2376,7 +2378,7 @@ Object.defineProperty(Object.prototype, 'extend',
 var p = { x: 1 }; // 定义原型对象
 var o = Object.create(p); // 用原型创建新对象
 p.isPrototypeOf(o); // => true: o 继承自 p
-Object.prototype.isPrototypeOf(o); // => true: p 继承自 Object.prototype，即 Object.prototype 在 o 的原型链上
+Object.prototype.isPrototypeOf(p); // => true: p 继承自 Object.prototype
 ```
 
 书上说 `isPrototypeOf()` 实现的功能和 `instanceof` 运算符非常类似，一个是检查某对象是否为另一个对象的原型，另一个是检查某对象是否为另一个构造函数的实例，这么一看，的确是比较相似。
@@ -2515,14 +2517,14 @@ new Date().valueOf(); // => 1509790841639
 
 ## 创建数组
 
-如果省略数组直接量中的某个值，省略的元素将被赋予 undefined 值。
+如果数组直接量中有连续的逗号，那么这就是一个稀疏数组。所有省略掉值的地方都是没有元素的，但是由于 JavaScript 的特性（普通的查询方式无法区分数组某处无元素和数组元素的值为 undefined 的情况），查询这些位置的元素也会返回 undefined。
 
 ```javascript
-var count = [1, , 3];
-count[1]; // => undefined
+var count = [1, , 3]; // 只有在索引 0 和 2 处有元素
+var undefs = [,,]; // 数组没有元素，但是 length 属性值为 2
 ```
 
-数组直接量中，最后一个逗号之后如果没有值，则认为这个逗号之后没有元素。
+数组直接量中，最后一个逗号之后如果没有值，则认为这个逗号之后没有元素。所以 `[,,]` 的 `length` 属性值为 2。
 
 ```javascript
 var a = [, , ,];
@@ -2574,7 +2576,7 @@ b[1000] = 0; // 赋值添加一个元素，此时 length 就为 1001 了
 
 足够稀疏的数组在实现上通常比稠密的数组更慢、内存利用率更高（是说占用空间更多？），在这样的数组中查找元素的时间，和查找常规对象属性的时间一样长。
 
-在数组直接量中省略值时（两个连续的逗号），会创建稀疏数组。省略的元素在数组中是不存在的：
+在数组直接量中省略值时（后面没有值的逗号），会创建稀疏数组。省略的元素在数组中是不存在的：
 
 ```javascript
 var a1 = [,]; // 数组 a1 的 length 属性的值为 1，但是没有元素
