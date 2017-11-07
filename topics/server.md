@@ -1,4 +1,4 @@
-# 阿里云轻量应用服务器教程
+# 阿里云轻量应用服务器教程 v1.0
 
 ## 一、服务器购买及开通
 
@@ -521,11 +521,15 @@ git push --set-upstream blog master
 
 ---
 
-最新的服务器配置笔记。
+# 服务器配置笔记 v2.0
 
 仅重置系统镜像，未选择应用镜像，重置完成后用 `yum list installed` 查看已安装的 packages，发现PHP、Node什么的都没装，是一个干净的新系统，可以从头开始配置了。
 
+## 更新系统 packages
+
 通过轻量应用服务器控制台的 Web 端，远程连接至主机，执行 `sudo su root` 切换至 root 账户，再执行 `yum update`，将所有 packages 更新至最新版，然后执行 `reboot` 重启服务器。
+
+## 配置专用用户
 
 根据这篇文章 [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7) 里的建议，新建用户 www 并设置密码，然后赋予执行 `sudo` 命令的权限。
 
@@ -571,6 +575,8 @@ $ sudo yum update
 ```
 
 如果一切 OK，说明配置成功，可以放心使用 www 用户登录了。
+
+## 配置防火墙
 
 然后再按照这篇文章 [Additional Recommended Steps for New CentOS 7 Servers](https://www.digitalocean.com/community/tutorials/additional-recommended-steps-for-new-centos-7-servers) 进行一些建议的设置。
 
@@ -619,6 +625,8 @@ Created symlink from /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.servi
 Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.service to /usr/lib/systemd/system/firewalld.service.
 ```
 
+## 配置时间
+
 然后再配置服务器的时间。
 
 ```shell
@@ -643,6 +651,8 @@ $ sudo systemctl start ntpd
 $ sudo systemctl enable ntpd
 ```
 
+## 配置 Swap 文件
+
 还要配置 Swap 文件。
 
 ```shell
@@ -657,6 +667,8 @@ sudo swapon /swapfile
 # 每次启动时自动启用交换文件
 sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 ```
+
+## 配置 Node 相关环境
 
 安装 Node 环境。
 
@@ -678,7 +690,7 @@ $ express -v ejs blog
 $ cd blog && npm install
 ```
 
-配置 Nginx。
+## 配置 Nginx
 
 ```shell
 $ sudo yum install epel-release
@@ -704,13 +716,21 @@ $ sudo vi /etc/nginx/nginx.conf
         }
 ```
 
+在配置Nginx代理静态资源的时候，发现访问网站时提示 403 Forbidden，上网查了查，试了各种方法，最后发现需要修改执行Nginx的用户。
+
+```shell
+$ sudo vi /etc/nginx/nginx.conf
+# 然后将配置文件中的 use nginx 改为 use www 重启 nginx 之后就可以正常访问了
+# 猜测是因为之前配置过系统权限，所以才导致此问题
+```
+
 Nginx 的几个重要路径：
 
 - 默认的服务器根目录：`/usr/share/nginx/html`，这个默认路径要去 `/etc/nginx/conf.d/default.conf` 这个配置文件中修改。
 - Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/conf.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
 - Nginx 的全局配置文件：该文件路径为 `/etc/nginx/nginx.conf`。
 
-备注：
+## 备注
 
 为了了解 CentOS 的内存占用，看了这篇文章：[Linux Used内存到底哪里去了？](http://blog.yufeng.info/archives/2456)。
 
