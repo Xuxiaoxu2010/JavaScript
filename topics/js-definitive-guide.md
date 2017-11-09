@@ -1536,7 +1536,7 @@ for (variable in object)
 ```javascript
 var o = { x: 1, y: 2, z: 3 };
 var a = [], i = 0;
-for ( a[i++] in o) /* empty */;
+for (a[i++] in o) /* empty */;
 ```
 
 因为 JavaScript 中的数组本质上也是对象，所以 `for/in` 循环可以像枚举对象的属性一样，枚举数组的索引。接着上面的代码，可以枚举数组的索引：
@@ -2069,7 +2069,7 @@ o.propertyIsEnumerable('toString'); // => false: 继承来的内置方法，不�
 for (p in o) console.log(p); // => x y z: 只输出可枚举的属性
 ```
 
-许多实用工具库都向 `Object.prototype` 中添加了各种方法或属性，这些方法和属性可以被所有对象继承并使用。但是在 ES5 标准之前，添加的这些方法和属性无法设置为不可枚举，所以会在 `for/in` 循环中枚举出来，而用户其实不需要把这些方法或属性枚举出来。所以为了避免买这种情况，就需要过滤 `for/in` 循环返回的属性，下面列出两种过滤不需要的属性的最常见的方式：
+许多实用工具库都向 `Object.prototype` 中添加了各种方法或属性，这些方法和属性可以被所有对象继承并使用。但是在 ES5 标准之前，添加的这些方法和属性无法设置为不可枚举，所以会在 `for/in` 循环中枚举出来，而用户其实不需要把这些方法或属性枚举出来。所以为了避免这种情况，就需要过滤 `for/in` 循环返回的属性，下面列出两种过滤不需要的属性的最常见的方式：
 
 ```javascript
 for (p in o) {
@@ -2080,7 +2080,7 @@ for (p in o) {
 }
 ```
 
-下面的代码定义了一些实用的工具函数来操控对象的属性，这些函数都用到了 `for/in` 循环。其中的 `extend()` 函数实际上经常出现在 JavaScript 的实用工具库中。
+下面的代码定义了一些实用的工具函数来操控对象的属性，这些函数都用到了 `for/in` 循环。其中的 `extend()` 函数其实经常出现在 JavaScript 的实用工具库中。
 
 ```javascript
 // 把 p 中的可枚举属性复制/扩展到 o 中并返回 o
@@ -2631,6 +2631,67 @@ a.unshift(0); // a: [0, 'zero', 'one', 2, 3, 4]
 再说删除元素：
 
 - `delete` 运算符删除数组元素后，原来的索引不再存在，但数组长度未变，这样数组就变成了稀疏数组；
-- 设置 `length` 属性也可以删除数组后面的一部分元素；
-- `pop()` 方法可以删除尾部的一个元素，并返回该元素的值；
-- `shift()` 方法则删除头部一个元素的值，然后将所有其余元素的索引减一，并返回所删除元素的值。
+- 直接设置 `length` 属性也可以删除数组后面的一部分元素；
+- `pop()` 方法删除最后一个元素，并返回该元素的值；
+- `shift()` 方法则删除第一个元素，然后将所有其余元素的索引减一，并返回所删除元素的值。
+
+## 数组遍历
+
+最常见的遍历数组元素的方法是 `for` 循环：
+
+```javascript
+var o = [1, 3, 5, 7, 2, 4, 6, 8];
+var keys = Object.keys(o);
+var values = [];
+for (var i = 0; i < keys.length; i++) {
+  var key = keys[i];
+  values[i] = o[key];
+}
+```
+
+在**嵌套循环**之类的对性能要求很高的上下文中，应当对上面的代码进一步优化，数组的长度应当只检测一次：
+
+```javascript
+for (var i = 0, len = keys.length; i< len; i++) { // do something }
+```
+
+上面的代码有个假设前提：数组是稠密的，并且所有元素都是合法数据。否则的话，应该先检测一下数组元素，然后再使用。几种检测方式如下：
+
+```javascript
+for (var i = 0; i < keys.length; i++) {
+    if (a[i] === null || a[i] === undefined) continue; // 跳过 null、undefined 和不存在的元素，如果只是用 !a[i] 判断的话，假值也会一并跳过
+    if (a[i] === undefined) continue; // 跳过 undefined 和不存在的元素
+    if (!(i in a)) continue; // 跳过不存在的元素
+}
+```
+
+遍历稀疏数组的时候，还可以使用 `for/in` 循环，将会只遍历可枚举的属性名（包括数组索引）：
+
+```javascript
+for (var index in sparseArray) {
+    var value = sparseArray[index];
+    // do something
+}
+```
+
+由于 `for/in` 循环遍历的是所有可枚举的属性，那么自然会将继承的属性也遍历出来，比如添加到 `Array.prototype` 中的方法。为了只遍历出数组的索引，要么不用 `for/in` 循环，要么在循环体内增加额外的检测手段：
+
+```javascript
+for (var i in a) {
+    if (!a.hasOwnProperty(i)) continue; // 跳过继承的属性
+    if (String(Math.floor(Math.abs(i))) != i) continue; // 跳过不是非负整数的 i
+}
+```
+
+ES 规范允许 `for/in` 循环以各种顺序遍历对象的属性，虽然通常是以索引的升序遍历的，但不一定总是这样。如果数组同时拥有对象属性和数组元素，则返回的属性名很可能是按照创建顺序排列的。该问题的实现各不相同，如果需要保证一定的顺序，那么就不要用 `for/in` 循环，而应该用 `for` 循环。
+
+ES5 定义了遍历数组元素的新方法，按照索引顺序依次遍历各元素，比如最常用的 `forEach()` 方法：
+
+```javascript
+var data = [1, 2, 3, 4, 5];
+var sumOfSquares = 0;
+data.forEach(function(x) {
+    sumOfSquares += x * x;
+});
+sumOfSquares;
+```
