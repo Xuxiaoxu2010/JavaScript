@@ -2841,11 +2841,32 @@ TODO: `push()` 的返回值是什么？
 
 ```javascript
 var stack = [];
-stack.push(1, 2);   // stack: [1, 2]    返回 2
-stack.pop();        // stack: [1]       返回 2
-stack.push(3);      // stack: [1, 3]    返回 2
-stack.pop();        // stack: [1]       返回 3
+stack.push(1, 2);   // stack: [1, 2]        返回 2
+stack.pop();        // stack: [1]           返回 2
+stack.push(3);      // stack: [1, 3]        返回 2
+stack.pop();        // stack: [1]           返回 3
 stack.push([4, 5]); // stack: [1, [4, 5]]   返回 2
-stack.pop();        // stack: [1]       返回 [4, 5] 返回数组的最后一个元素，不管这个元素是什么类型
-stack.pop();        // stack: []        返回 1
+stack.pop();        // stack: [1]           返回 [4, 5] 返回数组的最后一个元素，不管这个元素是什么类型
+stack.pop();        // stack: []            返回 1
 ```
+
+### `unshift()` 和 `shift()`
+
+**注意**：该方法会直接修改原数组。
+
+这两个方法和 `push()` 以及 `pop()` 方法类似，只不过这两个方法是在数组的头部进行插入/删除操作。
+
+`unshift()` 在数组的头部插入元素并返回新数组的长度，其余元素则往后移动。`shift()` 则删除并返回数组的第一个元素，其余元素往前移动。
+
+```javascript
+var a = [];             // a: []
+a.unshift(1);           // a: [1]               返回 1
+a.unshift(22);          // a: [22, 1]           返回 2
+a.shift();              // a: [1]               返回 22
+a.unshift(3, [4, 5]);   // a: [3, [4, 5], 1]    返回 3
+a.shift();              // a: [[4, 5], 1]       返回 3
+a.shift();              // a: [1]               返回 [4, 5]
+a.shift();              // a: []                返回 1
+```
+
+**注意**：`unshift()` 有多个参数时，插入的参数会保持其原来的顺序。上面代码中 `a.unshift(3, [4, 5])` 执行后，数组头部变为 `[3, [4, 5], ...]`，可见向 `unshift()` 一次传入多个参数的话，和依次传入各个参数的效果是相反的。
