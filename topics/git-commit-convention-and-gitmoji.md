@@ -32,6 +32,8 @@ Header 是必须的，Body 和 Footer 则是可选的。
 
 ## gitmoji 使用指南
 
+**注意**：在 Windows 下，即使按照下面这个库的教程配置好了，部分 emoji 也无法正常显示，Mac 上就没这个问题。
+
 在执行 git commit 时，将 emoji 代码写在 commit message 最前面即可。访问 GitHub，便可看到 Emoji，如文章顶部图片所示。
 
 如果想在终端查看 git history 时也显示 emoji，可以安装 GitHub 上的 [Terminal Emojify](https://github.com/as-cii/terminal-emojify) 这个库。
