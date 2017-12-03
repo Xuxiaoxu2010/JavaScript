@@ -16,7 +16,7 @@ VSCode 自身的功能，都可以通过编辑设置文件来进行修改，打�
 | Alt | Option/Alt | ⌥ | Alt |
 | Control | Control | ^ | Ctr |
 
-![](https://raw.githubusercontent.com/Dream4ever/Pics/master/modifiers.png)
+![](https://gitee.com/samsara9527/Pics/raw/master/vscode/modifiers.png)
 
 #### 建议选项
 
@@ -50,7 +50,7 @@ VSCode 中的自带功能均可进行修改，下图中右侧的内容为用户�
 },
 ```
 
-![](https://raw.githubusercontent.com/Dream4ever/Pics/master/code_user_settings.png)
+![](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-user-settings.png)
 
 ### 自动保存 - `files.autoSave`
 
@@ -66,7 +66,7 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 而应用第三个选项的话，则必须切换到别的程序中，VSCode 才会自动保存。
 
-![](https://raw.githubusercontent.com/Dream4ever/Pics/master/code_userinterface_hero.png)
+![](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-userinterface-hero.png)
 
 ### 自动展开文件夹 - `explorer.autoReveal`
 
