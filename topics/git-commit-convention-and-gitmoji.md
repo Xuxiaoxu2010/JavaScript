@@ -4,7 +4,7 @@
 
 规范的 git commit message，便于之后的回顾、审查。
 
-![Git Commit Message and Gitmoji](https://raw.githubusercontent.com/Dream4ever/Pics/master/git-commit-message-and-gitmoji.png)
+![Git Commit Message and Gitmoji](https://gitee.com/samsara9527/Pics/raw/master/git-commit-message-and-gitmoji.png)
 
 每次提交（commit）时，commit message 都包括三个部分：Header、Body 和 Footer。
 
@@ -55,7 +55,7 @@ $ gem install terminal-emojify
 
 最后在终端中执行 `git hist`，即可看到下面的效果，说明 gitmoji 配置成功。
 
-![Gitmoji](https://raw.githubusercontent.com/Dream4ever/Pics/master/gitmoji.png)
+![Gitmoji](https://gitee.com/samsara9527/Pics/raw/master/gitmoji.png)
 
 ## 参考资料
 
