@@ -76,7 +76,7 @@ Welcome to Alibaba Cloud Elastic Compute Service !
 1. 参照下图，点击界面左下角的加号 +，新建一个 Profile。Name 为这个 Profile 的名称，Tag 可以当做注释，Shortcut key 是快速启动这个 Profile 的快捷键，由于在 Mac 下，微信占用了 ^⌘A 这个快捷键用作截图，所以在这里我把快捷键设置为 ^⌘1。Command 那里，就填第二步中的一长串命令。
 1. 设置完成，关闭选项设置对话框，然后在 iTerm2 中按下快捷键 ^⌘1，开始玩服务器吧！
 
-![iTerm2 Profile - Save SSH Session](https://raw.githubusercontent.com/Dream4ever/Pics/master/iterm2-ssh-session.png)
+![iTerm2 Profile - Save SSH Session](https://gitee.com/samsara9527/Pics/raw/master/server/iterm2-ssh-session.png)
 
 参考资料：
 
@@ -116,7 +116,7 @@ sudo systemctl restart sshd
 
 解决方法：在前面设置好的 iTerm2 的 Profile 中，将 Terminal 标签下的 `Set locale variables automaticlly` 取消选择。
 
-![Disable automaticlly set locale variables](https://raw.githubusercontent.com/Dream4ever/Pics/master/iterm2-ssh-bash-warning.png)
+![Disable automaticlly set locale variables](https://gitee.com/samsara9527/Pics/raw/master/server/iterm2-ssh-bash-warning.png)
 
 参考资料：
 
@@ -404,11 +404,11 @@ location / {
 
 第一种方式是用 GoDaddy 自家的域名解析服务，参照下图中设置 GoDaddy 的域名解析。红圈标注的地方设置为服务器的 IP，其它选项全用默认值。
 
-![GoDaddy DNS Setting](https://raw.githubusercontent.com/Dream4ever/Pics/master/godaddy-dns-setting.png)
+![GoDaddy DNS Setting](https://gitee.com/samsara9527/Pics/raw/master/server/godaddy-dns-setting.png)
 
 然后还要在阿里云的云解析中，添加域名的 A 记录和 CNAME 记录。
 
-![AliYun DNS Setting](https://raw.githubusercontent.com/Dream4ever/Pics/master/aliyun-dns-setting.png)
+![AliYun DNS Setting](https://gitee.com/samsara9527/Pics/raw/master/server/aliyun-dns-setting.png)
 
 然后等待十分钟左右，域名解析生效了，就可以访问啦~
 
