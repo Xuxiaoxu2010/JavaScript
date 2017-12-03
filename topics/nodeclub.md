@@ -22,7 +22,7 @@
 
 但是查看安装日志的时候，发现按照上面的命令安装的 MongoDB 并不支持 TLS/SSL，好吧，那就先这样。
 
-![Brew install MongoDB](https://raw.githubusercontent.com/Dream4ever/Pics/master/brew-install-mongodb.png)
+![Brew install MongoDB](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/brew-install-mongodb.png)
 
 ### 运行 MongoDB
 
@@ -34,11 +34,11 @@
 
 如果一切正常，MongoDB 运行起来后的状态如下图。
 
-![MongoDB Running Status](https://raw.githubusercontent.com/Dream4ever/Pics/master/mongodb-running-status.png)
+![MongoDB Running Status](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/mongodb-running-status.png)
 
 按下 `Ctrl+C` 停止 MongoDB，然后遵照下图的要求，配置它的安全设置。
 
-![MongoDB Security Issue](https://raw.githubusercontent.com/Dream4ever/Pics/master/mongodb-security-issue.png)
+![MongoDB Security Issue](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/mongodb-security-issue.png)
 
 通过 [How to Create a configuration File For MongoDB](https://stackoverflow.com/a/14567161/2667665) 这里的回答可以看到，MongoDB 默认的配置文件位于 `/usr/local/etc/mongod.conf`，查看该配置文件，有下面的内容，说明已经默认限制 MongoDB 仅允许本机 IP 访问，那就暂时不用再额外设置了。
 
@@ -83,7 +83,7 @@ net:
 
 跑完测试后的结果如下。
 
-![Nodeclub Make Test Result](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-make-test.png)
+![Nodeclub Make Test Result](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/nodeclub-make-test.png)
 
 ## 运行网站
 
@@ -93,8 +93,8 @@ net:
 
 执行上面的代码之后，网站就运行起来了！在终端能够看到下面这样的代码。
 
-![Nodeclub Running Status](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-running-status.png)
+![Nodeclub Running Status](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/nodeclub-running-status.png)
 
 访问 [http://localhost:3000/](http://localhost:3000/)，能够看到网页内容了~
 
-![Nodeclub Main Page](https://raw.githubusercontent.com/Dream4ever/Pics/master/nodeclub-mainpage.png)
+![Nodeclub Main Page](https://gitee.com/samsara9527/Pics/raw/master/nodeclub/nodeclub-mainpage.png)
