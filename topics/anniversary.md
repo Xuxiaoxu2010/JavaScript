@@ -135,6 +135,40 @@ window.addEventListener('resize', function () {
 
 监听浏览器的 `resize` 事件，将刷新页面这个函数绑定至该事件上。
 
+### 跨浏览器的后退功能
+
+由于在服务器的 IIS 控制台中开启了 URL 重定向，Chrome 下无法正常使用浏览器的后退功能，所以需要自己写代码实现这个功能。
+
+在浏览器标签中，用户以各种方式从一个页面前往另一个新页面，URL 发生变化时，前一个页面都会触发 `beforeunload` 事件。所以可以通过监听该事件，实现自定义的后退功能。
+
+但是在 Chrome 中测试时，发现测试代码无效，搜索一番之后，发现新的 HTML5 规范中，在 `onbeforeunload` 事件中，`window.alert` 等几个方法会被忽略。所以需要改成 `console.log()` 方法进行测试，这次测试之后，Chrome 和 IE 中都正常，good。
+
+```javascript
+window.onbeforeunload = function () {
+  if (testSessionCookie) {
+    var name = 'prevUrl';
+    var value = window.location.href;
+    writeSessionCookie(name, value);
+    console.log('before unload: \n' + value);
+  }
+}
+
+$('#back').click(function () {
+  var prevUrl = getCookieValue('prevUrl');
+  window.location.href = prevUrl;
+});
+```
+
+另外，cookie 相关的操作，引用了网上的一个库，在参考链接最后附上了。话说，之前就用上了这个库，但是已经忘了是怎么搜索到的了，还是得及时做笔记啊……
+
+参考链接：
+
+- Google 关键字：`js 监听 url`
+- [如何监听 location.href 这个值发生了变化？](https://www.v2ex.com/t/248868)
+- Google 关键字：`onbeforeunload not work`
+- [window.onbeforeunload not working](https://stackoverflow.com/a/7256224/2667665)
+- [Cookie Handling Routines in JavaScript](https://www.braemoor.co.uk/software/cookies.shtml)
+
 ## 首页
 
 ### 页面设计
