@@ -4,16 +4,17 @@
 
 - 开发工具
     - Visual Studio Code: 编写代码
-    - VSCode Browser Sync: VSCode 插件，浏览器自动刷新
+    - VSCode Browser Sync: VSCode 插件，本地代码变更后，浏览器自动刷新
     - Path Intellisense: VSCode 插件，路径智能补全
     - Photoshop CC 2015.5: 机器性能足够的话，还是建议装新版，有很多改进，能够显著提升工作效率
-- 测试环境: Chrome + Window Resizer 扩展
+- 测试环境: Chrome（+360/QQ/搜狗） + Window Resizer 扩展 + IE8/11，测试各种分辨率下页面的表现
 - 所用库 & 框架
     - Vue.js: 前端 JS 框架
     - jQuery: 前端 JS 库
     - Glide.js: JS 轮播图插件
     - Magnific Popup: JS 灯箱插件
     - normalize: 前端 CSS 样式一致化插件
+    - anu.js：待测试，兼容 IE6+，用于替换 Vue.js，以实现跨浏览器的兼容性
 - 版本管理
     - Git + VSCode 自带的源代码管理工具
 
@@ -22,24 +23,22 @@
 ### 代码管理
 
 - 每增加一个小功能就 commit 一次。
-- 代码在本机和自己购买的个人服务器上各保存一份。
+- 代码在本机和 GitHub 上各保存一份。
 
 ### 目录结构
 
 ```shell
+├─ie
+│  ├─page
+│  │  └─book
+│  └─static
+│      └─css
 ├─page
 │  └─book
 └─static
     ├─css
     ├─ebook
     ├─img
-    │  ├─book
-    │  ├─common
-    │  ├─department
-    │  ├─history
-    │  ├─honor
-    │  ├─index
-    │  └─toast
     └─js
 ```
 
@@ -161,13 +160,23 @@ $('#back').click(function () {
 
 另外，cookie 相关的操作，引用了网上的一个库，在参考链接最后附上了。话说，之前就用上了这个库，但是已经忘了是怎么搜索到的了，还是得及时做笔记啊……
 
+---
+
+在移动端测试时，发现后退功能又不管用了，那就一步步排查吧。
+
+- 用 `spy-debugger` 这个项目进行真机调试，发现浏览器控制台会报错 `can't find variable $`。可以看出来这是 jQuery 文件未成功加载的问题。代码中虽然先把 jQuery 引入了，但还是会报这个错误，放到 `head` 标签里面也不行。于是下载到本机，作为相对路径里的文件引入，这下没问题了，折腾。
+- 然后发现页面中的图片文件都没加载出来，于是又照葫芦画瓢，把 Vue 也下载到本地进行引用。然后再测试后退功能，嘿，好了！
+
+但是！为什么移动端无法加载 CDN 上的 JS 文件呢？只要下载到本地，不管是放在 `head` 标签中，还是放在 `body` 标签中，都可以正常使用。
+
 参考链接：
 
 - Google 关键字：`js 监听 url`
 - [如何监听 location.href 这个值发生了变化？](https://www.v2ex.com/t/248868)
 - Google 关键字：`onbeforeunload not work`
-- [window.onbeforeunload not working](https://stackoverflow.com/a/7256224/2667665)
-- [Cookie Handling Routines in JavaScript](https://www.braemoor.co.uk/software/cookies.shtml)
+- [window.onbeforeunload not working](https://stackoverflow.com/a/7256224/2667665)：H5 规范中，在 `onbeforeunload` 几个事件中，忽略了 `console.log()` 等几种方法。
+- [Cookie Handling Routines in JavaScript](https://www.braemoor.co.uk/software/cookies.shtml)：将几种常用的 cookie 操作封装成了实用的函数。
+- [spy-debugger](https://github.com/wuchangming/spy-debugger)：真机调试，可调试各种浏览器、微信、WebView，电脑和手机在同一网络下即可，非常方便！
 
 ## 首页
 
@@ -313,6 +322,16 @@ if (isIE) {
 
 这样虽然不报错了，但还是不会执行 else 循环里面的代码。
 
+最后用 `typeof` 命令解决了：
+
+```javascript
+if (typeof avalon !== 'undefined') {
+  // IE 版本的代码
+} else if (typeof Vue !== 'undefined') {
+  // Chrome 版本的代码
+}
+```
+
 ## IIS Redirect 模块应用笔记
 
 由于公司周年庆预期会有相当一部分的用户是使用 IE 浏览器来查看的，为了保证网站的兼容性，就需要将这一部分用户重定向至指定的页面。
@@ -340,3 +359,58 @@ if (isIE) {
 - [正则表达式 - JavaScript | MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
 - [UserAgentString.com - List of Internet Explorer User Agent Strings](http://www.useragentstring.com/pages/useragentstring.php?name=Internet+Explorer)
 - [IIS redirect rule priority](https://stackoverflow.com/a/18927975)
+
+## 框架迁移
+
+从 Vue + Avalon 迁移至 Anu
+
+### 环境配置
+
+为了更高效的管理 Node.js 安装包，在 Windows 和 Mac 上都安装了 yarn。但是！在原生的 cmd 中能够使用 yarn，在 Cmder 启动的 cmd 中却无法使用，Cmder 启动的 PowerShell 中则没有问题。
+
+先检查一下用 npm 全局安装了哪些包：
+
+```shell
+> npm list -g --depth=0
+C:\Program Files\nodejs
++-- express-generator@4.15.5
++-- npm@5.4.2
++-- nrm@1.0.2
+`-- spy-debugger@3.6.7
+```
+
+然后用 yarn 全局安装一下 anu-cli 这个脚手架：
+
+```shell
+> yarn global add anu-cli
+```
+
+接着进入专门存放代码的目录，初始化项目并安装依赖：
+
+```shell
+> anu anni --ie # 兼容 IE
+> cd anni
+> yarn # 安装依赖
+> npm start # 启动网站
+
+> anu-demo@1.0.0 start E:\Code\Project\anni
+> webpack && node devServer.js
+
+Hash: 69f1995460ff57583859
+Version: webpack 1.15.0
+Time: 2607ms
+                         Asset       Size  Chunks             Chunk Names
+                      index.js     161 kB       0  [emitted]  index
+                    index.html  444 bytes          [emitted]
+\js\html5shiv-printshiv.min.js    4.37 kB          [emitted]
+          \js\html5shiv.min.js    2.74 kB          [emitted]
+               \js\polyfill.js    9.43 kB          [emitted]
+   [0] multi index 52 bytes {0} [built]
+    + 14 hidden modules
+Child html-webpack-plugin for "index.html":
+        + 3 hidden modules
+Listening at http://localhost:3002
+webpack built 69f1995460ff57583859 in 2535ms
+```
+
+从最后的输出结果可以看到，网站已经成功运行了。
