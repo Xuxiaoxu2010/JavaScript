@@ -144,7 +144,7 @@ window.addEventListener('resize', function () {
 
 ```javascript
 window.onbeforeunload = function () {
-  if (testSessionCookie) {
+  if (testSessionCookie()) {
     var name = 'prevUrl';
     var value = window.location.href;
     writeSessionCookie(name, value);
@@ -165,9 +165,23 @@ $('#back').click(function () {
 在移动端测试时，发现后退功能又不管用了，那就一步步排查吧。
 
 - 用 `spy-debugger` 这个项目进行真机调试，发现浏览器控制台会报错 `can't find variable $`。可以看出来这是 jQuery 文件未成功加载的问题。代码中虽然先把 jQuery 引入了，但还是会报这个错误，放到 `head` 标签里面也不行。于是下载到本机，作为相对路径里的文件引入，这下没问题了，折腾。
-- 然后发现页面中的图片文件都没加载出来，于是又照葫芦画瓢，把 Vue 也下载到本地进行引用。然后再测试后退功能，嘿，好了！
+- 然后发现页面中的图片文件都没加载出来，于是又照葫芦画瓢，把 Vue 也下载到本地进行引用。然后再测试后退功能，嘿，好了！但是！只是在 Chrome 中好了，在 Safari 里面还是不能用！
+- 然后在 Safari 中专门测试，用 `(testSessionCookie()` 这个函数测试，确认 cookie 功能是可用的，但是在点击“返回”按钮时，发现找不到名为 `prevUrl` 的这个 cookie……于是把返回功能改成了下面这个样子：
 
-但是！为什么移动端无法加载 CDN 上的 JS 文件呢？只要下载到本地，不管是放在 `head` 标签中，还是放在 `body` 标签中，都可以正常使用。
+```javascript
+$('#back').click(function () {
+  var prevUrl = getCookieValue('prevUrl');
+  if (prevUrl) {
+    window.location.href = prevUrl;
+  } else {
+    history.go(-1);
+  }
+});
+```
+
+可是 Safari 中依然无法使用后退功能！划克啊。用关键字 `js safari history.go not working` 搜索，看到有人说如果把“返回”事件绑定到了 `a` 标签上，那就还需要在函数里面加上 `event.preventDefault()` 这么一句才行。照着试了一下，终于好了！阿西巴。
+
+但是！为什么移动端无法加载 CDN 上的 JS 文件呢？只要下载到本地，不管是放在 `head` 标签中，还是放在 `body` 标签中，都可以正常使用。更新：后来用今日头条的 CDN 测试了一下，发现是 BootCDN 独有的问题，好吧，那就先把这些依赖都放到本地吧……
 
 参考链接：
 
@@ -362,11 +376,11 @@ if (typeof avalon !== 'undefined') {
 
 ## 框架迁移
 
-从 Vue + Avalon 迁移至 Anu
+### 从 Vue + Avalon 迁移至 Anu
 
-### 环境配置
+#### 环境配置
 
-为了更高效的管理 Node.js 安装包，在 Windows 和 Mac 上都安装了 yarn。但是！在原生的 cmd 中能够使用 yarn，在 Cmder 启动的 cmd 中却无法使用，Cmder 启动的 PowerShell 中则没有问题。
+为了更高效的管理 Node.js 安装包，在 Windows 和 Mac 上都安装了 Yarn。但是！在原生的 cmd 中能够使用 Yarn，在 Cmder 启动的 cmd 中却无法使用，Cmder 启动的 PowerShell 中则没有问题。
 
 先检查一下用 npm 全局安装了哪些包：
 
@@ -379,7 +393,7 @@ C:\Program Files\nodejs
 `-- spy-debugger@3.6.7
 ```
 
-然后用 yarn 全局安装一下 anu-cli 这个脚手架：
+然后用 Yarn 全局安装一下 anu-cli 这个脚手架：
 
 ```shell
 > yarn global add anu-cli
@@ -414,3 +428,68 @@ webpack built 69f1995460ff57583859 in 2535ms
 ```
 
 从最后的输出结果可以看到，网站已经成功运行了。
+
+But! 第二天看一篇关于 React 同构的文章：《[【第1145期】打造高可靠与高性能的React同构解决方案](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651227479&idx=1&sn=3eb1501b3c3041fd9c7afdda0d180ead&chksm=bd495cd38a3ed5c5f9c9448ad912e2f6cc2439b8e2fdb5653dbbf00475084afb45714e557d79&mpshare=1&scene=23&srcid=1221f3dQpMrsPlhbrw0ztzGJ#rd)》时，忽然想到，其实可以做服务端渲染，并且用 Babel 编译，这样不就能解决 IE 端兼容的问题了？嗯，那就先把 anu-cli 删除了。
+
+```shell
+> yarn global remove anu-cli
+```
+
+参考资料:
+
+- [react+webpack+webstorm开发环境搭建](http://www.jianshu.com/p/bf6ca7cb7f8a)
+
+### 再次迁移 - 迁移至 Express + Vue
+
+接上文：删除了 anu-cli，决定采用 Express + Vue + IISNode 的方式，后端渲染完整的页面并返回前端，为保证 JS 代码能够在 IE 上成功执行，可能还需要用 Babel + Webpack 编译一下。
+
+#### IISNode
+
+为了保证 Node.js 程序在 Windows Server 上能平稳运行，首先需要把基础环境：IISNode 配置好。
+
+下载 Windows Server 对应的 64 位 Windows 版本安装包，复制到服务器上，安装，然后在管理员权限的命令行中执行安装程序目录下的 `setupsample.bat` 启动 Node.js 服务，然后在浏览器中访问 `http://localhost/node` 即可，因为这个测试页面是放在 Default Web Site 目录下的，所以要记得在 IIS 管理器中启动这个默认网站。
+
+这个时候忽然想到，如果一套页面能同时正常运行在 Chrome 和 IE 浏览器上，那就不需要 URL ReWrite 了吧？
+
+参考资料：
+
+- [Hosting node.js applications in IIS on Windows](https://tomasz.janczuk.org/2011/08/hosting-nodejs-applications-in-iis-on.html)
+- [Using URL rewriting with node.js applications hosted in IIS using iisnode](https://tomasz.janczuk.org/2011/08/using-url-rewriting-with-nodejs.html)
+- [Hosting express node.js applications in IIS using iisnode](https://tomasz.janczuk.org/2011/08/hosting-express-nodejs-applications-in.html)
+- [YAML configuration support in iisnode](https://tomasz.janczuk.org/2012/05/yaml-configuration-support-in-iisnode.html)
+- [tjanczuk/iisnode](https://github.com/tjanczuk/iisnode)
+
+#### 重新配置开发环境
+
+在命令行下安装包，发现之前安装了 scoop，打算还是换回 chocolatey，于是把 scoop 卸载了，在本机和服务器全新安装 chocolatey，不过 chocolatey 的安装源在国外，用它来安装实在太慢了，最后还是自己手动下载了 Node.js 和 Yarn 安装上了。
+
+Node.js 的安装包没什么问题，下载过来安装之后就能直接用了。
+
+但是 Yarn 在安装成功之后还需要配置一下环境变量，不然用 Yarn 全局安装的包是无法使用的。自己是 Windows 10 的系统，查看了一下系统变量中的 `Path` 变量以及用户变量中的同名变量，两个变量中都有 `Yarn` 对应的路径，查看两个路径中所包含的内容，确认了用户变量可以存放全局安装的包，于是执行了类似下面的命令，更新了保存全局安装包的路径，这样就可以正常使用 Yarn 全局安装的包了。
+
+```shell
+> yarn config set prefix c:\Users\HeWei\AppData\Local\Yarn\
+> yarn global bin
+c:\Users\HeWei\AppData\Local\Yarn\
+```
+
+参考资料：
+
+- [使用yarn安装全局包](http://zju.date/install-global-packages-using-yarn/)
+
+#### Webpack + Babel
+
+具体配置流程待研究。
+
+初步思路：将 Vue.js 编译成 es3 版本，然后测试在 IE8 下的表现。
+
+参考资料：
+
+- [使用express+webpack搭建一个小项目](https://segmentfault.com/a/1190000007765577)
+- [一小时包教会 —— webpack 入门指南](https://www.cnblogs.com/vajoy/p/4650467.html)
+- [高性能迷你React框架anu在低版本IE的实践](http://geek.csdn.net/news/detail/202520)
+- [煦涵说Webpack-IE低版本兼容指南](https://github.com/zuojj/fedlab/issues/5)
+- [react 项目的一个ie8兼容性问题](http://www.aliued.com/?p=3240)
+- [如何让webpack模块化代码兼容到ie8](http://www.jianshu.com/p/52fb48dd7a9b)
+- [webpack入门指南](https://segmentfault.com/a/1190000011999487)
+- [Caveats·Babel](https://babeljs.io/docs/usage/caveats/)
