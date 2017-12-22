@@ -74,6 +74,63 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 - true/false: 开启或关闭该功能，下同。
 
+### 配置默认终端
+
+之前用的是 `Git Bash`，现在想换成 `PowerShell` 玩玩，按照下面几步进行了设置：
+
+#### 安装 posh-git
+
+`posh-git` 是一个 PowerShell 模块，将 Git 集成到了 PowerShell。如果进入了 Git 仓库的话，能够看到仓库的相关信息：
+
+```shell
+C:\Users\Keith\GitHub\posh-git [master ≡ +0 ~1 -0 !]>
+```
+
+模块的安装遵循[官网的流程](https://github.com/dahlbyk/posh-git#installation)即可：
+
+1. 配置 PowerShell 的脚本执行策略：`Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Confirm`；
+2. 安装 posh-git：`PowerShellGet\Install-Module posh-git -Scope CurrentUser`；
+3. 更新 posh-git：`Update-Module posh-git`；
+4. 配置 posh-git 随 PowerShell 启动：`Add-PoshGitToProfile -AllHosts`；
+5. 修改 posh-git 的样式：`$GitPromptSettings.DefaultPromptSuffix = '`n$(''>'' * ($nestedPromptLevel + 1)) '`，这样一来，最后的命令提示符，就能够另起一行显示了：
+
+```shell
+C:\Users\Keith\GitHub\posh-git [master ≡ +0 ~1 -0 !]
+>
+```
+
+#### 配置 VSCode
+
+配置完 posh-git，就要把 PowerShell 集成到 VSCode 里了，在用户设置文件中（用快捷键 `Ctrl+,` 调出），增加下面一段：
+
+```shell
+"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+"terminal.integrated.shellArgs.windows": [
+  "-ExecutionPolicy",
+  "Bypass",
+  "-NoLogo",
+  "-NoProfile",
+  "-NoExit",
+  "-Command",
+  "Invoke-Expression '. ''c:\\Software\\Cmder\\vendor\\profile.ps1'''"
+]
+```
+
+这里使用了 Cmder 这个软件提供的 PowerShell 配置，由于这个配置文件 `profile.ps1` 中使用的是相对路径，而这个相对路径是用于在 Cmder 中启动 PowerShell 的，所以如果从 VSCode 的集成终端里启动，由于路径会不同，就会报错，所以修改了这个 `profile.ps1` 文件中，设置环境路径的代码：
+
+```shell
+if (! $ENV:CMDER_ROOT ) {
+    # $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
+    $ENV:CMDER_ROOT = "C:\Software\Cmder"
+}
+```
+
+中间被注释掉的那一行，是原本的代码，自己改成了绝对路径，这样在 VSCode 中启动集成终端 PowerShell 时，不管初始路径是什么，都不会报错。
+
+参考资料：
+
+- [Compatible with Visual Studio Code (PowerShell)](https://github.com/cmderdev/cmder/pull/1417)
+
 ## 插件推荐
 
 ### Code Outline
