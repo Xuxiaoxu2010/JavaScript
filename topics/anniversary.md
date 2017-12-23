@@ -483,8 +483,11 @@ c:\Users\HeWei\AppData\Local\Yarn\
 
 初步思路：将 Vue.js 编译成 es3 版本，然后测试在 IE8 下的表现。
 
+然后换了个关键字去Google：`webpack 编译 vue IE`，就有更准确的结果了！请看：[ie-webpack-start: webpack2编译打包支持到低版本IE。坑有多少？水有多深？自行体会！](https://github.com/sayll/ie-webpack-start)。
+
 参考资料：
 
+- [ie-webpack-start: webpack2编译打包支持到低版本IE。坑有多少？水有多深？自行体会！](https://github.com/sayll/ie-webpack-start)
 - [使用express+webpack搭建一个小项目](https://segmentfault.com/a/1190000007765577)
 - [一小时包教会 —— webpack 入门指南](https://www.cnblogs.com/vajoy/p/4650467.html)
 - [高性能迷你React框架anu在低版本IE的实践](http://geek.csdn.net/news/detail/202520)
