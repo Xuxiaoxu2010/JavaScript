@@ -487,6 +487,7 @@ c:\Users\HeWei\AppData\Local\Yarn\
 
 参考资料：
 
+- 搜索关键字：webpack + IE8；搜索网站：Google + GitHub
 - [ie-webpack-start: webpack2编译打包支持到低版本IE。坑有多少？水有多深？自行体会！](https://github.com/sayll/ie-webpack-start)
 - [使用express+webpack搭建一个小项目](https://segmentfault.com/a/1190000007765577)
 - [一小时包教会 —— webpack 入门指南](https://www.cnblogs.com/vajoy/p/4650467.html)
