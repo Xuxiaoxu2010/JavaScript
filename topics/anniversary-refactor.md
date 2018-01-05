@@ -3,12 +3,13 @@
 ## 明确思想
 
 - 纯粹的组件化开发，要把页面想象成一个树状的结构。
-  - `html` 页面的 `head` 出自树根，这样才能达到公用的效果。
-  - 参考：[vue-hackernews-2.0/src/index.template.html](https://github.com/vuejs/vue-hackernews-2.0/blob/master/src/index.template.html)
-  - 注意：上面这个示例，`index.template.html` 文件只负责公用的 `head` 部分，具体页面的构建，查看项目根目录的 `server.js`。
 - 所有页面，都共用这个树的根部。
 - 主干分支就是各个页面。
 - 小分支就是页面中的各个组件。
+
+- `html` 页面的 `head` 出自树根，这样才能达到公用的效果。
+- 参考：[vue-hackernews-2.0/src/index.template.html](https://github.com/vuejs/vue-hackernews-2.0/blob/master/src/index.template.html)
+- 注意：上面这个示例，`index.template.html` 文件只负责公用的 `head` 部分，具体页面的构建，查看项目根目录的 `server.js`。
 
 ## 技术选型
 
