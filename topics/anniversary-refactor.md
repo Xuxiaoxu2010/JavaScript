@@ -141,3 +141,5 @@ module.exports = {
 ```
 
 这样以后每次执行 `webpack` 时，就会先清空 `dist` 文件夹，然后再进行编译。
+
+参考：[Cleaning up the `/dist` folder](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder)。
