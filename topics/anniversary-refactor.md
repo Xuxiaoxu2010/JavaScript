@@ -114,4 +114,4 @@ module.exports = {
 </html>
 ```
 
-然后在终端中执行 `webpack`，就可以看到编译后的项目已经在 `dist` 文件夹里了。运行其中的 `index.html`，会发现编译生成的 js 文件已经自动加上了 hash tag，说明在 `HtmlWebpackPlugin` 实例中配置的 `hash` 属性是有效的。
+然后在终端中执行 `webpack`，就可以看到编译后的项目已经在 `dist` 文件夹里了。运行其中的 `index.html`，查看所引用的 js 文件的链接为：`/dist/build.js?19d6274c94ed839aeb88`，说明在 `HtmlWebpackPlugin` 实例中配置的 `hash` 属性是有效的。
