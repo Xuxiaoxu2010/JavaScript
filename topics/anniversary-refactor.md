@@ -50,3 +50,8 @@ yarn
 import App from './App.vue'
 import './static/css/common.css'
 ```
+
+#### 样式设置
+
+**注意**：用 Vue.js 进行组件化开发，如果元素的宽高用百分比作为单位，那么其各级父元素也必须明确设置单位为百分比的宽度或者高度！
+
