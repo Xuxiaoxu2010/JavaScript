@@ -55,3 +55,63 @@ import './static/css/common.css'
 
 **注意**：用 Vue.js 进行组件化开发，如果元素的宽高用百分比作为单位，那么其各级父元素也必须明确设置单位为百分比的宽度或者高度！
 
+### 构建页面公共内容
+
+这个功能要借助 [HTML Webpack Plugin](https://github.com/jantimon/html-webpack-plugin) 这款 Webpack 插件来完成。
+
+首先安装这个插件：
+
+```shell
+yarn add html-webpack-plugin -D
+```
+
+然后在 Webpack 的配置文件中，配置该插件。
+
+```js
+// webpack.config.js
+module.exports = {
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
+  },
+  // some config,
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: '30周年庆',
+      filename: 'index.html',
+      template: 'src/template.html',
+      hash: true,
+      cache: true
+    })
+  ],
+  // more config
+}
+```
+
+上面这个 Webpack 的配置示例，`entry` 中只有一个文件，`HtmlWebpackPlugin` 实例也只 `new` 了一次，就相当于是一个单页应用。因此不需要配置最终生成的 `index.html` 要如何引入 js 文件，Webpack 会帮我们自动完成这项工作。但是后面要应用到多页面上的话，这里就需要修改了，不过等到了后面再说。
+
+接着编写模板文件 `src/template.html`：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>
+```
+
+然后在终端中执行 `webpack`，就可以看到编译后的项目已经在 `dist` 文件夹里了。运行其中的 `index.html`，会发现编译生成的 js 文件已经自动加上了 hash tag，说明在 `HtmlWebpackPlugin` 实例中配置的 `hash` 属性是有效的。
