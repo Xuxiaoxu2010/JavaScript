@@ -32,6 +32,8 @@ yarn
 
 在 `index.html` 中引入了 `normalize.css`，用于统一化基础样式。在 html 文件中所引入的样式，在编译后的页面中位于最前面的位置。
 
+**注意**：引入 cdn 提供的文件之后，要在浏览器中查看一下文件是否正常显示，比如之前引用了 staticfile 上面的 `normalize.css`，发现样式未生效，点击文件链接，才发现都是乱码。所以还是得使用靠谱的大厂商提供的 cdn 服务。
+
 #### common.css
 
 新建 `/src/static/css` 文件夹，在其中创建 `common.css`，用于保存多个页面通用的样式。
