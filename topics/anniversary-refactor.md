@@ -115,3 +115,29 @@ module.exports = {
 ```
 
 然后在终端中执行 `webpack`，就可以看到编译后的项目已经在 `dist` 文件夹里了。运行其中的 `index.html`，查看所引用的 js 文件的链接为：`/dist/build.js?19d6274c94ed839aeb88`，说明在 `HtmlWebpackPlugin` 实例中配置的 `hash` 属性是有效的。
+
+## 优化项目编译
+
+### 每次编译前清空 `dist` 目录
+
+要实现这个需求，得先安装一个插件：
+
+```shell
+yarn add clean-webpack-plugin -D
+```
+
+然后在 Webpack 配置文件中增加下面的内容：
+
+```js
+// webpack.config.js
++ const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+module.exports = {
+  plugins: [
++    new CleanWebpackPlugin(['dist']),
+    // more plugins
+  ]
+}
+```
+
+这样以后每次执行 `webpack` 时，就会先清空 `dist` 文件夹，然后再进行编译。
