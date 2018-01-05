@@ -17,6 +17,8 @@ yarn
 
 ### 引入公共样式
 
+在 `index.html` 中引入了 `normalize.css`，用于统一化基础样式。在 html 文件中所引入的样式，在编译后的页面中位于最前面的位置。
+
 新建 `/src/static/css` 文件夹，在其中创建 `common.css`，用于保存多个页面通用的样式。
 
 然后在 html 所依赖的 js 文件中引入该CSS：`import './static/css/common.css'`，Webpack 便可自动编译并添加 hash tag。
