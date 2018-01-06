@@ -173,7 +173,7 @@ vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意
 - [vue-cli + webpack 多页面实例配置方法](http://blog.lanchenglv.com/article/cli_webpack_multi.html)：上面这个项目的对应文章
 - [vue-cli多页面](https://github.com/yaoyao1987/vue-cli-multipage)：README 中详细介绍了 Webpack 如何应用于 vue-cli + 多页面
 - [基于vue-cli的多页面开发](https://github.com/luchanan/vue2.0-multi-page)：详细介绍了所参考的各个项目，并且在持续更新中
-- [Multiple entry points -> multiple html outputs?](Multiple entry points -> multiple html outputs? · Issue #218 · jantimon/html-webpack-plugin)：在 `html-webpack-plugin` 这个组件的讨论区，大家在交流如何实现多入口文件。现在想想，用单入口就行，然后搭配 vue-router 应该就能实现多页面了
+- [Multiple entry points -> multiple html outputs? · Issue #218 · jantimon/html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin/issues/218)：在 `html-webpack-plugin` 这个组件的讨论区，大家在交流如何实现多入口文件。现在想想，用单入口就行，然后搭配 vue-router 应该就能实现多页面了
 
 ## To Do
 
