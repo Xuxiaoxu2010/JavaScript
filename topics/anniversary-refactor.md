@@ -141,11 +141,13 @@ module.exports = {
 
 这样以后每次执行 `webpack` 时，就会先清空 `dist` 文件夹，然后再进行编译。
 
-参考：[Cleaning up the `/dist` folder](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder)。
+参考：
+
+- [Cleaning up the `/dist` folder](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder)
 
 ## 重构项目目录结构
 
-vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意，于是参考一篇文章：[用vue+webpack搭建的前端项目结构](https://div.io/topic/1834)，对整个项目的目录结构进行了重构。
+vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意，于是参考网上的文章，对整个项目的目录结构进行了重构。
 
 ```shell
 .src
@@ -157,3 +159,12 @@ vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意
 ├─util # 存放开发者自行编写的方法
 └─views # 存放各页面所需的组件、静态资源等
 ```
+
+参考：
+
+- [用vue+webpack搭建的前端项目结构](https://div.io/topic/1834)
+- [Complex Vue.js App Structure](http://pksunkara.com/posts/complex-vuejs-app-structure/)
+
+## To Do
+
+- [Vue.js Component Style Guide](https://github.com/pablohpsilva/vuejs-component-style-guide)：Vue.js 的组件化开发规范
