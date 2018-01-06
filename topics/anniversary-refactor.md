@@ -178,3 +178,4 @@ vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意
 ## To Do
 
 - [Vue.js Component Style Guide](https://github.com/pablohpsilva/vuejs-component-style-guide)：Vue.js 的组件化开发规范
+- [Webpack中hash的用法](http://acgtofe.com/posts/2017/07/webpack-hash-names)
