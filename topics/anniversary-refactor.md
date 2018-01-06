@@ -180,6 +180,8 @@ vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意
 
 参考：
 
+更新：既然有 [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) 这样极为优秀的项目，为什么要先去看别的小项目呢？
+
 - [vue2-cli-vux2-multe-page](https://github.com/bluefox1688/vue-cli-multi-page)
 - [vue-cli + webpack 多页面实例配置方法](http://blog.lanchenglv.com/article/cli_webpack_multi.html)：上面这个项目的对应文章
 - [vue-cli多页面](https://github.com/yaoyao1987/vue-cli-multipage)：README 中详细介绍了 Webpack 如何应用于 vue-cli + 多页面
