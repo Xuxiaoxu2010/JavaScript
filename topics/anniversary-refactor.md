@@ -165,6 +165,15 @@ vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意
 - [用vue+webpack搭建的前端项目结构](https://div.io/topic/1834)
 - [Complex Vue.js App Structure](http://pksunkara.com/posts/complex-vuejs-app-structure/)
 
+## 构建多页面脚手架
+
+参考：
+
+- [vue2-cli-vux2-multe-page](https://github.com/bluefox1688/vue-cli-multi-page)
+- [vue-cli + webpack 多页面实例配置方法](http://blog.lanchenglv.com/article/cli_webpack_multi.html)：上面这个项目的对应文章
+- [vue-cli多页面](https://github.com/yaoyao1987/vue-cli-multipage)：README 中详细介绍了 Webpack 如何应用于 vue-cli + 多页面
+- [基于vue-cli的多页面开发](https://github.com/luchanan/vue2.0-multi-page)：详细介绍了所参考的各个项目，并且在持续更新中
+
 ## To Do
 
 - [Vue.js Component Style Guide](https://github.com/pablohpsilva/vuejs-component-style-guide)：Vue.js 的组件化开发规范
