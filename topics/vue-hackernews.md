@@ -10,12 +10,12 @@
 
 左侧的源代码，包括两大部分：
 
-#### Universal Application Code/全局应用代码
-
-包含 Store、Router 和 Components 这三大部分。
+Universal Application Code/全局应用代码：包含 Store、Router 和 Components 这三大部分。
 
 Store 中保存的是：XX，Router 中是路由设置，Components 则是组件的内容。
 
 TODO: 但是图中 Universal Application Code 这一部分和 app.js、Server entry 以及 Client entry 之间的关系，暂时还没太看明白。
 
 只能从源代码中看到，app.js 引入了 Store 和 Router 中的内容，而 Server entry 以及 Client entry 又引入了 app.js，形成了依次引用的关系。
+
+### Webpack
