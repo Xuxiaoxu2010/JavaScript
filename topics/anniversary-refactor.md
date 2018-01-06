@@ -26,7 +26,7 @@ yarn
 
 ## 构建公共内容
 
-### 构建页面公共部分
+### 配置页面模板
 
 这个功能要借助 [HTML Webpack Plugin](https://github.com/jantimon/html-webpack-plugin) 这款 Webpack 插件来完成。
 
@@ -110,6 +110,18 @@ module.exports = {
 import App from './App.vue'
 import './static/css/common.css'
 ```
+
+### 添加 favicon
+
+这个功能需要 [Favicons Webpack Plugin](https://github.com/jantimon/favicons-webpack-plugin) 这款插件结合 HTML Webpack Plugin 来实现。
+
+首先安装插件。
+
+```shell
+yarn add favicons-webpack-plugin -D
+```
+
+但是在安装插件这一步总是过不去……先放放吧。
 
 #### 样式设置
 
