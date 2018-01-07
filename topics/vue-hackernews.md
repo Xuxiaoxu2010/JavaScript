@@ -1,3 +1,9 @@
+# vue-hackernews-2.0 源码剖析
+
+## 剖析思路
+
+要先从整体架构着手，由大到小，慢慢深入。千万不要一上来就各种抠细节，因为基础知识还不够扎实，精力花在细节上反而容易迷失了方向。
+
 ## 项目地址：[vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0)
 
 ## 项目框架
