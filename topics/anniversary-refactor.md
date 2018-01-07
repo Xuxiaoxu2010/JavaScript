@@ -110,6 +110,10 @@ import App from './App.vue'
 import './static/css/common.css'
 ```
 
+#### 样式设置
+
+**注意**：用 Vue.js 进行组件化开发，如果元素的宽高用百分比作为单位，那么其各级父元素也必须明确设置单位为百分比的宽度或者高度！
+
 ### 添加 favicon
 
 这个功能需要 [Favicons Webpack Plugin](https://github.com/jantimon/favicons-webpack-plugin) 这款插件结合 HTML Webpack Plugin 来实现。
@@ -121,10 +125,6 @@ yarn add favicons-webpack-plugin -D
 ```
 
 但是在安装插件这一步总是过不去……先放放吧。
-
-#### 样式设置
-
-**注意**：用 Vue.js 进行组件化开发，如果元素的宽高用百分比作为单位，那么其各级父元素也必须明确设置单位为百分比的宽度或者高度！
 
 ## 优化项目编译
 
