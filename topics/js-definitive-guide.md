@@ -2875,3 +2875,13 @@ a.shift();              // a: []                返回 1
 另外，`shift()` 可接受参数，但参数不起任何作用。
 
 ### `toString()` 和 `toLocaleString()`
+
+`toString()` 方法的执行结果，和不带参数调用方法 `join()` 的结果是一样的。
+
+```javascript
+[1, 2, 3].toString()        // "1,2,3"
+['a', 'b', 'c'].toString()  // "a,b,c"
+[1, [2, 'c']].toString()    // "1,2,c"
+```
+
+关于 `toLocaleString()` 这个方法，在 `对象 -> 对象方法` 一节已经讲过，此处不再重复。
