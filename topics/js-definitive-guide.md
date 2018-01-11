@@ -2940,3 +2940,19 @@ everyother = a.filter(function(x, i) { return i % 2 == 0; }); // [5, 3, 1]
 var a = [1, , 3, , 5, , , undefined, , null];
 a.filter(function(v) { return !!v; });          // [1, 3, 5]
 ```
+
+### `every()` 和 `some()`
+
+这两个方法对数组中元素用函数进行判定，返回值为 true 或 false。
+
+对`every()` 方法来说，仅当所有元素用判定函数都返回 true 时，它才返回 true。
+
+而 `some()` 则是至少有一个元素用判定函数返回 true，它就返回 true。
+
+```javascript
+var a = [1, 2, 3, 4, 5];
+a.every(function(v) { return v < 10; });      // true
+a.every(function(v) { return !(v % 2); });    // false
+a.some(function(v) { return !(v % 2); });     // true
+a.some(isNaN);                                // false
+```
