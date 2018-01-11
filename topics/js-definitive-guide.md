@@ -2956,3 +2956,54 @@ a.every(function(v) { return !(v % 2); });    // false
 a.some(function(v) { return !(v % 2); });     // true
 a.some(isNaN);                                // false
 ```
+
+### `reduce()` 和 `reduceRight()`
+
+这两个方法通过指定的函数将数组元素进行组合，最后生成一个值。函数式编程中常见这种操作，也可以叫做“注入”或者“折叠”。
+
+```javascript
+var a = [1, 2, 3, 4, 5];
+var sum = a.reduce((x,y) => { return x + y; });             // 15
+var product = a.reduce((x, y) => { return x * y; });        // 120
+var max = a.reduce((x, y) => { return (x > y) ? x : y; });  // 5
+```
+
+以上面第二行代码中的函数为例，在不传入第二个参数的情况下，`reduce()` 方法先将数组前两个元素相加，然后得到的结果再和第三个元素相加，最后就得到了数组全部元素的和。后面两个方法也是如此。
+
+如果向 `reduce()` 和 `reduceRight()` 方法中传入第二个参数的话，则第二个参数为内部函数的第一个参数，数组的第一个元素为函数的第二个参数。这句话可参照着下面这段代码进行理解：
+
+```javascript
+var minus = a.reduce((x, y) => { return x - y; }, -10);   // -25
+// -10 - 1 = -11
+// -11 - 2 = -13
+// -13 - 3 = -16
+// -16 - 4 = -20
+// -20 - 5 = -25
+```
+
+对空数组调用这两种方法，并且不传入第二个参数的话，代码就会报错：`Uncaught TypeError: Reduce of empty array with no initial value`。
+
+如果数组只有一个元素并且不传入第二个参数，或者对空数组调用并且传入第二个参数的话，这两个方法就会直接返回仅有的那个值。
+
+`reduceRight()` 除了是从右往左处理数组之外，其它地方和 `reduce()` 方法是相同的。比如下面的代码就可用来进行数组元素依次乘方的计算：
+
+```javascript
+var a = [ 2, 3, 5];
+var big = a.reduceRight((accu, order) => { return Math.pow(accu, order); });  // 15625
+// = 2^(3^5)
+```
+
+前面两个例子都是数学运算方面的，但是这两个方法还可以对对象数组进行操作，结合前面对象部分定义的 `union()` 函数，就可以计算对象的并集，帅不帅？
+
+```javascript
+var objects = [ { x: 1 }, { y: 2 }, { z: 3 }];
+var merged = objects.reduce(union);             // {x: 1, y: 2, z: 3}
+```
+
+两个对象有同名属性时，`union()` 函数会用第二个对象的同名属性覆盖第一个对象，这样 `reduce()` 和 `reduceRight()` 就会有不同的结果：
+
+```javascript
+var objects = [ { x: 1, a: 1 }, { y: 2, a: 2 }, { z: 3, a: 3} ];
+var merged = objects.reduce(union);       // {x: 1, a: 3, y: 2, z: 3}
+var merged = objects.reduceRight(union);  // {z: 3, a: 1, y: 2, x: 1}
+```
