@@ -3007,3 +3007,57 @@ var objects = [ { x: 1, a: 1 }, { y: 2, a: 2 }, { z: 3, a: 3} ];
 var merged = objects.reduce(union);       // {x: 1, a: 3, y: 2, z: 3}
 var merged = objects.reduceRight(union);  // {z: 3, a: 1, y: 2, x: 1}
 ```
+
+### `indexOf()` 和 `lastIndexOf()`
+
+这两个方法都用来查找指定值在数组中首次出现的位置，`indexOf()` 从左往右查找，`lastIndexOf()` 则从右往左查找。
+
+另外，这两个方法都接收第二个参数，用于指定查找的起始位置。第二个参数如果为正数，就是正常的数组索引；如果是负数，负数的绝对值 N 代表对应于数组中的**倒数**第 N 个元素，最后一个元素为 -1，倒数第二个元素为 -2，依此类推。
+
+```javascript
+var a = [0, 1, 2, 1, 0],
+    value = 1,
+    position = 1;
+
+a.indexOf(value, position);     // 1
+position = 2;
+a.indexOf(value, position);     // 3
+position = -1;
+a.indexOf(value, position);     // -1
+position = -2;
+a.indexOf(value, position);     // 3
+
+position = 1;
+a.lastIndexOf(value, position); // 1
+position = 3;
+a.lastIndexOf(value, position); // 3
+position = -2;
+a.lastIndexOf(value, position); // 3
+position = -3;
+a.lastIndexOf(value, position); // 1
+```
+
+下面的例子，就是应用 `indexOf()` 方法查找指定值在数组中的所有索引：
+
+```javascript
+function findAll(a, x) {
+  var len = a.length,
+      pos = 0,
+      result = [];
+
+  while (len > 0 && pos < len) {
+    pos = a.indexOf(x, pos);
+    if (pos === -1) break;
+    result.push(pos);
+    pos = pos + 1;
+  }
+
+  return result;
+}
+
+var a = [0, 1, 2, 1, 0];
+findAll(a, 1);            // [1, 3]
+findAll(a, 0);            // [0, 4]
+```
+
+**注意**：字符串也有这两种方法，功能和数组的类似。因为 JS 中可以将字符串当成数组来看待，这样就容易理解了。
