@@ -16,7 +16,7 @@
 
 左侧的源代码，包括两大部分：
 
-Universal Application Code/全局应用代码：包含 Store、Router 和 Components 这三大部分。
+Universal Application Code/通用的应用代码：包含 Store、Router 和 Components 这三大部分。
 
 Store 中保存的是：XX，Router 中是路由设置，Components 则是组件的内容。
 
