@@ -3061,3 +3061,20 @@ findAll(a, 0);            // [0, 4]
 ```
 
 **注意**：字符串也有这两种方法，功能和数组的类似。因为 JS 中可以将字符串当成数组来看待，这样就容易理解了。
+
+## 数组类型
+
+对于一个未知对象，要判断它是否为数组，在 ES5 中，可以用 `Array.isArray()` 方法进行判断。但是在 ES5 之前，就比较困难了。`typeof` 操作符对于函数之外的目标，得到的结果都是 `object`。
+
+而 `instanceof` 虽然能简单地判断一下，但是对于前端来说，Web 浏览器中往往有多个 window 或多个 frame，每个都有自己的 JavaScript 环境，每个环境都有自己的全局对象，而每个全局对象都有自己的一组构造函数。也就是说，即使是看起来完全相同的两个对象，如果这两个对象各属于不同的 frame 的话，在一个 frame 中用 `instanceof` 判断这两个对象，结果也是不同的。
+
+真正可行的方法，是检查未知对象的类（class）属性，数组对象的这个属性就是 `Array`，在“类属性”这一节中，定义了一个 `classOf()` 函数，就是用来判断传入对象的类属性的。所以，在 ES3 中，`isArray()` 函数可以这样写：
+
+```javascript
+var isArray = Function.isArray || function(o) {
+  return typeof o === "object" &&
+    Object.prototype.toString.call(o) === "[object Array]";
+};
+```
+
+实际上 ES5 中的 `isArray()` 函数干的就是这件事。
