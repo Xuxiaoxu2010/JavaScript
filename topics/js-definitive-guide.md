@@ -3095,5 +3095,25 @@ var isArray = Function.isArray || function(o) {
 下面的代码拿一个普通的对象作为示范，给这个对象添加了一些属性，就成了类数组对象了，然后再迭代这个伪数组元素：
 
 ```javascript
+var a = {}; // a 就是个普通的对象
+
+// 添加些属性，让它看起来像数组
+var i = 0;
+while(i < 10) {
+    a[i] = i * i;
+    i++;
+}
+a.length = i;
+
+// 用迭代真正的数组的形式迭代它
+var total = 0;
+for (var j = 0; j < a.length; j++) {
+    total += a[j];
+}
+```
+
+在 变长参数列表/参数对象 这一节中所讲到的概念，也是类数组对象。在客户端 JavaScript 中，很多 DOM 相关的方法返回的都是类数组对象，比如 `document.getElementsByTagName()`。下面这个函数，你就可以用来判断参数是不是类数组对象：
+
+```javascript
 
 ```
