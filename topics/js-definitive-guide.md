@@ -41,6 +41,8 @@ JavaScript 会忽略程序中标识（token）之间的空格，并且在大多�
 
 ### Unicode 转义序列
 
+在某些老旧的硬件或软件中，无法显示或输入 Unicode 中的部分字符。因此 JavaScript 定义了 Unicode 转义序列，用 6 个 ASCII 字符来代表任意的 16 位 Unicode 内码：`\uxxxx`，以 `\u` 为前缀，后跟 4 个十六进制数。
+
 ```javascript
 "café" === "caf\u00e9" // => true: \u00e9 的含义见下面“字符串”一节中的“字符集和内码”这一小节
 ```
