@@ -3182,3 +3182,28 @@ Array.map = Array.map || function(a, f, thisArg) {
   return Array.prototype.map.call(a, f, thisArg);
 };
 ```
+
+## 作为数组的字符串
+
+在 ES5 中，以及 ES5 之前的诸多浏览器——包括 IE8——之中，字符串都表现得像个只读数组。除了用 `charAt()` 方法访问某个字符，你还可以用方括号实现相同的操作：
+
+```javascript
+var s = "test";
+s.charAt(0);    // => "t"
+s[1];           // => "e"
+```
+
+不过字符串也只是**表现得像个**数组，用 typeof 判断的话，返回的仍然是 `string`，给 `Array.isArray()` 方法传递一个字符串的话，返回的也是 false。
+
+可索引字符串最大的一个好处就是可以用方括号来索引，这样就不需要 `charAt()` 了，岂不是很方便？这样更精练、可读性更强，而且还可能效率更高。“字符串表现得像个只读数组”也意味着可以对它们使用数组通用的方法：
+
+```javascript
+s = 'JavaScript';
+Array.prototype.join.call(s, ' ');  // => 字母之间添加空格："J a v a S c r i p t"
+Array.prototype.filter.call(s,
+  function(x) {
+    return x.match(/[^aeiou]/);
+}).join('');                        // => 筛选出非元音字母："JvScrpt"
+```
+
+一定要记住，字符串是不可变的。所以如果是把它们当作数组用的话，它们肯定就是只读数组。像 `push()`、`sort()` 之类的方法会修改数组，这些方法对字符串就不起作用。不过用数组方法修改字符串并不报错，这一点要注意。
