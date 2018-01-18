@@ -18,6 +18,21 @@ JavaScript 是用 Unicode 字符集编写的，这个字符集支持地球上几
 ```javascript
 var a = 0;
 var A = 1;
+a === A;    // => false
+```
+
+由于 JavaScript 区分大小写，而 HTML 又不区分大小写，许多客户端 JavaScript 对象和属性与它们所表示的 HTML 标签和属性同名。所以在 HTML 中，这些标签和属性可以随便用大小写，但在 JavaScript 中必须用小写。
+
+```html
+// HTML
+<a onClick="hello"></a>
+```
+
+```javascript
+// JavaScript
+node.addEventListener('onclick', function() {
+  // some code
+});
 ```
 
 ### Unicode 转义序列
