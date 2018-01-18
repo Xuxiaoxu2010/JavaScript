@@ -11,6 +11,8 @@ Lexical.Charset.CaseSensitive // 输出关键知识点
 
 ## 字符集
 
+JavaScript 是用 Unicode 字符集编写的，这个字符集支持地球上几乎所有在用的语言。
+
 ### 区分大小写
 
 ```javascript
