@@ -3115,5 +3115,70 @@ for (var j = 0; j < a.length; j++) {
 在 变长参数列表/参数对象 这一节中所讲到的概念，也是类数组对象。在客户端 JavaScript 中，很多 DOM 相关的方法返回的都是类数组对象，比如 `document.getElementsByTagName()`。下面这个函数，你就可以用来判断参数是不是类数组对象：
 
 ```javascript
+// 函数判断 o 是否为类数组对象
+// 可以用 typeof 排除字符串和函数，因为它们也有数值类型的 length 属性
+// 在客户端 JavaScript 中，文本类型的 DOM 节点也有 length 属性，所以需要额外用 o.nodeType != 3 排除
+function isArrayLike(o) {
+  if (o &&                                  // 排除 null、undefined
+    typeof o === 'object' &&                // 数组也是对象
+    isFinite(o.length) &&                   // length 属性有限大
+    o.length >= 0 &&                        // length 属性非负
+    o.length === Math.floor(o.length) &&    // length 属性为整数
+    o.length < 4294967296)                  // length 属性 < 2^32
+    return true;
+  else
+    return false;
+}
+```
 
+下一节可以看到，ES5 中的字符串的表现和数组很像（在 ES5 之前，有些浏览器已经让字符串可以索引了）。不过上面判断类数组对象的函数在用于字符串时，通常返回的都是 `false` —— 最好是把它们当作字符串处理（TODO: 不太懂……）。
+
+JavaScript 中的数组方法是故意设置为通用的，这样这些方法在类数组对象身上也可以用。在 ES5 中，所有数组方法都是通用的，在 ES3 中则只有 `toString()` 和 `toLocaleString()` 不是通用的。不过 `concat()` 方法是个例外——虽然也可以用在类数组对象上，但它并没有把这个对象扩充进数组中。因为类数组对象并不是从 `Array.prototype` 继承而来，所以它们不能直接调用数组方法。要通过 `Function.call` 这个方法来间接调用：
+
+```javascript
+var a = {
+  '0': 'a',
+  '1': 'b',
+  '2': 'c',
+  length: 3
+};
+
+Array.prototype.join.call(a, '+');  // => "a+b+c"
+Array.prototype.slice.call(a, 0);   // => ["a", "b", "c"]
+Array.prototype.map.call(a, function(x) {
+  return x.toUpperCase();
+});                                 // => ["A", "B", "C"]
+```
+
+关于 `Function` 对象的 `call` 方法，在下一章：函数中会深入探讨，此处不做过多讨论。
+
+在 Firefox 1.5 中引入了 ES5 的数组方法，因为这些方法通用性很好，所以 Firefox 还将这些方法作为 Array 对象的构造函数中的方法来引入。有了这些方法，前面的例子就可以改写成下面这样了：
+
+```javascript
+var a = {
+  '0': 'a',
+  '1': 'b',
+  '2': 'c',
+  length: 3
+};
+
+Array.join(a, '+');
+Array.slice(a, 0);
+Array.map(a, function(x) {
+  return x.toUpperCase();
+});
+```
+
+用在类数组对象上的时候，这些数组方法的静态函数版本就很有用了。不过它们不是标准方法，所以不可能所有浏览器里面都能用。像下面这样写代码，就可以保证只有在需要的函数存在的时候，才会调用它们：
+
+```javascript
+Array.join = Array.join || function(a, sep) {
+  return Array.prototype.join.call(a, sep);
+};
+Array.slice = Array.slice || function(a, from, to) {
+  return Array.prototype.slice.call(a, from, to);
+};
+Array.map = Array.map || function(a, f, thisArg) {
+  return Array.prototype.map.call(a, f, thisArg);
+};
 ```
