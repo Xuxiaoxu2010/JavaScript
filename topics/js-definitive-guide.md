@@ -35,6 +35,10 @@ node.addEventListener('onclick', function() {
 });
 ```
 
+### 空格、换行符和格式控制符
+
+JavaScript 会忽略程序中标识（token）之间的空格，并且在大多数情况下会忽略换行符。所以可以在代码中用缩进来美化代码的格式，增强可读性。
+
 ### Unicode 转义序列
 
 ```javascript
