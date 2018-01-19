@@ -24,6 +24,16 @@
 
 ---
 
+## 课程笔记
+
+[JS 入门课 - 徐高阳](js-elementary)
+
+[JS 进阶课 - 徐高阳](js-advanced)
+
+[WebApp - 徐高阳](webapp)
+
+---
+
 ## 源码剖析
 
 [vue-hackernews-2.0 源码剖析](code-analysis/vue-hackernews.md)
@@ -107,3 +117,9 @@
 [公司30周年庆网页制作总结](anniversary/anniversary.md)
 
 [公司周年庆网站重构笔记（已坑）](anniversary/anniversary-refactor.md)
+
+---
+
+## 待填坑
+
+[essay](essay)
