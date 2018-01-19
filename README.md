@@ -34,11 +34,15 @@
 
 ---
 
-## 源码剖析
+## 代码剖析
 
 [vue-hackernews-2.0 源码剖析](code-analysis/vue-hackernews.md)
 
-[Nodeclub 项目学习笔记](code-analysis/nodeclub.md)
+[两行代码的故事](code-analysis/dom-manipulation.md)
+
+[剖析网易云音乐动态效果](code-analysis/disc-rotating-effect.md)
+
+[Nodeclub 项目学习笔记（又一个坑）](code-analysis/nodeclub.md)
 
 ---
 
@@ -114,9 +118,9 @@
 
 ## 公司业务
 
-[公司30周年庆网页制作总结](anniversary/anniversary.md)
+[公司30周年庆网页制作总结](company-business/anniversary.md)
 
-[公司周年庆网站重构笔记（已坑）](anniversary/anniversary-refactor.md)
+[公司周年庆网站重构笔记（已坑）](company-business/anniversary-refactor.md)
 
 ---
 
