@@ -78,6 +78,8 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 # 周五讲稿
 
+[VS Code Tips and Tricks](https://github.com/Microsoft/vscode-tips-and-tricks): 已被微软官方收入官方文档中。
+
 ## 自带功能
 
 ### 默认快捷键
@@ -213,3 +215,5 @@ F1, History: 查看当前项目历史（需已用 Git 管理，两者区别，�
 ## 参考资料
 
 [为什么我选择使用 VS Code进行前端开发?](https://segmentfault.com/a/1190000010750647?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)：用到了里面介绍的 Dash、Path Intellisense 这两个扩展。
+
+[My Visual Studio Code setup](https://medium.com/@beeblebrox3/my-visual-studio-code-setup-9b488a119e24)
