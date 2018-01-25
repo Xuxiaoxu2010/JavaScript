@@ -16,7 +16,7 @@ VSCode 自身的功能，都可以通过编辑设置文件来进行修改，打�
 | Alt | Option/Alt | ⌥ | Alt |
 | Control | Control | ^ | Ctr |
 
-![](https://gitee.com/samsara9527/Pics/raw/master/vscode/modifiers.png)
+![modifiers-table](https://gitee.com/samsara9527/Pics/raw/master/vscode/modifiers.png)
 
 #### 建议选项
 
@@ -50,7 +50,7 @@ VSCode 中的自带功能均可进行修改，下图中右侧的内容为用户�
 },
 ```
 
-![](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-user-settings.png)
+![code-user-settings](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-user-settings.png)
 
 ### 自动保存 - `files.autoSave`
 
@@ -66,7 +66,7 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 而应用第三个选项的话，则必须切换到别的程序中，VSCode 才会自动保存。
 
-![](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-userinterface-hero.png)
+![code-userinterface-hero](https://gitee.com/samsara9527/Pics/raw/master/vscode/code-userinterface-hero.png)
 
 ### 自动展开文件夹 - `explorer.autoReveal`
 
@@ -74,80 +74,139 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 - true/false: 开启或关闭该功能，下同。
 
-### 配置默认终端
+---
 
-之前用的是 `Git Bash`，现在想换成 `PowerShell` 玩玩，按照下面几步进行了设置：
+# 周五讲稿
 
-#### 安装 posh-git
+## 自带功能
 
-`posh-git` 是一个 PowerShell 模块，将 Git 集成到了 PowerShell。如果进入了 Git 仓库的话，能够看到仓库的相关信息：
+### 默认快捷键
 
-```shell
-C:\Users\Keith\GitHub\posh-git [master ≡ +0 ~1 -0 !]>
-```
+[VSCode Keyboard shortcuts for Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
-模块的安装遵循[官网的流程](https://github.com/dahlbyk/posh-git#installation)即可：
+[VSCode Keyboard shortcuts for macOS](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
 
-1. 配置 PowerShell 的脚本执行策略：`Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Confirm`；
-2. 安装 posh-git：`PowerShellGet\Install-Module posh-git -Scope CurrentUser`；
-3. 更新 posh-git：`Update-Module posh-git`；
-4. 配置 posh-git 随 PowerShell 启动：`Add-PoshGitToProfile -AllHosts`；
-5. 修改 posh-git 的样式：`$GitPromptSettings.DefaultPromptSuffix = '`n$(''>'' * ($nestedPromptLevel + 1)) '`，这样一来，最后的命令提示符，就能够另起一行显示了：
+#### 侧栏切换
 
-```shell
-C:\Users\Keith\GitHub\posh-git [master ≡ +0 ~1 -0 !]
->
-```
+<!-- 开启 KeyCastr -->
 
-#### 配置 VSCode
+Cmd+Shift+E: Explorer
+Cmd+Shift+F: Find
+Cmd+Shift+W: Git
+Cmd+Shift+D: Debug
+Cmd+Shift+X: Extension
 
-配置完 posh-git，就要把 PowerShell 集成到 VSCode 里了，在用户设置文件中（用快捷键 `Ctrl+,` 调出），增加下面一段：
+顺便演示一下如何修改默认快捷键：F1 -> Keyboard Shortcuts，根据功能名称/快捷键查找
 
-```shell
-"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-"terminal.integrated.shellArgs.windows": [
-  "-ExecutionPolicy",
-  "Bypass",
-  "-NoLogo",
-  "-NoProfile",
-  "-NoExit",
-  "-Command",
-  "Invoke-Expression '. ''c:\\Software\\Cmder\\vendor\\profile.ps1'''"
-]
-```
+#### 窗口切换
 
-这里使用了 Cmder 这个软件提供的 PowerShell 配置，由于这个配置文件 `profile.ps1` 中使用的是相对路径，而这个相对路径是用于在 Cmder 中启动 PowerShell 的，所以如果从 VSCode 的集成终端里启动，由于路径会不同，就会报错，所以修改了这个 `profile.ps1` 文件中，设置环境路径的代码：
+Cmd+N: 聚焦至文本编辑器中第N个窗口
+Cmd+0: 聚焦至侧栏
+Cmd+B: 显示（并聚焦至）/隐藏侧栏
+Ctrl+`: 显示（并聚焦至）/隐藏终端
+Ctrl+Shift+`: （显示并）聚焦至终端
 
-```shell
-if (! $ENV:CMDER_ROOT ) {
-    # $ENV:CMDER_ROOT = resolve-path( $ENV:ConEmuDir + "\..\.." )
-    $ENV:CMDER_ROOT = "C:\Software\Cmder"
-}
-```
+Ctrl+Cmd+Right: 将当前文件（至少打开两个文件时）在右侧区域显示
 
-中间被注释掉的那一行，是原本的代码，自己改成了绝对路径，这样在 VSCode 中启动集成终端 PowerShell 时，不管初始路径是什么，都不会报错。
+#### 文件编辑
 
-参考资料：
+Cmd+K,V: 在右侧预览当前 markdown
+Cmd+Shift+V: 在当前区域预览 markdown
+Cmd+K,W: 关闭所有已打开的文件
+Cmd+K,F: 关闭当前打开的文件夹
 
-- [Compatible with Visual Studio Code (PowerShell)](https://github.com/cmderdev/cmder/pull/1417)
+#### 文本编辑
+
+Cmd+Enter: 下方插入空行
+Cmd+Shift+Enter: 上方插入空行
+Cmd+Delete: 删除至行首
+Alt+Delete: 删除英文单词
+Cmd+Shift+Delete：删除整行并跳至下一行
+Cmd+Shift+Up: 复制当前行至上方
+Cmd+Shift+Down: 复制当前行至下方
+Cmd+D: 选择下一个相同的字符串，用 EJS 文件演示
+
+### 快速定位
+
+Cmd+P，然后输入文件名。
+Cmd+P，然后输入 @，即可快速定位至文件中的方法。
+
+### 代码查看
+
+<!-- 关闭 KeyCastr -->
+
+Go to Defination: 转到定义。
+Peek Defination: 查看定义（在当前文件中通过弹窗查看）。
+Find All References: 查找所有引用。
+Change All Occurrences: 修改所有相同的字符串：当心误操作。
+
+### 个人常用配置
+
+#### 自动保存
+
+"files.autoSave": "afterDelay",
+// "files.autoSaveDelay": 1000, 该参数设置延迟多久之后才保存
+
+#### 输入时自动格式化
+
+"editor.formatOnType": true
+
+#### 不自动展开文件夹
+
+// 切换至某文件时，不会在左侧自动展开该文件所属的文件夹
+"explorer.autoReveal": false
+
+用整理好的侧栏文件目录做演示。
+
+#### markdown 自动提示
+
+"[markdown]": {
+  "editor.quickSuggestions": true
+},
+
+#### JS 自动补全括号对
+
+"typescript.useCodeSnippetsOnMethodSuggest": true
 
 ## 插件推荐
 
 ### Code Outline
 
-### ESLint
+显示代码/文章大纲。
+
+功能与 Cmd+P,@ 相似。
 
 ### Git History
 
-### Git Project Manager
+F1, History: 查看当前项目历史（需已用 Git 管理，两者区别，可用 ~/Downloads/WebApp 在终端中的路径作对比）。
+
+查看之前某次的提交：与文件当前版本对比/与文件更前一次版本对比/查看该文件的历史。
 
 ### markdownlint
 
+现场演示。
+
 ### npm
+
+不做演示。
+
+### Open in GitHub
+
+现场演示，在侧栏中右键打开，以及在文本编辑区域中用快捷键打开。
+
+快捷键方式，先用默认设置打开，然后再演示如何查看配置项并添加到自定义配置中。
+
+### Path Intellisense
+
+用 JS 项目做演示，注意当前文件所在路径。
 
 ### Quick and Simple Text Selection
 
-### Vue 2 Snippets
+直接用当前 markdown 文件的 URL 语句做演示。
+
+### VSCode Browser Sync
+
+用 HTML 做演示。
 
 ---
 
