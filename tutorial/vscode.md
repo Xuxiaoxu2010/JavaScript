@@ -88,6 +88,11 @@ VSCode 贴心地提供了自动保存的功能，这样写完代码之后就不�
 
 [VSCode Keyboard shortcuts for macOS](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
 
+### 快速定位
+
+Cmd+P，然后输入文件名。
+Cmd+P，然后输入 @，即可快速定位至文件中的方法或标题。
+
 #### 侧栏切换
 
 <!-- 开启 KeyCastr -->
@@ -112,7 +117,7 @@ Ctrl+Cmd+Right: 将当前文件（至少打开两个文件时）在右侧区域�
 
 #### 文件编辑
 
-Cmd+K,V: 在右侧预览当前 markdown
+Cmd+K,V: 在右侧分栏预览 markdown
 Cmd+Shift+V: 在当前区域预览 markdown
 Cmd+K,W: 关闭所有已打开的文件
 Cmd+K,F: 关闭当前打开的文件夹
@@ -123,15 +128,10 @@ Cmd+Enter: 下方插入空行
 Cmd+Shift+Enter: 上方插入空行
 Cmd+Delete: 删除至行首
 Alt+Delete: 删除英文单词
-Cmd+Shift+Delete：删除整行并跳至下一行
-Cmd+Shift+Up: 复制当前行至上方
-Cmd+Shift+Down: 复制当前行至下方
-Cmd+D: 选择下一个相同的字符串，用 EJS 文件演示
-
-### 快速定位
-
-Cmd+P，然后输入文件名。
-Cmd+P，然后输入 @，即可快速定位至文件中的方法。
+Cmd+Shift+K：删除整行并跳至下一行
+Alt+Shift+Up: 复制当前行至上方
+Alt+Shift+Down: 复制当前行至下方
+Cmd+D: 选择**下一个**相同的字符串，用 EJS 文件演示
 
 ### 代码查看
 
@@ -169,6 +169,10 @@ Change All Occurrences: 修改所有相同的字符串：当心误操作。
 #### JS 自动补全括号对
 
 "typescript.useCodeSnippetsOnMethodSuggest": true
+
+#### User Snippets
+
+F1，snippet，markdown。
 
 ## 插件推荐
 
