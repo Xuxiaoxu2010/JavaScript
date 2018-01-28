@@ -510,3 +510,19 @@ Switched to a new branch 'note'
 参考资料：
 
 - [How to make Git properly display UTF-8 encoded pathnames in the console window?](https://stackoverflow.com/a/22828826/2667665)
+
+### 让 Git 不再总是提示输入用户名和密码
+
+方法其实很简单，将项目的 `.git/config` 文件，由下面的这种形式：
+
+```shell
+[remote "origin"]
+  url = https://github.com/Dream4ever/Anniversary.git
+```
+
+改为下面这种形式：
+
+```shell
+[remote "origin"]
+  url = git@github.com:Dream4ever/JavaScript.git
+```
