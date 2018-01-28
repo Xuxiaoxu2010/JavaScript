@@ -136,7 +136,7 @@ git reset --hard
 
 下图是执行后的结果。
 
-![](https://raw.githubusercontent.com/Dream4ever/Pics/master/git-diff-result.png)
+![git-diff-result](https://raw.githubusercontent.com/Dream4ever/Pics/master/git-diff-result.png)
 
 注意，执行 `git diff` 后，终端会进入 `Vim` 环境，注意看图中最后一行行首的冒号。按一下 `q` 键，退出 `Vim` 环境。
 
