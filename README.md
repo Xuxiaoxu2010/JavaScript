@@ -8,11 +8,7 @@
 
 ## 每周学习总结
 
-[2017 年度总结](weekly-review/2017.md)
-
-[2018 年第 1 周](weekly-review/2018-01.md)
-
-[2018 年第 2 周](weekly-review/2018-02.md)
+[每周学习总结](https://github.com/Dream4ever/JavaScript/tree/master/weekly-review)
 
 ---
 
@@ -26,11 +22,13 @@
 
 ## 课程笔记
 
-[JS 入门课 - 徐高阳](js-elementary)
+[Vue.js 课程](https://github.com/Dream4ever/JavaScript/tree/master/vue-advanced)
+
+[WebApp - 徐高阳](webapp)
 
 [JS 进阶课 - 徐高阳](js-advanced)
 
-[WebApp - 徐高阳](webapp)
+[JS 入门课 - 徐高阳](js-elementary)
 
 ---
 
