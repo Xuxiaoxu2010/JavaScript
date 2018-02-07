@@ -129,3 +129,61 @@ computed: {
   }
 }
 ```
+
+## 绑定 HTML Class
+
+用 `v-bind` 指令，可以将类名动态地绑定到 HTML 元素上（因为如果只是静态绑定，那就根本用不着 `v-bind` 嘛，直接把类名写上就好了）。
+
+绑定到 HTML Class 上的，既可以是对象，也可以是数组。不管是哪种，Vue 都会计算所绑定内容的每个值（对象就是每个属性的值，数组就是每个元素的值）。
+
+```html
+<!-- 模板代码 -->
+<div v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+<!-- 渲染生成的 HTML -->
+<div class="active"></div>
+```
+
+```javascript
+data: {
+  isActive: true,
+  hasError: false
+}
+```
+
+传入对象时，Vue 会计算各属性的值是否为真值。以上面的代码为例，`isActive` 是真值，因此把 `active` 这个类绑定到 `div` 上了；而 `hasError` 是假值，就没有绑定`text-danger` 这个类。
+
+上面所绑定的数据对象，也可以不内联定义在模板里，而是定义在 Vue 实例中，结果是一样的：
+
+```html
+<div v-bind:class="classObject"></div>
+```
+
+```javascript
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+```
+
+对于复杂的业务，甚至还可以绑定一个计算属性——当然了，这个计算属性返回的也是对象：
+
+```html
+<div v-bind:class="classObject"></div>
+```
+
+```javascript
+data: {
+  isActive: true,
+  error: null
+},
+computed: {
+  classObject: function () {
+    return {
+      active: this.isActive && !this.error,
+      'text-danger': this.error && this.error.type === 'fatal'
+    }
+  }
+}
+```
