@@ -44,3 +44,8 @@ var app = new Vue({
 
 window.setInterval(app.showTime(), 500);
 ```
+
+## 选项对象
+
+- 传入 Vue 实例的选项对象，内容都在 `app.$options` 中。
+- 而数据属性 `data` 中的值，则在 `app.$options.data()` 中。
