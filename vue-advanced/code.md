@@ -104,7 +104,7 @@ computed: {
 
 ## 计算属性的 `get/set` 语法
 
-显式设置计算属性的 `getter/setter` 时，要注意 Vue 的语法和原生 JS 的语法不太一样：
+显式设置计算属性的 `getter/setter` 时，要注意 Vue 的语法和原生 JS 的语法不太一样，Vue 的 `get/set` 关键字后面跟着的先是一个冒号，然后是匿名函数；原生 JS的 `get/set` 关键字后面则是直接跟了一个完整的非匿名函数。
 
 ```javascript
 //  原生 JS
