@@ -88,3 +88,16 @@ window.setInterval(app.showTime(), 500);
 <!-- isButtonDisabled 为真值时，渲染出来的 HTML 代码 -->
 <button disabled="disabled">Button</button>
 ```
+
+## 计算属性
+
+如果只设置计算属性的 `getter` 函数的话，这个函数的返回值就是计算属性的值，所以不要忘了 `return`：
+
+```javascript
+computed: {
+  // 计算属性的 getter
+  reversedMessage: function () {
+    return this.message.split('').reverse().join('');
+  }
+}
+```
