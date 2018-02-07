@@ -49,3 +49,11 @@ window.setInterval(app.showTime(), 500);
 
 - 传入 Vue 实例的选项对象，内容都在 `app.$options` 中。
 - 而数据属性 `data` 中的值，则在 `app.$options.data()` 中。
+
+## 实例生命周期钩子
+
+为什么官方文档把实例生命周期钩子也叫做选项属性（`options property`）？
+
+出处：[Vue 实例 — Vue.js](https://cn.vuejs.org/v2/guide/instance.html)。
+
+> 不要在选项属性或回调上使用箭头函数（Don’t use arrow functions on an options property or callback）。
