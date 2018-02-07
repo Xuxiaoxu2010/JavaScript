@@ -89,7 +89,7 @@ window.setInterval(app.showTime(), 500);
 <button disabled="disabled">Button</button>
 ```
 
-## 计算属性
+## 计算属性 `getter` 函数的 `return`
 
 如果只设置计算属性的 `getter` 函数的话，这个函数的返回值就是计算属性的值，所以不要忘了 `return`：
 
@@ -98,6 +98,34 @@ computed: {
   // 计算属性的 getter
   reversedMessage: function () {
     return this.message.split('').reverse().join('');
+  }
+}
+```
+
+## 计算属性的 `get/set` 语法
+
+显式设置计算属性的 `getter/setter` 时，要注意 Vue 的语法和原生 JS 的语法不太一样：
+
+```javascript
+//  原生 JS
+var obj = {
+  get value() {
+    console.log('get');
+  },
+  set value(val) {
+    console.log('set');
+  }
+}
+
+// Vue
+computed: {
+  fullName: {
+    get: function () {
+      return this.firstName + ' ' + this.lastName;
+    },
+    set: function (newValue) {
+      var names = newValue.split(' ');
+    }
   }
 }
 ```
