@@ -349,11 +349,14 @@ Vue.component('child', {
 
 ## 将对象的所有属性作为 `prop` 进行传递
 
-下面的代码仅为示范功能，并不是最佳的代码风格。
+下面的代码仅为示范功能，并不是最佳的代码风格。有几点需要注意：
+
+1. `<script type="text/x-template" id="todo-item">` 这种字符串模板，使得开发者可以用直观的方式书写模板内容，不用考虑 DOM 模板的各种限制，也不需要在各行之间加上换行标记 `\` 。
+2. 全局注册的组件 `todo-item` 中，定义父组件传入的数据/props 为 `text` 和 `isComplete`，在字符串模板中，也是用 `:checked="isComplete"` 和 `{{ text }}` 来绑定数据的。这里要注意，在 HTML 中，用的是 `v-bind="todo"` 来传入一个对象 `todo`，其实最终传入的是 `todo` 对象中的 `text` 和 `isComplete`。这里用到的知识点就是将对象作为 `prop` 进行传递。
 
 ```html
 <div id="app">
-  <!-- 用 v-for 遍历时，不绑定 key 会有警告⚠️ -->
+  <!-- 用 v-for 遍历时，不绑定 key 会有警告 ⚠️ -->
   <!-- 注意这里的组件绑定 todo 和 JS 中定义 props 的方式 -->
   <todo-item
     v-for="todo in todos"
