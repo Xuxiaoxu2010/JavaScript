@@ -269,3 +269,47 @@ methods: {
 | 直到渲染条件为真时才开始渲染元素 | 元素总会渲染 |
 | 元素可能会被销毁 | 元素只是通过 CSS 的方式被隐藏起来 |
 | 切换开销更高，适用于运行条件很少变化的情况 | 渲染开销更高，适用于需要频繁切换的场景 |
+
+## 全局组件和根实例的顺序
+
+需要在根实例之前注册全局组件，否则就会报错：
+
+```javascript
+// 创建根实例
+new Vue({
+  el: '#example'
+});
+
+// 注册
+Vue.component('my-component', {
+  template: '<div>A custom component!</div>'
+});
+
+/* 报错：
+[Vue warn]: Unknown custom element: <my-component> - did you register the component correctly? For recursive components, make sure to provide the "name" option.
+(found in <Root>)
+*/
+```
+
+## DOM 模板解析注意事项
+
+结合老师的视频进行学习。
+
+## 组件复用同一个对象变量
+
+在 [data 必须是函数](https://cn.vuejs.org/v2/guide/components.html#data-%E5%BF%85%E9%A1%BB%E6%98%AF%E5%87%BD%E6%95%B0) 这个示例中，最初版本的计数器共用了同一个全局对象，导致点击任一按钮都会修改这个对象。示例中给出的解决方式是在数据属性中返回该对象的内容，其实也可以用深拷贝的方式解决这个问题，而且深拷贝的方式也更实用，因为如果对象比较复杂的话，直接修改全局对象还是更方便一些，毕竟要在层层代码中去修改的话就更麻烦。
+
+```javascript
+var data = {
+  counter: 0
+}
+
+Vue.component('simple-counter', {
+  template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+  data: function () {
+    return {...data};
+    // return Object.assign({}, data);
+    // return JSON.parse(JSON.stringify(data));
+  }
+});
+```
