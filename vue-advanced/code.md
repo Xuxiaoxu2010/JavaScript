@@ -230,3 +230,34 @@ data： {
   }
 }
 ```
+
+## HTML 元素的复用
+
+用 `v-if` 系列语句分组的元素，如果元素类型相同，且没有设置 `key`，或者设置了相同的 `key`，各组间相同类型的元素就都是可以复用的：也就是不会重新渲染元素，而是直接使用现有的元素。现有元素如果是 `input` 之类可编辑内容的元素的话，所输入的内容也会保留。
+
+以下面的代码为例，`label` 元素和 `input` 元素都会被复用，因为它们都没有设置 `key`，或者没有设置相同的 `key`。
+
+```html
+<template v-if="loginType">
+  <label>Username</label>
+  <input type="text" placeholder="Enter your username">
+  <input type="password" key="password">
+</template>
+<template v-else>
+  <label>Email</label>
+  <input type="text" placeholder="Enter your email">
+  <input type="password" key="password">
+</template>
+<button @click="switchy">Switch</button>
+```
+
+```javascript
+data: {
+  loginType: 'username'
+},
+methods: {
+  switchy() {
+    this.loginType = this.loginType ? '' : 'username'
+  }
+}
+```
