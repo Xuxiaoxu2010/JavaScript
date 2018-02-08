@@ -295,6 +295,8 @@ Vue.component('my-component', {
 
 结合老师的视频进行学习。
 
+参考文章：[Why You Should Avoid Vue.js DOM Templates](https://vuejsdevelopers.com/2017/09/17/vue-js-avoid-dom-templates/)
+
 ## 组件复用同一个对象变量
 
 在 [data 必须是函数](https://cn.vuejs.org/v2/guide/components.html#data-%E5%BF%85%E9%A1%BB%E6%98%AF%E5%87%BD%E6%95%B0) 这个示例中，最初版本的计数器共用了同一个全局对象，导致点击任一按钮都会修改这个对象。示例中给出的解决方式是在数据属性中返回该对象的内容，其实也可以用深拷贝的方式解决这个问题，而且深拷贝的方式也更实用，因为如果对象比较复杂的话，直接修改全局对象还是更方便一些，毕竟要在层层代码中去修改的话就更麻烦。
