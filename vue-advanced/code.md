@@ -315,3 +315,20 @@ Vue.component('simple-counter', {
   }
 });
 ```
+
+## 非字符串模板的驼峰式 prop
+
+编写组件时，如果用的是**非字符串模板方式**，那么在 JS 中以驼峰式命名的 `prop`，在 HTML 中使用时，要改成短横线分隔式命名。
+
+```html
+<!-- 在 HTML 中使用 kebab-case -->
+<child my-message="hello!"></child>
+```
+
+```javascript
+Vue.component('child', {
+  // 在 JavaScript 中使用 camelCase
+  props: ['myMessage'],
+  template: '<span>{{ myMessage }}</span>'
+})
+```
