@@ -346,3 +346,61 @@ Vue.component('child', {
   <child v-bind:my-message="parentMsg"></child>
 </div>
 ```
+
+## 将对象的所有属性作为 `prop` 进行传递
+
+```html
+<div id="app">
+  <!-- 用 v-for 遍历时，不绑定 key 会有警告⚠️ -->
+  <!-- 注意这里的组件绑定 todo 和 JS 中定义 props 的方式 -->
+  <todo-item
+    v-for="todo in todos"
+    :key="todo.id"
+    v-bind="todo">
+  </todo-item>
+</div>
+```
+
+```javascript
+<script type="text/x-template" id="todo-item">
+  <div>
+    <input type="checkbox"
+    :checked="isComplete">
+    <span>{{ text }}</span>
+  </div>
+</script>
+
+<script>
+  'use strict';
+
+  Vue.config.productionTip = false;
+
+  Vue.component('todo-item', {
+    props: [
+      'text',
+      'isComplete'
+      ],
+    template: '#todo-item'
+  });
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      todos: [
+        {
+          text: 'Learn JavaScript',
+          isComplete: true
+        },
+        {
+          text: 'Learn Vue',
+          isComplete: false
+        },
+        {
+          text: 'Make a project',
+          isComplete: false
+        }
+      ]
+    }
+  });
+</script>
+```
