@@ -187,3 +187,22 @@ computed: {
   }
 }
 ```
+
+数组本质上也是对象，所以也可以绑定到 HTML Class 上：
+
+```html
+<div v-bind:class="[activeClass, errorClass]"></div>
+```
+
+```javascript
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+
+而数组中的元素也可以是对象（这么说来，对象中的元素也可以是数组么？）：
+
+```html
+<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+```
