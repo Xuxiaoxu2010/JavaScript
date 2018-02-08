@@ -206,3 +206,27 @@ data: {
 ```html
 <div v-bind:class="[{ active: isActive }, errorClass]"></div>
 ```
+
+## 绑定多个内联样式
+
+所绑定的多个内联样式如果有相同的属性，后面的样式对象中同名属性的优先级更高。
+
+```html
+<!-- 模板代码 -->
+<div v-bind:style="[baseStyles, overridingStyles]"></div>
+<!-- 渲染后的 HTML -->
+<div style="color: blue; font-size: 13px; font-weight: bolder;"></div>
+```
+
+```javascript
+data： {
+  baseStyles: {
+    color: 'red',
+    fontSize: '13px'
+  },
+  overridingStyles: {
+    color: 'blue',
+    fontWeight: 'bolder'
+  }
+}
+```
