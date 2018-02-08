@@ -415,11 +415,11 @@ Vue.component('child', {
 要向组件中传入数值的话就要用 `v-bind`，这样传入的数值就会被当做表达式来计算，否则就会被当做字符串来使用。
 
 ```html
-<!-- 输出 string -->
+<!-- 最终显示的是 string -->
 <cmp a="1"></cmp>
-<!-- 输出 number -->
+<!-- 最终显示的是 number -->
 <cmp :a="1"></cmp>
-<!-- 输出 string -->
+<!-- 最终显示的是 string -->
 <cmp :a="'1'"></cmp>
 ```
 
