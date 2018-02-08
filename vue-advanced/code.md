@@ -332,3 +332,17 @@ Vue.component('child', {
   template: '<span>{{ myMessage }}</span>'
 })
 ```
+
+## 父组件的数据动态绑定到子组件的 prop
+
+下面的 `parentMsg` 是 Vue 实例中的数据属性，用 `v-bind` 指令将其绑定到了组件 `child` 的 `prop` 上。为什么文档中说的是将父组件的数据动态绑定到了子组件的 `prop` 上？
+
+父组件指的是 Vue 实例？子组件指的就是全局注册的组件？
+
+```html
+<div>
+  <input v-model="parentMsg">
+  <br>
+  <child v-bind:my-message="parentMsg"></child>
+</div>
+```
