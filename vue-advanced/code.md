@@ -316,9 +316,9 @@ Vue.component('simple-counter', {
 });
 ```
 
-## 非字符串模板的驼峰式 prop
+## 非字符串模板的驼峰式 props
 
-编写组件时，如果用的是**非字符串模板方式**，那么在 JS 中以驼峰式命名的 `prop`，在 HTML 中使用时，要改成短横线分隔式命名。
+编写组件时，如果用的是**非字符串模板方式**，那么在 JS 中以驼峰式命名的 `props`，在 HTML 中使用时，要改成短横线分隔式命名。
 
 ```html
 <!-- 在 HTML 中使用 kebab-case -->
@@ -333,9 +333,9 @@ Vue.component('child', {
 })
 ```
 
-## 父组件的数据动态绑定到子组件的 prop
+## 父组件的数据动态绑定到子组件的 props
 
-下面的 `parentMsg` 是 Vue 实例中的数据对象属性，用 `v-bind` 指令将其绑定到了组件 `child` 的 `prop` 上。为什么文档中说的是将父组件的数据动态绑定到了子组件的 `prop` 上？
+下面的 `parentMsg` 是 Vue 实例中的数据对象属性，用 `v-bind` 指令将其绑定到了组件 `child` 的 `props` 上。为什么文档中说的是将父组件的数据动态绑定到了子组件的 `props` 上？
 
 父组件指的是 Vue 实例？子组件指的就是全局注册的组件？
 
@@ -372,14 +372,14 @@ var app = new Vue({
 
 其实官方文档中也明确说了，还是自己阅读得不够仔细。
 
-> 我们可以用 `v-bind` 来动态地将 prop 绑定到父组件的数据上。
+> 我们可以用 `v-bind` 来动态地将 props 绑定到父组件的数据上。
 
-## 将对象的所有属性作为 `prop` 进行传递
+## 将对象的所有属性作为 `props` 进行传递
 
 下面的代码仅为示范功能，并不是最佳的代码风格。有几点需要注意：
 
 1. `<script type="text/x-template" id="todo-item">` 这种字符串模板，使得开发者可以用直观的方式书写模板内容，不用考虑 DOM 模板的各种限制，也不需要在各行之间加上换行标记 `\` 。
-2. 全局注册的组件 `todo-item` 中，定义父组件传入的数据/props 为 `text` 和 `isComplete`，在字符串模板中，也是用 `:checked="isComplete"` 和 `{{ text }}` 来绑定数据的。这里要注意，在 HTML 中，用的是 `v-bind="todo"` 来传入一个对象 `todo`，其实最终传入的是 `todo` 对象中的 `text` 和 `isComplete`。这里用到的知识点就是将对象作为 `prop` 进行传递。
+2. 全局注册的组件 `todo-item` 中，定义父组件传入的数据/props 为 `text` 和 `isComplete`，在字符串模板中，也是用 `:checked="isComplete"` 和 `{{ text }}` 来绑定数据的。这里要注意，在 HTML 中，用的是 `v-bind="todo"` 来传入一个对象 `todo`，其实最终传入的是 `todo` 对象中的 `text` 和 `isComplete`。这里用到的知识点就是将对象作为 `props` 进行传递。
 
 ```html
 <div id="app">
