@@ -10,7 +10,8 @@
 
 用 `vue lifecycle hook arrow function` 作为关键字在 Google 上搜索，在 [ES6 arrow function 'this' puzzle in vue.js official github example](https://stackoverflow.com/questions/44915753/es6-arrow-function-this-puzzle-in-vue-js-official-github-example) 这篇文章中对这个概念进行了解释。
 
-> 箭头函数并不会创建自己的 `this` 变量，它会直接用闭合执行上下文的 `this`。（An arrow function does not create its own this, the this value of the enclosing execution context is used.）
+> 箭头函数并不会创建自己的 `this` 变量，它会直接用闭合执行上下文的 `this`。
+> An arrow function does not create its own this, the this value of the enclosing execution context is used.
 > 这也就是说，在 Vue 实例的方法（methods）中定义了箭头函数的话，`this` 指向的是全局变量，或者是浏览器中的 `window` 这个变量。
 > 实例化 Vue 的时候，Vue 会将方法（methods）中定义的函数绑定到 Vue 对象上，但是箭头函数就没法绑定，所以箭头函数里的 `this` 指向的还是原来的位置。
 > 这样的话，**在编写 Vue 中的方法（methods）的时候，就不要用箭头函数了**。
