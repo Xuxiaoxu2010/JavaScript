@@ -25,3 +25,9 @@ methods: {
   }
 }
 ```
+
+## 延伸阅读
+
+- [Arrow function vs function declaration / expressions: Are they equivalent / exchangeable?](https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch)
+- [VueJS: why is “this” undefined?](https://stackoverflow.com/questions/43929650/vuejs-why-is-this-undefined)
+- [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
