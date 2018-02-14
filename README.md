@@ -8,21 +8,23 @@
 
 ## 每周学习总结
 
-[每周学习总结](https://github.com/Dream4ever/JavaScript/tree/master/weekly-review)
+[每周学习总结](weekly-review)
 
 ---
 
 ## 如何学习 JS？
 
-[如何学JS](how-to-learn-js/how-to-learn-js.md)
+[如何学习 JS - 第一篇](how-to-learn-js/how-to-learn-js-1.md)
 
 [如何学习 JS - 第二篇](how-to-learn-js/how-to-learn-js-2.md)
+
+[如何学习 JS - 精华篇](how-to-learn-js/how-to-learn-js-3.md)
 
 ---
 
 ## 课程笔记
 
-[Vue.js 课程](https://github.com/Dream4ever/JavaScript/tree/master/vue-advanced)
+[Vue.js 进阶课 - 徐高阳](vue-advanced)
 
 [WebApp - 徐高阳](webapp)
 
@@ -34,11 +36,11 @@
 
 ## 代码剖析
 
-[vue-hackernews-2.0 源码剖析](code-analysis/vue-hackernews.md)
-
 [两行代码的故事](code-analysis/dom-manipulation.md)
 
 [剖析网易云音乐动态效果](code-analysis/disc-rotating-effect.md)
+
+[vue-hackernews-2.0 源码剖析（一个坑）](code-analysis/vue-hackernews.md)
 
 [Nodeclub 项目学习笔记（又一个坑）](code-analysis/nodeclub.md)
 
@@ -125,3 +127,5 @@
 ## 待填坑
 
 [essay](essay)
+
+[tutorial](tutorial)
