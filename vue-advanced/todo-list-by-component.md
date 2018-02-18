@@ -108,7 +108,9 @@ export default {
 
 ### UI 设计，`mt-3`
 
-显示待办事项清单，包含每个事项的标题、内容、日期，那么就需要带 Custom Content 的 Bootstrap 列表。
+每个待办事项要显示标题、内容、日期，那么就要用 Bootstrap 的 [Custom Content 列表](https://getbootstrap.com/docs/4.0/components/list-group/#custom-content)。
+
+![List Group with Custom content](http://owve9bvtw.bkt.clouddn.com/Fjz7jj9Njhxw3G-jwfnZLNotcUJU)
 
 ### 待办事项清单的数据从远程获取
 
