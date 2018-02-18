@@ -108,10 +108,6 @@ export default {
 
 ### UI 设计，`mt-3`
 
-每个待办事项要显示标题、内容、日期，可以用 Bootstrap 的 [Custom Content 列表](https://getbootstrap.com/docs/4.0/components/list-group/#custom-content)。
-
-![List Group with Custom content](http://owve9bvtw.bkt.clouddn.com/Fjz7jj9Njhxw3G-jwfnZLNotcUJU)
-
 要使用 Bootstrap 的样式，首先需要把它的 CSS 文件引入进来，编辑 `public` 目录下的 `index.html` 文件，在 `head` 中加入下面的 CSS。
 
 ```html
@@ -139,6 +135,34 @@ export default {
 在根 `div` 中加上 `class="container"`，这样子元素就可以应用 `col-md-8` 这样的网格样式了。然后在子元素中加上 `class="col-md-8 offset-md-2 mt-5"`，`col-md-8` 表示待办事项占12列宽度的网格中的8列，`offset-md-2` 表示往右偏移2列之后显示待办事项，这样就能够居中显示了。`mt-5` 则表示待办事项距离上方有一定空白，“留白”了才好看。
 
 ![Grid Setting](http://owve9bvtw.bkt.clouddn.com/FvG2GiNt2LGKup_mXJvHKlxYGkfE)
+
+每个待办事项要显示标题、内容、日期，可以用 Bootstrap 的 [Custom Content 列表](https://getbootstrap.com/docs/4.0/components/list-group/#custom-content)。
+
+![List Group with Custom content](http://owve9bvtw.bkt.clouddn.com/Fjz7jj9Njhxw3G-jwfnZLNotcUJU)
+
+观察上图对应的代码可以知道，`a` 标签内的 `h5` 标签可用于显示待办事项的标题，相邻的 `small` 标签可用于显示时间，`a` 标签内最后的 `small` 标签则可用显示于事项的具体内容，因此 `TodoItem.vue` 组件中可以改成如下内容。
+
+```html
+<template>
+  <div class="list-group">
+    <a
+      href="#"
+      class="list-group-item list-group-item-action flex-column align-items-start"
+      v-for="task in tasks"
+      :key="task.id">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ task.title }}</h5>
+        <small>{{ task.createdAt }}</small>
+      </div>
+      <small>{{ task.content }}</small>
+    </a>
+  </div>
+</template>
+```
+
+在浏览器中看看页面效果，怎么样，还不错吧？
+
+![Todo Item with Style](http://owve9bvtw.bkt.clouddn.com/FoJ36ODt2hkLuk1lal-fhH3qzzhw)
 
 ### 待办事项清单的数据从远程获取
 
