@@ -112,6 +112,17 @@ export default {
 
 ![List Group with Custom content](http://owve9bvtw.bkt.clouddn.com/Fjz7jj9Njhxw3G-jwfnZLNotcUJU)
 
+要使用 Bootstrap 的样式，首先需要把它的 CSS 文件引入进来，编辑 `public` 目录下的 `index.html` 文件，在 `head` 中加入下面的 CSS。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+</html>
+```
+
 ### 待办事项清单的数据从远程获取
 
 ### 用 `v-cloak` 指令，使组件只在数据加载完成之后才显示
