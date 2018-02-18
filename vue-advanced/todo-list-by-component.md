@@ -123,6 +123,23 @@ export default {
 </html>
 ```
 
+接下来就是搭框架，先修改 `App.vue`，确定整体框架：
+
+```html
+<template>
+  <div id="app" class="container">
+    <div class="col-md-8 offset-md-2 mt-5">
+      <TodoItem
+        :tasks="tasks" />
+    </div>
+  </div>
+</template>
+```
+
+在根 `div` 中加上 `class="container"`，这样子元素就可以应用 `col-md-8` 这样的网格样式了。然后在子元素中加上 `class="col-md-8 offset-md-2 mt-5"`，`col-md-8` 表示待办事项占12列宽度的网格中的8列，`offset-md-2` 表示往右偏移2列之后显示待办事项，这样就能够居中显示了。`mt-5` 则表示待办事项距离上方有一定空白，“留白”了才好看。
+
+![Grid Setting](http://owve9bvtw.bkt.clouddn.com/FvG2GiNt2LGKup_mXJvHKlxYGkfE)
+
 ### 待办事项清单的数据从远程获取
 
 ### 用 `v-cloak` 指令，使组件只在数据加载完成之后才显示
