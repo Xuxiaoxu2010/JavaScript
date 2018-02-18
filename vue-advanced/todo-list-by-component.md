@@ -166,6 +166,57 @@ export default {
 
 ### 待办事项清单的数据从远程获取
 
+在实际业务中，数据都是放在服务器上，前端页面加载完成之后，再向服务器请求数据。这样实现了“前后端分离”，让前端页面只关注界面部分，数据由后端负责提供，将前后端解耦，降低了功能之间的依赖性。
+
+要向服务器请求数据，就要用上 axios 这个库，和前面引入 Bootstrap 的 CSS 一样，编辑 `public` 目录下的 `index.html` 文件，将 axios 这个库的链接加进来。
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
+  </head>
+</html>
+```
+
+然后再编辑根组件 `App.vue`，将数据属性 `tasks` 的初始值设置为空数组，在 Vue 实例的 `created` 这个生命周期钩子中获取数据。
+
+```javascript
+const tasksUrl = "https://api.myjson.com/bins/xxxxx";
+
+export default {
+  name: "app",
+  components: {
+    TodoItem
+  },
+  data() {
+    return {
+      tasks: []
+    };
+  },
+  methods: {
+    fetchData(jsonUrl, obj) {
+      axios
+        .get(jsonUrl)
+        .then(response => response.data)
+        .then(data => {
+          data.forEach(ele => {
+            obj.push(ele);
+          });
+        })
+        .catch(console.log());
+    },
+  },
+  created() {
+    this.fetchData(tasksUrl, this.tasks);
+  }
+};
+```
+
+从上面的代码可以看到，数据属性的值保存在 `tasksUrl` 这个 URL 中，通过 axios 获取数据。老师在前面的课程中也讲过，在 Vue 中更新数组，需要用特定的[变异方法](https://cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95)，才能触发视图的更新，也就是上面代码中的 `obj.push(ele);`。
+
+另外，将更新数据的代码抽离成一个单独的函数 `fetchData`，这样能够提高代码的可读性。否则如果 `created` 这个钩子中需要执行五六个操作的时候，把具体的代码全放到这里面，那代码估计就乱得没法看了。
+
 ### 用 `v-cloak` 指令，使组件只在数据加载完成之后才显示
 
 ## Todo Menu 组件
