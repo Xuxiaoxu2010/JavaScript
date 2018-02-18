@@ -179,7 +179,7 @@ export default {
 </html>
 ```
 
-然后再编辑根组件 `App.vue`，将数据属性 `tasks` 的初始值设置为空数组，在 Vue 实例的 `created` 这个生命周期钩子中获取数据。
+然后再编辑根组件 `App.vue`，将数据属性 `tasks` 的初始值设置为空数组，在 Vue 实例的 `created` 这个生命周期钩子中获取数据。数据方面参考徐老师的建议，放在 [myjson](http://xugaoyang.com/post/5a6c1f298957a723cf8845e2) 上。
 
 ```javascript
 const tasksUrl = "https://api.myjson.com/bins/xxxxx";
