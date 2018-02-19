@@ -298,7 +298,7 @@ export default {
   <div>
     <button
       type="button"
-      class="btn btn-outline-secondary mr-2 mb-3"
+      class="btn btn-outline-primary mr-2 mb-3"
       v-for="menu in menus"
       :key="menu.id">
       {{ menu.text }}
@@ -309,9 +309,10 @@ export default {
 
 现在的页面效果就是这个样子的了：
 
-![Todo Menu Beautified](http://owve9bvtw.bkt.clouddn.com/FpZlsizDKAnSPhvbh98CKF8FZKAr)
+![Todo Menu Beautified](http://owve9bvtw.bkt.clouddn.com/FgXrOIzUoZb73DGPhVmyzP2hExTe)
 
 ### 网页加载完成后高亮第一个按钮
+
 
 ### 高亮当前所点击的按钮
 
