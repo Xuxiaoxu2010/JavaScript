@@ -227,6 +227,64 @@ export default {
 
 ### 显示菜单按钮（用本地数据）
 
+前面知道怎么用组件显示待办事项清单了，那么显示一个菜单列表也就很容易了，照葫芦画瓢就行。
+
+首先需要在根组件 `App.vue` 中准备数据 `menus`。
+
+```javascript
+export default {
+  name: "app",
+  components: {
+    TodoItem,
+    TodoMenu
+  },
+  data() {
+    return {
+      tasks: [],
+      menus: [
+        { tag: "all", text: "全部" },
+        { tag: "doing", text: "未完成" },
+        { tag: "done", text: "已完成" }
+      ]
+    };
+  }
+}
+```
+
+然后就是选择按钮的样式，徐老师之前用的是 [Button Group](https://v4.bootcss.com/docs/4.0/components/button-group/) 这个按钮组，但是自己在用了之后发现按钮的样式不够好看，于是选用了有独立且清晰的轮廓的 [Outline buttons](https://v4.bootcss.com/docs/4.0/components/buttons/#outline-buttons)，组件的代码如下所示：
+
+```html
+<template>
+  <div>
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      v-for="menu in menus"
+      :key="menu.id">
+      {{ menu.text }}
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TodoMenu',
+  props: {
+    menus: {
+      type: Array,
+      required: true
+    }
+  }
+}
+</script>
+```
+
+与之前编写 TodoItem 组件时相比，代码上主要的区别在于 `props` 的定义更加详细了，理由参见 Vue.js 官方文档中的风格指南：[Prop 定义](https://cn.vuejs.org/v2/style-guide/#Prop-%E5%AE%9A%E4%B9%89-%E5%BF%85%E8%A6%81)。
+
+做出来的页面效果如下所示：
+
+![Todo Menus](http://owve9bvtw.bkt.clouddn.com/FiOWDeOD41sdRZeGoE0hy2vDNy-M)
+
 ### UI 设计，`mt-5`
 
 ### 网页加载完成后，通过样式高亮第一个按钮
