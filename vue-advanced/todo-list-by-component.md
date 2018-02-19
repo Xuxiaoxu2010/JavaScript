@@ -106,7 +106,7 @@ export default {
 
 ![List - Component](http://owve9bvtw.bkt.clouddn.com/FhVBhKDMkceIrw-h6RlnIWCHCD-8)
 
-### UI 设计，`mt-3`
+### 样式改进
 
 要使用 Bootstrap 的样式，首先需要把它的 CSS 文件引入进来，编辑 `public` 目录下的 `index.html` 文件，在 `head` 中加入下面的 CSS。
 
@@ -285,7 +285,7 @@ export default {
 
 ![Todo Menu](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
 
-### UI 设计，`mb-3`
+### 样式改进
 
 基本的功能做出来了，下面就来改进一下Todo Menu 组件的样式，让它更好看。
 
@@ -311,9 +311,9 @@ export default {
 
 ![Todo Menu Beautified](http://owve9bvtw.bkt.clouddn.com/FpZlsizDKAnSPhvbh98CKF8FZKAr)
 
-### 网页加载完成后，通过样式高亮第一个按钮
+### 网页加载完成后高亮第一个按钮
 
-### 点击按钮，通过样式高亮
+### 高亮当前所点击的按钮
 
 ### 点击按钮，显示对应的待办事项
 
@@ -321,7 +321,7 @@ export default {
 
 ### 点击待办事项后显示编辑界面
 
-### UI 设计，`mt-3` 和 `mb-5`
+### 样式改进
 
 ### 点击待办事项，编辑界面在显示/隐藏之间切换
 
