@@ -283,7 +283,7 @@ export default {
 
 做出来的页面效果如下所示：
 
-![Todo Menus](http://owve9bvtw.bkt.clouddn.com/FiOWDeOD41sdRZeGoE0hy2vDNy-M)
+![Todo Menus](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
 
 ### UI 设计，`mt-5`
 
