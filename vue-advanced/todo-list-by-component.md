@@ -283,9 +283,33 @@ export default {
 
 做出来的页面效果如下所示：
 
-![Todo Menus](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
+![Todo Menu](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
 
-### UI 设计，`mt-5`
+### UI 设计，`mb-3`
+
+基本的功能做出来了，下面就来改进一下Todo Menu 组件的样式，让它更好看。
+
+首先是要给按钮之间加上间距，也是前面提到过的“留白”，就跟设计 PPT 一样，把页面塞得满满的其实很难看。查看 Bootstrap 的文档 [Margin and padding](https://getbootstrap.com/docs/4.0/layout/utilities-for-layout/#margin-and-padding)，知道了可以用 `mr-x` 这样的类来设置右边距，测试了几个值之后，最终确定为 `mr-2`。
+
+然后还要给上面的一排按钮和下面的待办事项清单之间也加上间距，这里就用 `mb-3` 设置按钮的下边距。
+
+```html
+<template>
+  <div>
+    <button
+      type="button"
+      class="btn btn-outline-secondary mr-2 mb-3"
+      v-for="menu in menus"
+      :key="menu.id">
+      {{ menu.text }}
+    </button>
+  </div>
+</template>
+```
+
+现在的页面效果就是这个样子的了：
+
+![Todo Menu Beautified](http://owve9bvtw.bkt.clouddn.com/FpZlsizDKAnSPhvbh98CKF8FZKAr)
 
 ### 网页加载完成后，通过样式高亮第一个按钮
 
