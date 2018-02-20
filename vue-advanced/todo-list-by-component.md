@@ -333,7 +333,7 @@ menus: [
 ```
 
 ```html
-<!-- TodoMenu.vue 只列出了新增的内容 -->
+<!-- TodoMenu.vue 只列出了新增的部分 -->
 <template>
   <div>
     <button
@@ -353,6 +353,66 @@ menus: [
 
 1. 查找 `menus` 中 `active` 属性为 `true` 的对象，也就是之前被点击的按钮对应的数据。
 2. 查找 `menus` 中当前被点击的按钮对应的对象：这个需要在子组件 TodoMenu.vue 中触发事件，将被点击的按钮所对应的数据（可以是 `menu.tag`）传递给父组件 App.vue，然后在父组件中查找该数据所对应的对象，如果和第一次查找的对象相同，说明前后两次点击了同一个按钮，那么就不需要做什么操作了。否则就需要把前一次点击的按钮的 `active` 属性设置为 `false`，然后将当前被点击的按钮的 `active` 属性设置为 `true`，这样就能够实现被点击按钮的突出显示了。
+
+新增的代码如下：
+
+```html
+<!-- index.html -->
+<head>
+  <script src="https://cdn.bootcss.com/ramda/0.25.0/ramda.min.js"></script>
+</head>
+```
+
+```html
+<!-- TodoMenu.vue -->
+<template>
+  <div>
+    <button
+      @click="activeButton(menu.tag)">
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    activeButton (tag) {
+      this.$emit('active', tag);
+    }
+  }
+}
+</script>
+```
+
+上面是组件 `TodoMenu.vue` 新增的代码，用户点击按钮之后，会执行子组件内的 `activeButton` 这个函数。在这个函数中，会触发 `active` 这个事件，并将当前按钮的 `tag` 值传给父组件。
+
+```html
+<template>
+  <div id="app">
+    <div class="col-md-8 offset-md-2 mt-5">
+      <TodoMenu
+        :menus="menus"
+        @active="activeButton" />
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    activeButton(tag) {
+      let prevIndex = R.findIndex(R.propEq('active', true))(this.menus);
+      let currIndex = R.findIndex(R.propEq('tag', tag))(this.menus);
+      if (prevIndex !== currIndex) {
+        this.menus[prevIndex].active = false;
+        this.menus[currIndex].active = true;
+      }
+    }
+  }
+}
+</script>
+```
+
+而上面的这段代码则是根组件 `App.vue` 中新增的代码，根组件监听到了子组件触发的 `active` 事件，然后执行根组件中的 `activeButton` 函数，该函数对比两次点击的是否为同一按钮，然后根据结果执行对应的操作：如果点击的是不同的按钮，则将之前所点击的按钮对应的对象属性 `active` 值设置为 `false`，并将当前点击的按钮对应的对象属性的 `active` 的值设置为 `true`，Vue 监听到对象属性的变化，从而将类名动态绑定到 HTML 标签上，实现按钮的突出显示。
 
 PS：自己之前的实现方案，是通过 jQuery 先将 `menus` 中所有对象的 `active` 属性设置为 `false`，然后用原生 JS 将触发了监听事件对象的 `active` 属性设置为 `true`，虽然代码也很简洁，但是其背后的思路还是原始的操纵 DOM 的方式，并没有完全通过数据层面的操作来更新视图，说明之前对 Vue 的思想理解得还是不够深刻。
 
