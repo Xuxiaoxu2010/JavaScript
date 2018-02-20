@@ -343,7 +343,7 @@ menus: [
 </template>
 ```
 
-![TodoMenu - First Button Actived]()
+![TodoMenu - First Button Actived](TodoMenu - First Button Actived.png)
 
 ### 高亮当前所点击的按钮
 
