@@ -8,7 +8,7 @@ PS：文章内容是按照组件进行分隔的，但并不是写完一个组件
 
 PPS：自己在做这个组件化的 Todo List 的时候，并没有完全按照老师的示例来做，所以有些地方会不一样。
 
-## Todo Item 组件
+## TodoItem 组件
 
 ### 显示待办事项清单（用本地数据）
 
@@ -170,7 +170,7 @@ export default {
 
 在浏览器中看看页面效果，怎么样，还不错吧？
 
-![Todo Item with Style](http://owve9bvtw.bkt.clouddn.com/FoJ36ODt2hkLuk1lal-fhH3qzzhw)
+![TodoItem with Style](http://owve9bvtw.bkt.clouddn.com/FoJ36ODt2hkLuk1lal-fhH3qzzhw)
 
 ### 待办事项清单的数据从远程获取
 
@@ -231,7 +231,7 @@ export default {
 
 具体的测试结果，可以看[这个视频](http://7xq4gx.com1.z0.glb.clouddn.com/v-cloak_fast-3g.mp4)。在这个视频中，通过 Chrome 开发者工具将网速限制为 `Fast 3G` 模式，以便更清楚地展示这个过程。然后点击刷新按钮加载页面，能够看到页面在成功获取到服务器上的数据之后，才会渲染组件内容并显示出来，在这之前页面则一直是空白状态。
 
-## Todo Menu 组件
+## TodoMenu 组件
 
 ### 显示菜单按钮（用本地数据）
 
@@ -291,11 +291,11 @@ export default {
 
 做出来的页面效果如下所示：
 
-![Todo Menu](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
+![TodoMenu](http://owve9bvtw.bkt.clouddn.com/Fnbbeya7caU_rkL1WXXQS6KKF6mg)
 
 ### 样式改进
 
-基本的功能做出来了，下面就来改进一下 Todo Menu 组件的样式，让它更好看。
+基本的功能做出来了，下面就来改进一下 TodoMenu 组件的样式，让它更好看。
 
 首先是要给按钮之间加上间距，也是前面提到过的“留白”，就跟设计 PPT 一样，把页面塞得满满的其实很难看。查看 Bootstrap 的文档 [Margin and padding](https://getbootstrap.com/docs/4.0/layout/utilities-for-layout/#margin-and-padding)，知道了可以用 `mr-x` 这样的类来设置右边距，测试了几个值之后，最终确定为 `mr-2`。
 
@@ -317,9 +317,33 @@ export default {
 
 现在的页面效果就是这个样子的了：
 
-![Todo Menu Beautified](http://owve9bvtw.bkt.clouddn.com/FgXrOIzUoZb73DGPhVmyzP2hExTe)
+![TodoMenu Beautified](http://owve9bvtw.bkt.clouddn.com/FgXrOIzUoZb73DGPhVmyzP2hExTe)
 
-### 网页加载完成后高亮第一个按钮
+### 网页加载完成后突出显示第一个按钮
+
+查看 Bootstrap 的文档可以知道，给按钮添加一个 `active` 类，按钮就会处于被点击的状态。这样一来，只需要修改 `menus` 的数据结构，给每个对象添加一个名为 `active` 的布尔型变量，然后给 TodoMenu 组件动态绑定 `active` 类，就能实现页面加载完成后突出显示第一个按钮的功能了。
+
+```javascript
+// App.vue
+menus: [
+  { tag: "all", text: "全部", active: true },
+  { tag: "doing", text: "未完成", active: false },
+  { tag: "done", text: "已完成", active: false }
+]
+```
+
+```html
+<!-- TodoMenu.vue 只列出了新增的内容 -->
+<template>
+  <div>
+    <button
+      :class="{active: menu.active}">
+    </button>
+  </div>
+</template>
+```
+
+![TodoMenu - First Button Actived]()
 
 ### 高亮当前所点击的按钮
 
