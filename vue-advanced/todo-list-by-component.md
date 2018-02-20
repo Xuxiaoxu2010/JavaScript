@@ -418,6 +418,47 @@ PS：自己之前的实现方案，是通过 jQuery 先将 `menus` 中所有对�
 
 ### 点击按钮，显示对应的待办事项
 
+这个需求可以在上一个需求的流程里完成，就是页面加载完成时，显示全部的待办事项；之后每次用户点击按钮，和前一次突出显示的按钮进行对比，如果相同，说明显示的还是那些待办事项，自然不用做什么操作；如果不同，那就只显示部分待办事项。
+
+```javascript
+export default {
+  data() {
+    return {
+      currTag: ''
+    }
+  },
+  computed: {
+    filteredTasks() {
+      if (this.currTag === "all") {
+        return JSON.parse(JSON.stringify(this.tasks));
+      } else if (this.currTag === "doing") {
+        return R.filter(task => task.completed === false)(this.tasks);
+      } else if (this.currTag === "done") {
+        return R.filter(task => task.completed === true)(this.tasks);
+      } else {
+        return null;
+      }
+    }
+  },
+  methods: {
+    fetchData(jsonUrl, obj) {
+      axios
+        .get(jsonUrl)
+        .then(response => response.data)
+        .then(data => {
+          data.forEach(ele => {
+            obj.push(ele);
+          });
+        })
+        .then((this.currTag = "all"))
+        .catch(console.log());
+    }
+  }
+}
+```
+
+在上面的代码中，通过字符串属性 `currTag` 标记当前所点击的按钮，计算属性 `filteredTaks` 则根据 `currTag` 的值筛选出所要显示的待办事项。而在 `fetchData` 方法中，新增的 `.then((this.currTag = "all"))` 能够在获取到数据之后，显示所有待办事项，这样整个流程就完整了。
+
 ## Todo Edit 组件
 
 ### 点击待办事项后显示编辑界面
