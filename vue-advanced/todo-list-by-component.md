@@ -472,6 +472,10 @@ export default {
 </div>
 ```
 
+下面是调整好界面之后的效果图：
+
+![Display Items with Different Styles](http://owve9bvtw.bkt.clouddn.com/Fg_kBVfTWxHyiy3-CKb9jZGLOqzE)
+
 ## Todo Edit 组件
 
 ### 点击待办事项后显示编辑界面
