@@ -225,7 +225,9 @@ export default {
 
 为了优化用户体验，可以用 `v-cloak` 指令，实现[组件在数据加载完成之后才显示](https://cn.vuejs.org/v2/api/#v-cloak)的功能。
 
-具体的测试结果，可以看[这个视频](http://7xq4gx.com1.z0.glb.clouddn.com/v-cloak_fast-3g.mp4)。在这个视频中，通过 Chrome 开发者工具将网速限制为 "Fast 3G" 模式，以便更清楚地展示这个过程。然后点击刷新按钮加载页面，能够看到页面在成功获取到服务器上的数据之后，才会渲染组件内容并显示出来，在这之前页面则一直是空白状态。
+具体的测试结果，可以看视频：[http://7xq4gx.com1.z0.glb.clouddn.com/v-cloak_fast-3g.mp4](http://7xq4gx.com1.z0.glb.clouddn.com/v-cloak_fast-3g.mp4)。
+
+在上面这个视频中，通过 Chrome 开发者工具将网速限制为 "Fast 3G" 模式，以便更清楚地展示这个过程。然后点击刷新按钮加载页面，能够看到页面在成功获取到服务器上的数据之后，才会渲染组件内容并显示出来，在这之前页面则一直是空白状态。
 
 ## TodoMenu 组件
 
