@@ -459,6 +459,23 @@ export default {
 
 在上面的代码中，通过字符串属性 `currTag` 标记当前所点击的按钮，计算属性 `filteredTaks` 则根据 `currTag` 的值筛选出所要显示的待办事项。而在 `fetchData` 方法中，新增的 `.then((this.currTag = "all"))` 能够在获取到数据之后，显示所有待办事项，这样整个流程就完整了。
 
+上面这些只是功能上的变动，在界面部分也要对应调整，这样才能有更好的用户体验。具体来说，就是对于已完成的待办事项，复选框应为选中状态，并且文字的颜色要淡一些，这样才能和未完成的待办事项区分开来。
+
+而实际的代码其实很简单，就是将传入组件的数据与 HTML 元素动态绑定：
+
+```html
+<!-- 将 task.completed 属性与复选框的 checked 属性相绑定 -->
+<input
+  type="checkbox"
+  :checked="task.completed">
+
+<!-- 将 task.completed 与包含文字的 div 元素的 text-muted 这个类相绑定 -->
+<div
+  class="col-md-11 d-flex w-100 justify-content-between"
+  :class="{'text-muted': task.completed}">
+</div>
+```
+
 ## Todo Edit 组件
 
 ### 点击待办事项后显示编辑界面
