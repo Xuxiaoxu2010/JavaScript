@@ -350,7 +350,7 @@ menus: [
 实现这个需求的流程如下（用了库 ramda）：
 
 1. 查找 `menus` 中 `active` 属性为 `true` 的对象，也就是之前被点击的按钮对应的数据。
-2. 查找 `menus` 中当前被点击的按钮对应的对象：这个需要在子组件 TodoMenu.vue 中触发事件，将被点击的按钮所对应的数据（可以是 `menu.tag`）传递给父组件 App.vue，然后在父组件中查找该数据所对应的对象，如果和第一次查找的对象相同，说明前后两次点击了同一个按钮，那么就不需要做什么操作了。否则就需要把前一次点击的按钮的 `active` 属性设置为 `false`，然后将当前被点击的按钮的 `active` 属性设置为 `true`，这样就能够突出显示被点击的按钮了。
+2. 查找 `menus` 中当前被点击的按钮对应的对象：这个需要在子组件 `TodoMenu.vue` 中触发事件，将被点击的按钮所对应的数据（可以是 `menu.tag`）传递给父组件 `App.vue`，然后在父组件中查找该数据所对应的对象，如果和第一次查找的对象相同，说明前后两次点击了同一个按钮，那么就不需要做什么操作了。否则就需要把前一次点击的按钮的 `active` 属性设置为 `false`，然后将当前被点击的按钮的 `active` 属性设置为 `true`，这样就能够突出显示被点击的按钮了。
 
 新增的代码如下：
 
@@ -481,6 +481,82 @@ export default {
 ## Todo Edit 组件
 
 ### 点击待办事项后显示编辑界面
+
+首先设计编辑界面的基本样式，在这里用的是 Bootstrap 中的 [Card](https://getbootstrap.com/docs/4.0/components/card/) 这个组件，这样可以把内部的元素都包裹到 `card` 中。待办事项的标题和内容显示在 `textarea` 元素中，待办事项的创建时间则显示在 `card-footer` 中。这个组件的代码如下所示：
+
+```html
+<!-- TodoEdit.vue -->
+<template>
+  <div class="card mt-3 mb-5">
+    <div class="card-body">
+      <div class="form-group">
+        <textarea
+          id="title"
+          class="form-control font-weight-bold"
+          rows="1"
+          v-model="task.title">
+        </textarea>
+        <textarea
+          id="content"
+          class="form-control mt-1"
+          rows="3"
+          v-model="task.content">
+        </textarea>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      创建于：{{ task.createdAt }}
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TodoEdit",
+  props: {
+    task: {
+      type: Object
+    }
+  }
+}
+</script>
+```
+
+从上面的代码中可以看到，将 `id` 为 `title` 的 `textarea` 与 `task.title` 属性进行了双向绑定，`id` 为 `content` 的 `textarea` 则与 `task.content` 属性进行了双向绑定。
+
+在父组件 `App.vue` 中，对象类型的数据属性 `currTask` 保存子组件 `TodoEdit.vue` 中所要显示的待办事项，并通过布尔类型的计算属性 `showEdit` 决定是否要渲染子组件 `TodoEdit.vue`。在用户还没有点击待办事项的时候，还不需要显示编辑界面，数据属性 `currTask` 还是个空对象，计算属性 `showEdit` 也应该为 `false`。在用户点击了某个待办事项之后，需要在编辑界面中显示数据属性 `currTask` 中的内容，计算属性 `showEdit` 此时也应该为 `true`，这样才会渲染子组件 `TodoEdit.vue`。
+
+父组件 `App.vue` 中新增的代码如下所示：
+
+```html
+<template>
+  <TodoEdit
+    :task="currTask"
+    v-if="showEdit" />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      currTask: {}
+    }
+  },
+  computed: {
+    showEdit() {
+      return Object.keys(this.currTask).length > 0 && this.currTask.constructor === Object;
+    }
+  },
+  methods: {
+    editTask(task) {
+      this.currTask = JSON.parse(JSON.stringify(task));
+    }
+  }
+}
+</script>
+```
+
+从上面的代码可以看到，在页面及数据加载完成之后，用户点击待办事项之前，不显示编辑界面。用户点击待办事项之后，将当前事项的信息保存至数据属性 `currTask` 中，计算属性 `showEdit` 此时的值也为 `true`，便会渲染子组件 `TodoEdit.vue`，并将数据属性 `currTask` 的内容显示在子组件中。
 
 ### 样式改进
 
