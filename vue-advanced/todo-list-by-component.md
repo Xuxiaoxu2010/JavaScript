@@ -476,7 +476,7 @@ export default {
 
 下面是调整好界面之后的效果图：
 
-![Display Items with Different Styles](http://owve9bvtw.bkt.clouddn.com/Fg_kBVfTWxHyiy3-CKb9jZGLOqzE)
+![Highlight Clicked Button](http://owve9bvtw.bkt.clouddn.com/FiOlistjXBUHPlpfM-OIRSQlPeaz)
 
 ## Todo Edit 组件
 
@@ -573,6 +573,20 @@ a:hover {
 }
 </style>
 ```
+
+此外，由于 `TodoEdit.vue` 组件中，显示待办事项标题和内容用的都是 `textarea` 标签，而这个标签是可以通过拖动其右下角的标记来改变其大小的。但是对于待办事项而言，标题的文字数量一般都不多，不希望改变其大小，那么就要为这个标签进行单独的设置，设置其 `resize` 属性为 `none` 即可。
+
+```html
+<style scoped>
+#title {
+  resize: none;
+}
+</style>
+```
+
+此时的效果如下所示：
+
+![Todo Edit UI Beautified](http://owve9bvtw.bkt.clouddn.com/FkiAd5mpAt-gu6dZCI6kr4Ii8KUn)
 
 ### 点击待办事项，编辑界面在显示/隐藏之间切换
 
