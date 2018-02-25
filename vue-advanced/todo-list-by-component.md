@@ -558,6 +558,10 @@ export default {
 
 从上面的代码可以看到，在页面及数据加载完成之后，用户点击待办事项之前，不显示编辑界面。用户点击待办事项之后，将当前事项的信息保存至数据属性 `currTask` 中，计算属性 `showEdit` 此时的值也为 `true`，便会渲染子组件 `TodoEdit.vue`，并将数据属性 `currTask` 的内容显示在子组件中。
 
+完成之后的效果如下图所示：
+
+![Todo Edit UI](http://owve9bvtw.bkt.clouddn.com/Fn10rJiB20s79L0MaZr80aFl53R6)
+
 ### 样式改进
 
 ### 点击待办事项，编辑界面在显示/隐藏之间切换
