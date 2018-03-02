@@ -235,7 +235,7 @@ export default {
 
 从上面的代码可以看到，数据属性的值保存在 `tasksUrl` 这个 URL 中，通过 axios 获取数据。在 Vue 中更新数组，需要用特定的[变异方法](https://cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95)，才能触发视图的更新，也就是上面代码中的 `obj.push(ele)`。
 
-另外，上面将更新数据部分的代码抽离成一个单独的函数 `fetchData`，这样能够提高代码的可读性。否则如果 `created` 这个钩子中需要执行五六个操作的时候，把具体的代码全放到这里面，那代码就乱得没法看了。
+另外，上面将更新数据部分的代码抽离成一个单独的方法 `fetchData`，这样能够提高代码的可读性。否则如果 `created` 这个钩子中需要执行五六个操作的时候，把具体的代码全放到这里面，那代码就乱得没法看了。
 
 ### `v-cloak` 优化加载体验
 
@@ -401,7 +401,7 @@ export default {
 </script>
 ```
 
-上面是子组件 TodoMenu 新增的代码，用户点击按钮之后，会执行该组件内的 `activeButton` 函数。在函数中会触发 `active` 事件，并将当前按钮所对应对象的 `tag` 属性的值传给父组件。
+上面是子组件 TodoMenu 新增的代码，用户点击按钮之后，会执行该组件内的 `activeButton` 方法。在方法中会触发 `active` 事件，并将当前按钮所对应对象的 `tag` 属性的值传给父组件。
 
 ```html
 <!-- App.vue -->
@@ -430,7 +430,7 @@ export default {
 </script>
 ```
 
-而上面的这段代码则是父组件 App 中新增的代码，父组件监听到了子组件触发的 `active` 事件，就会执行父组件中的 `activeButton` 函数，对比两次点击的是否为同一按钮，然后根据结果执行对应的操作：如果点击的是不同的按钮，则将之前所点击的按钮对应的对象属性 `active` 值设置为 `false`，并将当前点击的按钮对应的对象属性的 `active` 的值设置为 `true`，Vue 监听到对象属性的变化，从而将类名动态绑定到 HTML 标签上，实现按钮的突出显示。
+而上面的这段代码则是父组件 App 中新增的代码，父组件监听到了子组件触发的 `active` 事件，就会执行父组件中的 `activeButton` 方法，对比两次点击的是否为同一按钮，然后根据结果执行对应的操作：如果点击的是不同的按钮，则将之前所点击的按钮对应的对象属性 `active` 值设置为 `false`，并将当前点击的按钮对应的对象属性的 `active` 的值设置为 `true`，Vue 监听到对象属性的变化，从而将类名动态绑定到 HTML 标签上，实现按钮的突出显示。
 
 PS：自己之前的实现方案，是通过 jQuery 直接设置 HTML 元素的类名，虽然代码也很简洁，但是逻辑还是不如用 ramda 这个库的实现方式清晰，更重要的是，之前的思路还是停留在原始的操作 DOM 上，并不是通过修改数据来驱动视图的更新。
 
@@ -695,7 +695,7 @@ export default {
 </script>
 ```
 
-在上面子组件的代码中，新增了一个按钮，点击该按钮就会执行子组件内的 `updateData` 函数。在函数中会触发 `update` 事件，并将当前按钮所对应的对象 `task` 传给父组件。
+在上面子组件的代码中，新增了一个按钮，点击该按钮就会执行子组件内的 `updateData` 方法。在方法中会触发 `update` 事件，并将当前按钮所对应的对象 `task` 传给父组件。
 
 ```html
 <!-- App.vue -->
@@ -724,9 +724,36 @@ export default {
 </script>
 ```
 
-在上面父组件的代码中，模板部分新增的代码 `@update="updateData"`，表示父组件监听子组件触发的 `update` 事件，并执行 `updateData` 函数。`updateData` 函数将会更新本地的数据，并将更新发送至服务器。
+在上面父组件的代码中，模板部分新增的代码 `@update="updateData"`，表示父组件监听子组件触发的 `update` 事件，并执行 `updateData` 方法。`updateData` 方法将会更新本地的数据，并将更新发送至服务器。
 
 But！美中不足的是，用上面的方法更新的本地数据，无法及时反映到 TodoItem 组件中。为什么呢？因为更新数据的时候，没有用 Vue 所强调的变异方法，自然就不会触发视图的更新。那么这个问题该如何解决呢？且听下回分解。
+
+### 解决视图更新不及时的问题
+
+前面说的，编辑界面对待办事项做的修改，无法及时反映到列表区域中，是因为没有使用 Vue 所建议的变异方法。要解决这个问题，有两种思路：
+
+1. 在点击“保存”按钮时，通过 Vue 本身所提供的方法，强制更新视图。
+2. 重构 TodoItem 组件，显示待办事项标题和内容的元素，用 `v-model` 实现双向绑定，这种方法的更新就完全是即时的了。
+
+先说说第一种方法应该如何实现：用关键字 `vue 强制更新视图` 在 Google 中搜索，能够看到排在最前面的两个链接，都建议用 Vue 的 [Vue.set( target, key, value )](https://cn.vuejs.org/v2/api/#Vue-set) 方法来强制更新视图。这个方法中，第一个参数是所要更新的对象，第二个参数是对象的属性名，第三个则是属性值，那么就照着 API 的格式写写看看，把父组件 `updateData` 方法中的 `this.tasks[idx] = task;` 替换成下面的代码看看：
+
+```javascript
+// TodoEdit.vue
+Vue.set(app.tasks[idx], "title", task.title);
+Vue.set(app.tasks[idx], "content", task.content);
+```
+
+点击按钮保存数据，浏览器控制台却提示 `Vue is not defined`，这是什么鬼？仔细想想，用法的确不对。所修改的代码是在 Vue 实例内部，而 `Vue.set(app.tasks[idx], ...)` 这样的代码是应该用在 Vue 实例外部的。嗯，知道了问题出在哪里就好办了，`Vue.set` 还有一个有同等效果的方法 `vm.$set`，看这个方法的名称，是用在实例内部的，那就修改一下上面的代码：
+
+```javascript
+// TodoEdit.vue
+this.$set(this.tasks[idx], "title", task.title);
+this.$set(this.tasks[idx], "content", task.content);
+```
+
+这回再点击按钮保存数据，啊哈，成功了！
+
+上面是第一种更新视图的思路，第二种思路则不修改 TodoEdit 组件，而是修改 TodoItem 组件。
 
 ## Header 组件
 
