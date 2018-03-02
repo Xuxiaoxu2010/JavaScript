@@ -663,6 +663,71 @@ export default {
 
 ### 点击“保存”按钮，保存更改
 
+上面叽里呱啦说了一大堆，给编辑组件增加了各种功能，但是如果没有**编辑**功能，那就太名不副实了。现在就来给这个组件增加编辑的功能。
+
+要将页面中的更改同步到本地的数据上，这个需求其实就是官方文档中的[表单输入绑定](https://cn.vuejs.org/v2/guide/forms.html)。具体的代码在最开始添加该组件的时候已经写好了，就是 `v-model="task.title"` 这样的指令。
+
+前面的待办事项清单组件 TodoItem 是从服务器获取的数据，而这里保存更改的功能本质上和它一样，就是将本地的数据发送到服务器。当然了，编辑界面要先增加一个**保存**按钮，用户点击按钮，调用对应的方法将数据发送到服务器。
+
+```html
+<!-- TodoEdit.vue -->
+<template>
+  <div class="form-group">
+  </div>
+  <!-- 下面是新增的部分 -->
+  <button
+    type="submit"
+    class="btn btn-primary"
+    @click="updateData(task)">
+    保存
+  </button>
+</template>
+
+<script>
+export default {
+  // 新增的方法
+  methods: {
+    updateData(task) {
+      this.$emit("update", task);
+    }
+  }
+}
+</script>
+```
+
+在上面子组件的代码中，新增了一个按钮，点击该按钮就会执行子组件内的 `updateData` 函数。在函数中会触发 `update` 事件，并将当前按钮所对应的对象 `task` 传给父组件。
+
+```html
+<!-- App.vue -->
+<template>
+  <TodoEdit
+    :task="currTask"
+    v-if="renderEdit"
+    v-show="showEdit"
+    @update="updateData" />
+</template>
+
+<script>
+export default {
+  // 新增的方法
+  methods: {
+    updateData(task) {
+      let idx = R.findIndex(R.propEq('id', task.id))(this.tasks);
+      this.tasks[idx] = task;
+      axios
+        .put(tasksUrl, this.tasks)
+        .then(response => response.data)
+        .catch(console.log);
+    }
+  }
+}
+</script>
+```
+
+在上面父组件的代码中，模板部分新增的代码 `@update="updateData"`，表示父组件监听子组件触发的 `update` 事件，并执行 `updateData` 函数。`updateData` 函数将会更新本地的数据，并将更新发送至服务器。
+
+But！美中不足的是，用上面的方法更新的本地数据，无法及时反映到 TodoItem 组件中。为什么呢？因为更新数据的时候，没有用 Vue 所强调的变异方法，自然就不会触发视图的更新。那么这个问题该如何解决呢？且听下回分解。
+
 ## Header 组件
 
 ### 添加 Header 及文本内容
