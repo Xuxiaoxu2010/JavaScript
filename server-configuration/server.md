@@ -540,7 +540,7 @@ $ gpasswd -a www wheel
 $ sudo su www # 切换至新建的用户
 ```
 
-在本机生成密钥并复制公钥内容（之后的某次重置服务器的过程当中，因为已经先为 GitHub 生成过密钥，所以直接把 GitHub 的复制过来了，用同一份，省心）。
+在本机生成密钥并复制公钥内容（最新的一次重置服务器的过程当中，因为已经先为 GitHub 生成过密钥，所以直接把 GitHub 的复制过来了，用同一份，省心）。
 
 ```shell
 $ ssh-keygen
@@ -559,6 +559,8 @@ vi .ssh/authorized_keys
 $ chmod 600 .ssh/authorized_keys
 $ exit
 ```
+
+Mac 下也要按照上面这样设置，就是把本机生成的公钥复制到 `~/.ssh/authorized_keys` 文件中，这样就可以直接通过 `ssh www@1.2.3.4` 这个命令登录服务器了。
 
 最后再禁止 root 用户的 SSH 登录，以提升服务器安全性。
 
@@ -684,15 +686,6 @@ $ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 $ nvm list-remote
 $ nvm install node
-```
-
-安装 Express 框架并新建 blog 文件夹用于保存项目。
-
-```shell
-$ npm install -g express
-$ npm install -g express-generator
-$ express -v ejs blog
-$ cd blog && npm install
 ```
 
 ## 配置 Nginx
