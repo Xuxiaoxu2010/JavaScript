@@ -537,9 +537,10 @@ git push --set-upstream blog master
 $ adduser www
 $ passwd www
 $ gpasswd -a www wheel
+$ sudo su www # 切换至新建的用户
 ```
 
-在本机生成密钥并复制公钥内容。
+在本机生成密钥并复制公钥内容（之后的某次重置服务器的过程当中，因为已经先为 GitHub 生成过密钥，所以直接把 GitHub 的复制过来了，用同一份，省心）。
 
 ```shell
 $ ssh-keygen
@@ -568,6 +569,10 @@ $ systemctl reload sshd
 ```
 
 先别关闭窗口。为了确保不会因为误操作导致 root 和 www 用户都无法登录服务器，先在本机测试一下：
+
+> 最新情况：
+>
+> 按照上面的设置之后，要在本机通过 www 用户登录的话，在 XShell 中配置连接属性的界面，在“用户身份验证”选项卡中，“方法”选择“Public Key”，然后在用户密钥那里，选择前面为 GitHub 生成的 id_rsa 文件，这样就可以用下面的命令直接登录了。
 
 ```shell
 $ ssh www@1.2.3.4
@@ -633,7 +638,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.servi
 # 列出所有可用的时区
 $ sudo timedatectl list-timezones
 # 然后设置服务器要使用的时区/区域
-sudo timedatectl set-timezone Asia/Shanghai
+$ sudo timedatectl set-timezone Asia/Shanghai
 # 最后查看时区的设置结果
 $ sudo timedatectl
       Local time: Fri 2017-10-27 21:56:31 CST
@@ -657,15 +662,15 @@ $ sudo systemctl enable ntpd
 
 ```shell
 # 小主机内存只有1G，所以创建2G的交换文件
-sudo fallocate -l 2G /swapfile
+$ sudo fallocate -l 2G /swapfile
 # 限制其它用户或进程对该交换文件的权限
-sudo chmod 600 /swapfile
+$ sudo chmod 600 /swapfile
 # 让系统格式化该文件
-sudo mkswap /swapfile
+$ sudo mkswap /swapfile
 # 启用交换文件
-sudo swapon /swapfile
+$ sudo swapon /swapfile
 # 每次启动时自动启用交换文件
-sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
+$ sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 ```
 
 ## 配置 Node 相关环境
@@ -696,10 +701,26 @@ $ cd blog && npm install
 $ sudo yum install epel-release
 $ sudo yum install nginx
 $ sudo systemctl start nginx
+# 上面这一步执行完之后，有时会提示下面的错误，即使重启也不行
+# Job for nginx.service failed because the control process exited with error code. See "systemctl status nginx.service" and "journalctl -xe" for details.
 $ sudo systemctl enable nginx
+# 也可以用下面这个命令启动nginx，会输出详细的错误信息
+$ sudo nginx -t
 ```
 
 然后在浏览器中访问服务器的IP或者域名，如果显示 Nginx 相关的提示信息，说明运行成功。
+
+### 解决 nginx 启动的问题
+
+在执行上面的指令启动 nginx 时总是失败，根据[解决nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)](http://www.hankcs.com/appos/linux/fix-nginx-bind-err.html)这篇文章中的方法，修改了 nginx 的全局配置文件 `/etc/nginx/nginx.conf` 并重启服务器，果然 OK 了。
+
+### Nginx 重要路径
+
+- 默认的服务器根目录：`/usr/share/nginx/html`，这个路径要去 `/etc/nginx/conf.d/default.conf` 这个配置文件中修改。
+- Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/conf.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
+- Nginx 的全局配置文件：该文件路径为 `/etc/nginx/nginx.conf`。
+
+### 映射网站目录
 
 配置 Nginx 映射网站目录。
 
@@ -716,6 +737,8 @@ $ sudo vi /etc/nginx/nginx.conf
         }
 ```
 
+### 403 Forbidden
+
 在配置Nginx代理静态资源的时候，发现访问网站时提示 403 Forbidden，上网查了查，试了各种方法，最后发现需要修改执行Nginx的用户。
 
 ```shell
@@ -724,11 +747,9 @@ $ sudo vi /etc/nginx/nginx.conf
 # 猜测是因为之前配置过系统权限，所以才导致此问题
 ```
 
-Nginx 的几个重要路径：
+## 配置 GitHub SSH Key
 
-- 默认的服务器根目录：`/usr/share/nginx/html`，这个默认路径要去 `/etc/nginx/conf.d/default.conf` 这个配置文件中修改。
-- Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/conf.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
-- Nginx 的全局配置文件：该文件路径为 `/etc/nginx/nginx.conf`。
+在参考着[使用pm2部署你的项目防止过劳死](http://xugaoyang.com/post/5aa3a4d0b1745b11c007ffd6)这篇文章，配置服务器到 GitHub 的 SSH 密钥时，发现 `ssh -T git@github.com` 这个命令会失败，本机其实也会失败。搜索了一番之后发现，需要先执行 `ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts` 这个命令，然后再执行 `ssh -T` 这个，才能成功访问 GitHub。
 
 ## 备注
 
