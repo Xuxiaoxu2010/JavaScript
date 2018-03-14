@@ -315,7 +315,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 ### 启动项目
 
-项目建立起来之后，当然要运行一下看看啦。好，那就执行 `npm start`，然后在网页中访问 [http://10.10.10.10:3000](http://10.10.10.10:3000)，嗯？为什么打不开呢？想起来购买的这个服务器还装了 nginx 这个反向代理，是不是和它有关？
+项目建立起来之后，当然要运行一下看看啦。好，那就执行 `npm start`，然后在网页中访问 [http://10.10.10.10:3000](http://10.10.10.10:3000)，嗯？为什么打不开呢？想起来购买的这个服务器还装了 Nginx 这个反向代理，是不是和它有关？
 
 Google 一番，发现原来需要在服务器控制台的“防火墙”中开放 3000 这个端口，于是新建一个应用类型为“自定义”的端口，协议选择“TCP”，端口号设置为“3000”。
 
@@ -325,20 +325,20 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 - [阿里云ubuntu nginx无法访问，求解答](https://segmentfault.com/q/1010000009437407)
 
-## 七、配置 nginx 映射项目
+## 七、配置 Nginx 映射项目
 
-由于 Express 默认用的是 3000 端口号，每次访问服务器的时候还要加上端口号实在是麻烦，那就在 nginx 中将来自 80 端口的请求都指向本机的 3000 端口。
+由于 Express 默认用的是 3000 端口号，每次访问服务器的时候还要加上端口号实在是麻烦，那就在 Nginx 中将来自 80 端口的请求都指向本机的 3000 端口。
 
-注意，以下 nginx 相关的操作，都要在 root 用户中执行，为什么非 root 用户不能操作呢？请看这篇文章：[Why does nginx starts process as root?](https://unix.stackexchange.com/questions/134301/why-does-nginx-starts-process-as-root)。
+注意，以下 Nginx 相关的操作，都要在 root 用户中执行，为什么非 root 用户不能操作呢？请看这篇文章：[Why does nginx starts process as root?](https://unix.stackexchange.com/questions/134301/why-does-nginx-starts-process-as-root)。
 
-### 安装 nginx
+### 安装 Nginx
 
 ```shell
 > sudo yum install epel-release
 > sudo yum install nginx
 ```
 
-然后启动 nginx，并使其开机自动启动。
+然后启动 Nginx，并使其开机自动启动。
 
 ```shell
 > reboot
@@ -352,7 +352,7 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 ### 转发至 Express 程序
 
-首先，查找 nginx 所在的路径。
+首先，查找 Nginx 所在的路径。
 
 ```shell
 > whereis nginx
@@ -378,7 +378,7 @@ location / {
 }
 ```
 
-然后重启 nginx，设置完成。
+然后重启 Nginx，设置完成。
 
 ```shell
 > sudo systemctl restart nginx
@@ -710,14 +710,14 @@ $ sudo nginx -t
 
 然后在浏览器中访问服务器的IP或者域名，如果显示 Nginx 相关的提示信息，说明运行成功。
 
-### 解决 nginx 启动的问题
+### 解决启动问题
 
-在执行上面的指令启动 nginx 时总是失败，根据[解决nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)](http://www.hankcs.com/appos/linux/fix-nginx-bind-err.html)这篇文章中的方法，修改了 nginx 的全局配置文件 `/etc/nginx/nginx.conf` 并重启服务器，果然 OK 了。
+初次安装 Nginx 之后，在执行上面的指令启动 Nginx 时总是失败，根据[解决nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)](http://www.hankcs.com/appos/linux/fix-nginx-bind-err.html)这篇文章中的方法，修改了 Nginx 的全局配置文件 `/etc/nginx/nginx.conf` 并重启服务器，果然 OK 了。
 
 ### Nginx 重要路径
 
 - 默认的服务器根目录：`/usr/share/nginx/html`，这个路径要去 `/etc/nginx/conf.d/default.conf` 这个配置文件中修改。
-- Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/conf.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
+- Server Block 配置文件（类似于Apache中的虚拟主机）：在 `/etc/nginx/default.d` 这个目录中新建扩展名为 `.conf` 的文件，下次 Nginx 启动的时候就会自动加载这些文件。
 - Nginx 的全局配置文件：该文件路径为 `/etc/nginx/nginx.conf`。
 
 ### 映射网站目录
@@ -743,7 +743,7 @@ $ sudo vi /etc/nginx/nginx.conf
 
 ```shell
 $ sudo vi /etc/nginx/nginx.conf
-# 然后将配置文件中的 use nginx 改为 use www 重启 nginx 之后就可以正常访问了
+# 然后将配置文件中的 use nginx 改为 use www 重启 Nginx 之后就可以正常访问了
 # 猜测是因为之前配置过系统权限，所以才导致此问题
 ```
 
