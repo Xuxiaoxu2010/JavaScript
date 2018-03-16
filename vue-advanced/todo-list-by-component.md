@@ -765,6 +765,16 @@ this.$set(this.tasks[idx], "content", task.content);
 
 ### 添加固定在底部的 Footer
 
+## 其它
+
+### webpack 使用相对路径编译
+
+按照这套模板默认的设置，`index.html` 中引用的资源文件的链接，是 `/static/css` 这种形式的，也就是说静态文件是位于网站根目录的。
+
+如果想要修改这里的设置，比如对于“当前页面并不是根目录下的页面，实际的静态文件和 HTML 文件在同一目录下”的情况，按照上面的默认设置，因为路径不对，就会无法加载静态资源文件。
+
+这个时候就需要修改 `config/index.js` 文件中的 `build.assetsPublicPath` 这个字段，由默认的 `/` 改成 `./`，这样 `index.html` 中资源文件的链接就是相对于本文件的路径了，而不是绝对路径。
+
 ## 参考资料
 
 - [Collapsible contents (code block) in comments / spoiler tag · Issue #166 · dear-github/dear-github](https://github.com/dear-github/dear-github/issues/166)：用 Markdown 语法，实现内容的折叠效果。不过最后呈现出来的效果不好，就没有用上。
