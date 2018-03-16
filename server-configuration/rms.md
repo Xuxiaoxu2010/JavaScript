@@ -1,8 +1,6 @@
 # RMS 资源管理系统配置笔记
 
-## 增加留言功能
-
-### 项目初始化
+## 搭建基本环境
 
 注意：所有的 npm 包都通过 yarn 安装。
 
@@ -12,6 +10,8 @@ $ express --view=ejs rms
 $ cd rms && npm i
 $ supervisor node ./bin/www # 开发环境用supervisor，上线之后用pm2
 ```
+
+## 增加留言功能
 
 ### 获取用户 IP
 
