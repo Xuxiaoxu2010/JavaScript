@@ -184,12 +184,11 @@ IIS 提供了虚拟目录的功能，可以将网站物理路径之外的目录�
 
     </system.webServer>
 </configuration>
-
 ```
 
 ### 解决跨域问题（上面的修改就可以撤回了）
 
-> 待完成
+见文章：[解决跨域问题](https://github.com/Dream4ever/JavaScript/blob/master/company-business/cross-origin.md)。
 
 ### 申请免费 SSL 证书
 
