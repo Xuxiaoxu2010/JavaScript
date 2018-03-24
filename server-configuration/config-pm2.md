@@ -2,6 +2,7 @@
 
 ## 参考文档
 
+- [使用pm2部署你的项目防止过劳死](http://xugaoyang.com/post/5aa3a4d0b1745b11c007ffd6)
 - [Quick Start](http://pm2.keymetrics.io/docs/usage/quick-start/)
 - [Deployment](http://pm2.keymetrics.io/docs/usage/deployment/)
 
