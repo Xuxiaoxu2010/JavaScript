@@ -31,7 +31,7 @@ Hi XXX! You've successfully authenticated, but GitHub does not provide shell acc
 
 ## 本机配置 PM2
 
-在本机的终端环境中，用 `pm2 ecosystem` 命令生成一份原始的 PM2 配置文件 `ecosystem.confi.js`。注意，官网文档和实际操作的结果不一致，文档上说执行这个命令会生成 `ecosystem.json` 这个文件，但自己操作的时候并不是这样，大家也要注意一下。
+在本机的终端环境中，用 `pm2 ecosystem` 命令生成一份原始的 PM2 配置文件 `ecosystem.config.js`。注意，官网文档和实际操作的结果不一致，文档上说执行这个命令会生成 `ecosystem.json` 这个文件，但自己操作的时候并不是这样，大家也要注意一下。
 
 为了方便大家参考，把自己修改后的配置文件内容贴了上来，只贴了重要的部分，别的地方根据自己的需要修改。
 
@@ -81,9 +81,9 @@ module.exports = {
 
 如果之前没有通过 SSH 连接过服务器，就需要先在本机执行 `ssh-copy-id www@1.2.3.4` 这个命令（`www` 是前面配置的服务器的用户，`@` 后面是 IP），把本机的 SSH 秘钥信息添加到服务器上，这个配置成功之后，以后就不需要再执行这条 SSH 命令了。
 
-然后在本机初始化远程服务器上的项目：`pm2 deploy ecosystem.confi.js dev setup`。命令中的 `dev` 指的是在上面配置文件中写的部署环境的名称，对于同时需要设置开发和生产环境的情况，就根据自己需要初始化两次吧，没这个需求的就不用管了。
+然后在本机初始化远程服务器上的项目：`pm2 deploy ecosystem.config.js dev setup`。命令中的 `dev` 指的是在上面配置文件中写的部署环境的名称，对于同时需要设置开发和生产环境的情况，就根据自己需要初始化两次吧，没这个需求的就不用管了。
 
-接着就是部署项目，通俗地说，也就是通知服务器把前面从本机 push 到 GitHub 上的最新代码下载下来：`pm2 deploy ecosystem.confi.js dev`。
+接着就是部署项目，通俗地说，也就是通知服务器把前面从本机 push 到 GitHub 上的最新代码下载下来：`pm2 deploy ecosystem.config.js dev`。
 
 在这两个过程中，都可以看到服务器上的操作指令和结果都显示到本机的终端上了。
 
