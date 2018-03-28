@@ -14,11 +14,11 @@
 
 ## 如何学习 JS？
 
+[如何学习 JS - 精华篇](how-to-learn-js/how-to-learn-js-3.md)
+
 [如何学习 JS - 第一篇](how-to-learn-js/how-to-learn-js-1.md)
 
 [如何学习 JS - 第二篇](how-to-learn-js/how-to-learn-js-2.md)
-
-[如何学习 JS - 精华篇](how-to-learn-js/how-to-learn-js-3.md)
 
 ---
 
@@ -46,31 +46,27 @@
 
 ---
 
-## 闭包
+## JS 核心
+
+### 闭包
 
  [【翻译】实例剖析 JavaScript 闭包及作用域链](closure/closure-scope-chain.md)
 
  [【翻译】MDN - 闭包](closure/mdn-closure.md)
 
----
-
-## Promises
+### Promises
 
 [【翻译】Promises 入门 - 从菜鸡到吃鸡](promises/javascript-promises-for-dummies.md)
 
 [Promises 迷你书笔记](promises/promises-book.md)
 
----
-
-## Ramda
-
-[ramda](ramda/ramda.md)：拿 ramda 中几个常用的函数来玩，很有意思。
-
----
-
-## This
+### This
 
 [【翻译】this - JavaScript | MDN](this/mdn-this.md)
+
+### Ramda
+
+[ramda](ramda/ramda.md)：拿 ramda 中几个常用的函数来玩，很有意思。
 
 ---
 
@@ -106,6 +102,12 @@
 
 [阿里云轻量应用服务器教程 v1.0](server-configuration/server.md)
 
+[配置 Docker 中的 Nginx](server-configuration/nginx-in-docker.md)
+
+[Windows 服务器 MongoDB 配置笔记](server-configuration/config-mongo-on-windows.md)
+
+[配置 PM2 实现代码自动发布](server-configuration/config-pm2.md)
+
 ---
 
 ## Git
@@ -121,6 +123,14 @@
 [公司30周年庆网页制作总结](company-business/anniversary.md)
 
 [公司周年庆网站重构笔记（已坑）](company-business/anniversary-refactor.md)
+
+[Web端嵌入百度地图](company-business/baidu-map.md)
+
+[解决跨域问题](company-business/cross-origin.md)
+
+[申请免费 SSL 证书](company-business/rms.md)
+
+[阿里云企业邮箱发送邮件](company-business/send-mail.md)
 
 ---
 
