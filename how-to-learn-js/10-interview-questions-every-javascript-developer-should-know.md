@@ -36,7 +36,7 @@ JavaScript 很独特，它在各种大型项目中都起着至关重要的作用
 
 ---
 
-## 1. 对于 JavaScript 工程师很重要的编程范式，能说出来两种么？
+## 1. 能说出来两种对于 JavaScript 工程师很重要的编程范式么？
 
 JavaScript 是一门多范式（multi-paradigm）的编程语言，它既支持命令式（imperative）/面向过程（procedural）编程，也支持面向对象编程（OOP，Object-Oriented Programming），还支持函数式编程（functional programming）。JavaScript 所支持的面向对象编程包括**原型继承**（prototypal inheritance）。
 
