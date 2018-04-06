@@ -31,3 +31,27 @@ $ npm run dev
      |-- components # 各页面中要用到的组件
      +-- utils      # 工具函数
 ```
+
+## 调用 axios
+
+由于小程序的 JavaScript 运行环境不同于浏览器或者 Node.js，因此无法直接在小程序中使用 axios。
+
+要想让 axios 可以正常使用，除了要用标准的语法引入之外，还需要编辑 `./build/webpack.base.conf.js` 这个文件：
+
+```js
+resolve: {
+   alias: {
+     'vue': 'mpvue',
+     'axios':'axios/dist/axios', // 新增这一行
+     '@': resolve('src')
+   }
+}
+```
+
+## 参考资料
+
+- [小程序官方文档](https://developers.weixin.qq.com/miniprogram/dev/index.html?t=201842)
+- [mpvue 官方文档](http://mpvue.com/mpvue/)
+- [美团小程序框架mpvue蹲坑指南](https://segmentfault.com/a/1190000014200668)
+- [使用mpvue开发小程序——axios发送ajax请求](http://www.poorren.com/mpvue-mini-program-ajax-axios)
+- [在小程序/mpvue中使用flyio发起网络请求](https://segmentfault.com/a/1190000014039585)
