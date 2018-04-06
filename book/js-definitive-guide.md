@@ -3375,3 +3375,40 @@ var f = function fact(x) { if (x <= 1) return 1; return x * fact(x - 1); };
 - 用 `var` 声明的函数定义表达式，只有变量声明被提前了，变量赋值并没有提前。因此用这种方式定义的函数，在定义之前是无法调用的。
 
 函数声明语句并不是真正的语句，只是 ECMAScript 规范允许它们作为顶级语句。它们可以出现在全局代码里，或内嵌在其它函数中，但是不能出现在循环、条件判断，或者 `try/catch/finally` 以及 `with` 语句中。但是函数定义表达式无此限制，可以出现在代码的任何地方。
+
+## 函数调用
+
+函数体中的代码在定义时并不会执行，只有在调用该函数的时候才会执行，下面是四种调用函数的方式：
+
+- 作为函数
+- 作为方法
+- 作为构造函数
+- 通过函数的 `call()` 和 `apply()` 方法间接调用
+
+### 函数调用
+
+对普通的函数调用来说，`return` 语句的返回值就是函数的返回值，如果没值或者没有 `return`，则返回值就是 `undefined`。
+
+在非严格模式中，调用上下文（`this` 的值）是全局对象，严格模式下则是 `undefined`。
+
+虽然函数形式的调用一般不会用到 `this` 关键字，但是可以用它来判断当前是否为严格模式。
+
+```javascript
+var strict = (function() { return !this; })();
+```
+
+### 方法调用
+
+方法调用和函数调用的一个重要区别，就是调用上下文：方法调用的上下文是主调对象，比如 `o.m(x, y)` 中的 `o` 就是方法 `m` 的调用上下文。
+
+```javascript
+var calculator = {
+    operand1: 1,
+    operand2: 1,
+    add: function () {
+        this.result = this.operand1 + this.operand2; // TODO: 这算是隐式地新增了一个属性 result？
+    }
+};
+calculator.add();
+calculator.result // => 2
+```
