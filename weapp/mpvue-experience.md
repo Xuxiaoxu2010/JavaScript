@@ -36,7 +36,7 @@ $ npm run dev
 
 由于小程序的 JavaScript 运行环境不同于浏览器或者 Node.js，因此无法直接在小程序中使用 axios。
 
-要想让 axios 可以正常使用，除了要用标准的语法引入之外，还需要编辑 `./build/webpack.base.conf.js` 这个文件：
+除了要用标准的语法引入之外，还需要编辑 `./build/webpack.base.conf.js` 这个文件：
 
 ```js
 resolve: {
@@ -47,6 +47,8 @@ resolve: {
    }
 }
 ```
+
+这样只是会让小程序加载之后不报错，但是要让 axios 完全可以正常使用，还需要配置 axios 的 `adapter`：
 
 ## 参考资料
 
