@@ -3477,3 +3477,28 @@ JavaScript 中的函数也是对象，自然也可以包含方法。`call()` 和
 这两个方法都可以显式指定调用时 `this` 的值，也就是任何函数都可以作为任何对象的方法被调用，这个函数不是对象的方法也没关系。
 
 `call()` 方法使用自有的实参列表作为函数的实参，`apply()` 则需要以数组形式传入实参。
+
+## 函数的实参和形参
+
+JavaScript 的函数定义并不指定形参的类型，调用时也不检查实参的类型，甚至不检查传入形参的个数。
+
+### 可选形参
+
+函数调用时传入的实参比声明时指定的形参个数要少的时候，其余的形参的值都为 `undefined`。为了让形参有良好的适应性，应该给省略的参数赋一个合理的默认值：
+
+```javascript
+function getPropertyNames(o, /* optional */ a) {
+    if (a === undefined) a = []; // 如果未定义，则定义新数组
+    for (var property in o) a.push(property);
+    return a;
+}
+
+var o = { x: 1, y: 2, z: 3 };
+var a = getPropertyNames(o); // => ["x", "y", "z"]
+var p = { a: 'a', b: 'b', c: 'c' };
+getPropertyNames(p, a); // => ["x", "y", "z", "a", "b", "c"]
+```
+
+上面代码中的 `if` 语句，还可以改写成：`a = a || []`。在这里，由于 `a` 是作为形参传入的，相当于 `var a`，已经被声明了，所以才能这样用。
+
+用这种可选实参来设计函数的时候，可选实参一定要放在实参列表的最后，因为 JavaScript 本身只会按实参传入的顺序依次赋值给形参。对于可选实参，可以传入 null 或者 undefined 作为占位符。
