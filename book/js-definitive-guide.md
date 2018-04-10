@@ -3552,3 +3552,14 @@ function f(x) {
 如果实参对象只是个普通数组的话，上面第二次输出的结果就不会是 `null` 了。在上面的例子中，`arguments[0]` 和 `x` 指向的是同一个值，修改其中一个就会影响另一个。
 
 在 ES5 的严格模式中，实参对象的这种特性被移除了。而且，在严格模式中，`arguments` 是关键字，是和 `if`、`var` 一样的关键字了。
+
+#### 实参对象的 `callee` 和 `caller` 属性
+
+在 ES5 严格模式中没法使用这两个属性，在非严格模式中，`callee` 指的是当前正在执行的函数，`caller` 指的则是调用当前正在执行函数的函数。通过 `caller` 可以访问调用栈，而 `callee` 则可以在匿名函数中递归地调用自身。
+
+```javascript
+var factorial = function (x) {
+  if (x <= 1) return 1;
+  return x * arguments.callee(x - 1);
+}
+```
