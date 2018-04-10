@@ -3563,3 +3563,14 @@ var factorial = function (x) {
   return x * arguments.callee(x - 1);
 }
 ```
+
+### 将对象属性用作实参
+
+如果函数的参数多了，又要记住每个参数的含义，又要记住各个参数的顺序，岂不是很麻烦？这个时候，就可以把函数改进一下，把参数包裹在一个对象里面，传参的时候只传一个对象，岂不皆大欢喜？
+
+```javascript
+function sepeParams(name, email, tel, mobile, wechat) { ... }
+function packParams(contact) { ... }
+```
+
+上面两个函数，哪个用起来更方便，一看便知吧？
