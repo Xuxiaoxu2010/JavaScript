@@ -3574,3 +3574,48 @@ function packParams(contact) { ... }
 ```
 
 上面两个函数，哪个用起来更方便，一看便知吧？
+
+### 实参类型
+
+JavaScript 没法限制形参的类型，传入实参时，语言本身也没有类型检查机制。变通的方法，或者是采用语义化的单词来给参数命名，或者给参数补充注释。
+
+由于 JavaScript 在一些情况下会执行类型转换，比如函数接收一个字符串参数，如果传入的实参不是字符串，那么 JavaScript 会自动转换成字符串，并且这个过程一般不会报错。可如果函数需要一个数组，却传入一个原始值呢？
+
+一种方法，就是对传入的参数执行严格的类型检查，并且对于所有非预期的参数类型给予准确的提示（报错）。在传参阶段的报错远比执行阶段的报错容易处理。
+
+```javascript
+function sum(a) {
+  if (isArrayLike(a)) {
+    var total = 0;
+    for (var i = 0; i < a.length; i++) {
+      var element = a[i];
+      if (element == null) continue; // 跳过 null 和 undefined
+      if (isFinite(element)) total += element;
+      else throw new Error("sum(): elements must be finite numbers");
+    }
+    return total;
+  }
+  else throw new Error("sum() : argument must be array-like");
+}
+```
+
+另一种方法，则是先尽量对传入的参数进行可能的转换，所有尝试都失败之后，再报错给用户，这样函数的灵活性就更强了。
+
+```javascript
+function flexisum(a) {
+  var total = 0;
+  for(var i = 0; i < arguments.length; i++) {
+    var element = arguments[i], n;
+    if (element == null) continue; // 忽略 null 和 undefined 实参
+    if (isArray(element)) // 实参是数组的话
+      n = flexisum.apply(this, element); // 就递归累加
+    else if (typeof element === 'function') // 否则如果是函数
+      n = Number(element()); // 执行函数并对结果做类型转换
+    else
+      n = Number(element); // 否则直接类型转换
+    if (isNaN(n)) // 转换失败就报错
+      throw Error("flexisum(): can't convert " + element + " to number");
+    total += n; // 否则就累加
+  }
+}
+```
