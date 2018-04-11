@@ -3619,3 +3619,78 @@ function flexisum(a) {
   }
 }
 ```
+
+## 作为值的函数
+
+函数最重要的特性，是它可以被定义，还可以被调用。在 JavaScript 中，函数不仅是语法，它也是值。这样一来，就可以把函数赋值给变量，可以把它保存在对象属性或者数组元素中，还可以作为参数传入到别的函数中。
+
+为了理解上面所说的“函数不仅是语法，它也是值”，先来看看下面这个函数定义：
+
+```javascript
+function square(x) { return x * x; }
+```
+
+上面的函数定义创建了一个函数对象，并把它赋给变量 `square`。函数的名称其实无关紧要，它只不过是指向函数对象的一个变量名而已。这个函数对象也可以赋给另一个变量，这两个变量用起来是一样的：
+
+```javascript
+var s = square; // square 和 s 指向同一个函数对象
+square(4); // => 16
+s(4); // => 16
+```
+
+函数对象不仅可以赋给变量，还可以赋给对象属性。作为对象属性的函数就叫方法。
+
+```javascript
+var o = {square: function(x) { return x*x; }}; // 对象的属性值是函数
+var y = o.square(4); // => 16
+```
+
+函数没有名字也完全 OK：
+
+```javascript
+var a = [function(x) { return x*x; }, 20]; // 数组元素是没有名字的函数
+a[0](a[1]); // => 400
+```
+
+最后这种函数的格式可能看着还挺怪，但它也是完全合法的函数调用表达式。
+
+下面的示例就演示了作为值的函数可以怎么用：
+
+```javascript
+// 定义四个简单的函数
+function add(x, y) { return x + y; }
+function subtract(x, y) { return x - y; }
+function multiply(x, y) { return x * y; }
+function divide(x, y) { return x / y; }
+
+// 下面的函数接受函数作为参数，并且在函数内部将两个实参函数作为操作数传入另一个实参函数并执行
+function operate(operator, operand1, operand2) {
+  return operator(operand1, operand2);
+}
+
+// 下面的函数调用，计算的就是 (2 + 3) + (4 * 5) = 25
+var i = operate(add, operate(add, 2, 3), operate(multiply, 4, 5));
+
+// 这次把函数定义为对象的属性值
+var operators = {
+  add: function (x, y) { return x + y; },
+  subtract: function (x, y) { return x - y; },
+  multiply: function (x, y) { return x * y; },
+  divide: function (x, y) { return x / y; },
+  pow: Math.pow // 预定义的函数也可以作为对象的属性值
+};
+
+// 在对象中查找第一个参数所对应的属性名，找到之后将后两个参数传入属性名所对应的函数并执行
+function operate2(operation, operand1, operand2) {
+  if (typeof operators[operation] === 'function')
+    return operators[operation](operand1, operand2);
+  else throw 'unknown operator';
+}
+
+// 计算的就是 ('hello' + ' ' + 'world')
+var j = operate2('add', 'hello', operate2('add', '', 'world'));
+// 用预定义函数计算
+var k = operate2('pow', 10, 2);
+```
+
+`Array.sort()` 这个方法也是函数作为值的一个很好的例子。因为可以用各种方式来对数组进行排序，所以 `sort()` 方法可以接受一个函数作为参数，用来决定应该如何排序。这个可选函数接受两个参数，并且返回一个值，这个值决定了哪个参数排在前面哪个排在后面。这样一来，`sort()` 方法的扩展性就非常强了，可以根据任何需求来进行排序。
