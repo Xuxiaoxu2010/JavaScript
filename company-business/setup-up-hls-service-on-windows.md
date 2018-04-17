@@ -26,6 +26,10 @@
 
 于是先在本机下载了 FFmpeg，用下面的命令将视频文件进行处理，然后将处理后的 `m3u8` + `ts` 文件放到服务器上。
 
+```shell
+ffmpeg.exe -i 01.mp4 video.m3u8 -c:v libx264 -c:a copy -f hls -g 600 -hls_list_size 0
+```
+
 在 IIS 中，对 `m3u8` + `ts` 这两种文件类型设置了 MIME，这样后端服务器才能够正常解析。
 
 在前端页面中，则用到了 [hls.js](https://github.com/video-dev/hls.js) 这个库，专门用于播放 `m3u8` 文件。
