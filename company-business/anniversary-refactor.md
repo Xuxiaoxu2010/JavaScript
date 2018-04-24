@@ -14,7 +14,7 @@
 
 采用 vue-cli 这个脚手架进行开发。
 
-```sh
+```bash
 yarn global add vue-cli
 vue init webpack-simple anniversary2
 cd anniversary2
@@ -31,7 +31,7 @@ yarn
 
 首先安装插件。
 
-```sh
+```bash
 yarn add html-webpack-plugin -D
 ```
 
@@ -120,7 +120,7 @@ import './static/css/common.css'
 
 首先安装插件。
 
-```sh
+```bash
 yarn add favicons-webpack-plugin -D
 ```
 
@@ -132,7 +132,7 @@ yarn add favicons-webpack-plugin -D
 
 要实现这个需求，得先安装一个插件：
 
-```sh
+```bash
 yarn add clean-webpack-plugin -D
 ```
 
@@ -160,7 +160,7 @@ module.exports = {
 
 vue-cli 这个脚手架所创建的默认的目录结构，自己并不太满意，于是参考网上的文章，对整个项目的目录结构进行了重构。
 
-```sh
+```bash
 .src
 ├─assets # 仅用于存放公共的静态资源，如各页面通用的背景图片，各页面共用的CSS等
 │  ├─css

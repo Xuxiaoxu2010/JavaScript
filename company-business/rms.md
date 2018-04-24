@@ -4,7 +4,7 @@
 
 注意：所有的 npm 包都通过 yarn 安装。
 
-```sh
+```bash
 $ yarn global add express-generator
 $ express --view=ejs rms
 $ cd rms && npm i
@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 
 要允许跨域请求，需要先在 express 中安装并配置 `cors` 这个库。
 
-```sh
+```bash
 $ yarn add cors
 ```
 

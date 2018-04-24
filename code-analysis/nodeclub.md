@@ -8,13 +8,13 @@
 
 ## 安装 Node.js
 
-```sh
+```bash
 > nvm install 4.4.0
 ```
 
 ## 安装 MongoDB
 
-```sh
+```bash
 > brew update # 先更新 brew
 > brew install mongodb --with-openssl # 安装支持 TLS/SSL 的 MongoDB
 > brew services start mongodb # 启动 MongoDB，并设置为开机启动
@@ -26,7 +26,7 @@
 
 ### 运行 MongoDB
 
-```sh
+```bash
 > sudo mkdir -p /data/db # 新建 MongoDB 默认使用的数据文件夹
 > sudo chmod 777 /data/db # 设置数据文件夹的权限
 > mongod # 启动 MongoDB
@@ -42,7 +42,7 @@
 
 通过 [How to Create a configuration File For MongoDB](https://stackoverflow.com/a/14567161/2667665) 这里的回答可以看到，MongoDB 默认的配置文件位于 `/usr/local/etc/mongod.conf`，查看该配置文件，有下面的内容，说明已经默认限制 MongoDB 仅允许本机 IP 访问，那就暂时不用再额外设置了。
 
-```sh
+```bash
 net:
   bindIp: 127.0.0.1
 ```
@@ -53,7 +53,7 @@ net:
 
 ## 安装 Redis
 
-```sh
+```bash
 > brew install redis # 通过 HomeBrew 安装 Redis
 > brew services start redis # 启动 Redis，并设置为开机启动
 > redis-cli ping # 如果显示 PONG，说明 Redis 已成功启动
@@ -65,19 +65,19 @@ net:
 
 ## 安装依赖
 
-```sh
+```bash
 > make install # 安装 Nodeclub 项目的依赖包，会安装很多包，耐心等待即可
 ```
 
 ## 复制配置文件
 
-```sh
+```bash
 > cp config.default.js config.js
 ```
 
 ## 执行测试
 
-```sh
+```bash
 > make test
 ```
 
@@ -87,7 +87,7 @@ net:
 
 ## 运行网站
 
-```sh
+```bash
 > node app.js
 ```
 

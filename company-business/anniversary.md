@@ -27,7 +27,7 @@
 
 ### 目录结构
 
-```sh
+```bash
 ├─ie
 │  ├─page
 │  │  └─book
@@ -384,7 +384,7 @@ if (typeof avalon !== 'undefined') {
 
 先检查一下用 npm 全局安装了哪些包：
 
-```sh
+```bash
 > npm list -g --depth=0
 C:\Program Files\nodejs
 +-- express-generator@4.15.5
@@ -395,13 +395,13 @@ C:\Program Files\nodejs
 
 然后用 Yarn 全局安装一下 anu-cli 这个脚手架：
 
-```sh
+```bash
 > yarn global add anu-cli
 ```
 
 接着进入专门存放代码的目录，初始化项目并安装依赖：
 
-```sh
+```bash
 > anu anni --ie # 兼容 IE
 > cd anni
 > yarn # 安装依赖
@@ -431,7 +431,7 @@ webpack built 69f1995460ff57583859 in 2535ms
 
 But! 第二天看一篇关于 React 同构的文章：《[【第1145期】打造高可靠与高性能的React同构解决方案](https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651227479&idx=1&sn=3eb1501b3c3041fd9c7afdda0d180ead&chksm=bd495cd38a3ed5c5f9c9448ad912e2f6cc2439b8e2fdb5653dbbf00475084afb45714e557d79&mpshare=1&scene=23&srcid=1221f3dQpMrsPlhbrw0ztzGJ#rd)》时，忽然想到，其实可以做服务端渲染，并且用 Babel 编译，这样不就能解决 IE 端兼容的问题了？嗯，那就先把 anu-cli 删除了。
 
-```sh
+```bash
 > yarn global remove anu-cli
 ```
 
@@ -467,7 +467,7 @@ Node.js 的安装包没什么问题，下载过来安装之后就能直接用了
 
 但是 Yarn 在安装成功之后还需要配置一下环境变量，不然用 Yarn 全局安装的包是无法使用的。自己是 Windows 10 的系统，查看了一下系统变量中的 `Path` 变量以及用户变量中的同名变量，两个变量中都有 `Yarn` 对应的路径，查看两个路径中所包含的内容，确认了用户变量可以存放全局安装的包，于是执行了类似下面的命令，更新了保存全局安装包的路径，这样就可以正常使用 Yarn 全局安装的包了。
 
-```sh
+```bash
 > yarn config set prefix c:\Users\HeWei\AppData\Local\Yarn\
 > yarn global bin
 c:\Users\HeWei\AppData\Local\Yarn\

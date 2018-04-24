@@ -6,7 +6,7 @@
 
 然后按照官网的教程：[gitbook-cli](https://github.com/GitbookIO/gitbook-cli)，依次执行以下操作：
 
-```sh
+```bash
 # 全局安装 gitbook-cli 脚手架
 $ npm install -g gitbook-cli
 # 安装完提示npm有新版本，就按照提示给出的命令升级，这一步不必照搬
@@ -33,7 +33,7 @@ GitBook has been updated to 3.2.3 # Are you serious?
 
 最基本的安装完成了，接下来……得去看看官方的文档 [Setup and Installation of GitBook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md)，弄清楚这个 GitBook 该怎么用。
 
-```sh
+```bash
 # 新建一个目录，在这个目录里初始化gitbook
 $ cd ~ && mkdir gitbook && gitbook init ~/gitbook
 warn: no summary file in this book
@@ -78,7 +78,7 @@ Serving book on http://localhost:4000
 
 由于服务器上安装了 Nginx，所以需要配置 Nginx，使其将本地的 4000 端口映射至域名的指定路径下，这样外网才能访问服务器上运行的 GitBook。配置方法用的是 [GitBook 使用 Nginx 做為 Proxy](https://cowmanchiang.me/gitbook/gitbook/contents/proxy.html) 这篇文章中所展示的代码。
 
-```sh
+```bash
 $ sudo vi /etc/nginx/nginx.conf
 # 然后将 location / 字段下面增加如下内容
         location /gitbook {

@@ -32,7 +32,7 @@
 
 输入命令`git status`，将会看到命令行显示以下内容（只列出主要部分）：
 
-```sh
+```bash
 Changes not staged for commit:
     modified: README.md
 ```
