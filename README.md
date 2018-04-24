@@ -6,9 +6,41 @@
 
 ---
 
-## 每周学习总结
+## 每周总结
 
-[每周学习总结](weekly-review)
+[2017 年度总结](weekly-review/2017.md)
+
+[2018 年第 01 周总结](weekly-review/2018-01.md)
+
+[2018 年第 02 周总结](weekly-review/2018-02.md)
+
+[2018 年第 03 周总结](weekly-review/2018-03.md)
+
+[2018 年第 04 周总结](weekly-review/2018-04.md)
+
+[2018 年第 05 周总结](weekly-review/2018-05.md)
+
+[2018 年第 06 周总结](weekly-review/2018-06.md)
+
+[2018 年第 07 周总结](weekly-review/2018-07.md)
+
+[2018 年第 08 周总结](weekly-review/2018-08.md)
+
+[2018 年第 09 周总结](weekly-review/2018-09.md)
+
+[2018 年第 10 周总结](weekly-review/2018-10.md)
+
+[2018 年第 11 周总结](weekly-review/2018-11.md)
+
+[2018 年第 12 周总结](weekly-review/2018-12.md)
+
+[2018 年第 13 周总结](weekly-review/2018-13.md)
+
+[2018 年第 14 周总结](weekly-review/2018-14.md)
+
+[2018 年第 15 周总结](weekly-review/2018-15.md)
+
+[2018 年第 16 周总结](weekly-review/2018-16.md)
 
 ---
 
@@ -23,6 +55,8 @@
 ---
 
 ## 课程笔记
+
+> 链接待补充
 
 [Vue.js 进阶课 - 徐高阳](vue-advanced)
 
