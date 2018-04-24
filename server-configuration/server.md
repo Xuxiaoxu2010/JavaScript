@@ -37,27 +37,27 @@ Mac 自带的终端或者 iTerm2 就可以很好地完成这件事，无需另�
 
 本机存放 SSH 相关文件的目录位于 `~/.ssh` ，所以把前面下载到本地的 pem 文件复制到这里就行。
 
-```shell
+```sh
 > cd ~/.ssh
 > sudo cp ~/Downloads/swas.pem swas.pem
 ```
 
 然后设置 pem 文件的权限。
 
-```shell
+```sh
 > chmod 400 swas.pem
 ```
 
 #### 步骤二：SSH 连接至服务器
 
-```shell
+```sh
 // 10.10.10.10仅作说明用，请将这个IP改成服务器的实际IP
 > ssh root@10.10.10.10 -i ~/.ssh/swas.pem
 ```
 
 输入上面的命令之后，如果成功登录，则会显示类似下面的信息，说明登录成功。
 
-```shell
+```sh
 Last login: Wed Sep 27 10:18:43 2017 from 22.22.22.22
 
 Welcome to Alibaba Cloud Elastic Compute Service !
@@ -92,7 +92,7 @@ Welcome to Alibaba Cloud Elastic Compute Service !
 
 在 Windows 上登录服务器，然后做如下操作。
 
-```shell
+```sh
 sudo vi /etc/ssh/sshd_config
 // 在 vim 中将 PasswordAuthentication no 改为 PasswordAuthentication yes，然后保存退出
 sudo systemctl restart sshd
@@ -108,7 +108,7 @@ sudo systemctl restart sshd
 
 在 macOS 下通过终端登录时，会给出下面的提示：
 
-```shell
+```sh
 -bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
 ```
 
@@ -126,7 +126,7 @@ sudo systemctl restart sshd
 
 装好了系统，先把所有程序都更新到最新版。
 
-```shell
+```sh
 > yum update
 ```
 
@@ -138,7 +138,7 @@ sudo systemctl restart sshd
 
 由于用 root 用户登录服务器可能带来安全问题，比如误删文件等等，所以需要建立一个普通权限的用户进行日常操作。
 
-```shell
+```sh
 > adduser www
 > passwd www
 // 输入第二条命令之后，会提示输入两次密码，输入密码的过程中不会显示任何内容，盲打即可
@@ -148,7 +148,7 @@ sudo systemctl restart sshd
 
 有时候需要用 root 权限的用户进行操作，但是注销当前普通权限的用户，再用 root 用户登录实在太麻烦了，直接给普通用户赋予 root 权限就好了，这样以后就可以在这个用户下直接用 `sudo` 执行命令了。
 
-```shell
+```sh
 > gpasswd -a www wheel
 ```
 
@@ -162,7 +162,7 @@ sudo systemctl restart sshd
 
 执行下面的命令（Windows 下在 Git Bash 中，Mac 下在终端里），一路回车即可。
 
-```shell
+```sh
 > ssh-keygen
 ```
 
@@ -172,7 +172,7 @@ sudo systemctl restart sshd
 
 首先在本机的终端里显示公钥的内容。
 
-```shell
+```sh
 > cat ~/.ssh/id_rsa.pub
 ```
 
@@ -180,20 +180,20 @@ sudo systemctl restart sshd
 
 接着在服务器上切换至用户 www。
 
-```shell
+```sh
 > su - www
 ```
 
 然后新建 `.ssh` 目录并设置权限。
 
-```shell
+```sh
 > mkdir .ssh
 > chmod 700 .ssh
 ```
 
 接着新建 `authorized_keys` 文件。
 
-```shell
+```sh
 > vi .ssh/authorized_keys
 ```
 
@@ -201,7 +201,7 @@ sudo systemctl restart sshd
 
 然后再设置 `authorized_keys` 文件的权限。
 
-```shell
+```sh
 > chmod 600 .ssh/authorized_keys
 ```
 
@@ -215,7 +215,7 @@ sudo systemctl restart sshd
 
 执行下面的命令，将会进入 vim，编辑 SSH 配置文件。
 
-```shell
+```sh
 > vi /etc/ssh/sshd_config
 ```
 
@@ -229,7 +229,7 @@ sudo systemctl restart sshd
 
 执行完上面这些操作之后，重启 SSH 服务，使其生效。如果重启 SSH 服务还不能禁止 root 用户的登录，那就执行 `reboot` 命令重启一下服务器吧。
 
-```shell
+```sh
 > systemctl reload sshd
 ```
 
@@ -249,13 +249,13 @@ sudo systemctl restart sshd
 
 先根据官网的教程，安装最新版的 nvm。
 
-```shell
+```sh
 > curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash
 ```
 
 然后执行下面的命令，完成 nvm 的设置。
 
-```shell
+```sh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -265,7 +265,7 @@ export NVM_DIR="$HOME/.nvm"
 
 所购买的服务器，自带的 node.js 版本为 4.8.4，实在是有点儿老，果断给它升级一下。
 
-```shell
+```sh
 > nvm install node
 // 如果 nvm 不识别 node 参数，就得明确指定 node 的版本了
 > nvm install 8.6.0
@@ -273,7 +273,7 @@ export NVM_DIR="$HOME/.nvm"
 
 上面的命令，会安装最新版 8.6.0。安装完成后，我们再看看系统中有哪些版本的 node.js。
 
-```shell
+```sh
 > nvm ls
 ->       v8.6.0
 default -> 8.6.0 (-> v8.6.0)
@@ -299,7 +299,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 基本的 node.js 环境建立起来了，那就先用 Express 搭建一个简单的网页框架，首先把 Express 框架安装好。
 
-```shell
+```sh
 > npm install -g express
 > npm install -g express-generator
 ```
@@ -308,7 +308,7 @@ lts/boron -> v6.11.3 (-> N/A)
 
 然后再用 Express 框架创建项目 blog。
 
-```shell
+```sh
 > express -v ejs blog
 > cd blog && npm install
 ```
@@ -333,14 +333,14 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 ### 安装 Nginx
 
-```shell
+```sh
 > sudo yum install epel-release
 > sudo yum install nginx
 ```
 
 然后启动 Nginx，并使其开机自动启动。
 
-```shell
+```sh
 > reboot
 > sudo systemctl start nginx
 > sudo systemctl enable nginx
@@ -354,20 +354,20 @@ Google 一番，发现原来需要在服务器控制台的“防火墙”中开�
 
 首先，查找 Nginx 所在的路径。
 
-```shell
+```sh
 > whereis nginx
 nginx: /usr/sbin/nginx /usr/lib64/nginx /etc/nginx /usr/share/nginx /usr/share/man/man8/nginx.8.gz /usr/share/man/man3/nginx.3pm.gz
 ```
 
 依次查看上面几个路径可知，/etc/nginx 文件夹里包含了 nginx.conf 这个配置文件。
 
-```shell
+```sh
 > sudo vi /etc/nginx/nginx.conf
 ```
 
 在 location 字段中增加下面这段代码，记得先将 10.10.10.10 改成服务器的外网 IP。
 
-```shell
+```sh
 location / {
     proxy_pass http://10.10.10.10:3000;
     proxy_http_version 1.1;
@@ -380,7 +380,7 @@ location / {
 
 然后重启 Nginx，设置完成。
 
-```shell
+```sh
 > sudo systemctl restart nginx
 ```
 
@@ -442,7 +442,7 @@ A 记录，就是将前面购买的域名，指向自己的服务器 IP，这样
 
 在文件 `/etc/ssh/sshd_config` 中添加下列三行内容（如果已经有则不必重复添加）:
 
-```shell
+```sh
 RSAAuthentication yes
 PubkeyAuthentication yes
 AuthorizedKeysFile  .ssh/authorized_keys
@@ -452,7 +452,7 @@ AuthorizedKeysFile  .ssh/authorized_keys
 
 在当前用户的根目录下（`/home/www`），专门新建一个 repo 文件夹，用于接收本地的推送并自动更新至前面建立的项目目录。
 
-```shell
+```sh
 > cd ~
 > mkdir repo && cd repo
 > mkdir blog.git && cd blog.git
@@ -463,14 +463,14 @@ AuthorizedKeysFile  .ssh/authorized_keys
 
 ### 关联仓库和项目
 
-```shell
+```sh
 > cd hooks
 > cat > post-receive
 ```
 
 执行完这两行指令之后，输入下面的文字，并按 Ctrl+d 键保存。
 
-```shell
+```sh
 #!/bin/sh
 git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 ```
@@ -479,7 +479,7 @@ git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 
 然后再执行下面的命令，设置刚才新建文件的权限，以保证它能够正常运行。
 
-```shell
+```sh
 > chmod +x post-receive
 ```
 
@@ -487,7 +487,7 @@ git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 
 在本机上也建立同名的项目，便于管理。下面的命令行代码以 Mac 为例，Windows 类似。
 
-```shell
+```sh
 > cd ~/Code
 > mkdir blog && cd blog
 > mkdir .git && cd .git
@@ -501,7 +501,7 @@ git --work-tree=/home/www/blog --git-dir=/home/www/repo/blog.git checkout -f
 
 建立了关联之后，测试一下在本地的修改是否能成功推送到服务器上。将之前做的一个简单的网页内容复制到了 `/views/index.ejs` 中，然后执行下面的命令，开始上传。
 
-```shell
+```sh
 git add .
 git commit -m "init"
 git push --set-upstream blog master
@@ -533,7 +533,7 @@ git push --set-upstream blog master
 
 根据这篇文章 [Initial Server Setup with CentOS 7](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7) 里的建议，新建用户 www 并设置密码，然后赋予执行 `sudo` 命令的权限。
 
-```shell
+```sh
 $ adduser www
 $ passwd www
 $ gpasswd -a www wheel
@@ -542,7 +542,7 @@ $ sudo su www # 切换至新建的用户
 
 在本机生成密钥并复制公钥内容（最新的一次重置服务器的过程当中，因为已经先为 GitHub 生成过密钥，所以直接把 GitHub 的复制过来了，用同一份，省心）。
 
-```shell
+```sh
 $ ssh-keygen
 $ cat ~/.ssh/id_rsa.pub
 ```
@@ -551,7 +551,7 @@ $ cat ~/.ssh/id_rsa.pub
 
 将公钥添加到服务器的 www 用户下。
 
-```shell
+```sh
 $ mkdir .ssh
 $ chmod 700 .ssh
 vi .ssh/authorized_keys
@@ -564,7 +564,7 @@ Mac 下也要按照上面这样设置，就是把本机生成的公钥复制到 
 
 最后再禁止 root 用户的 SSH 登录，以提升服务器安全性。
 
-```shell
+```sh
 $ vi /etc/ssh/sshd_config
 # 输入/PermitRoot然后按下回车，编辑器就会定位至PermitRoot所在行的行首。如果行首有注释符号#，则按下Shift+x删除。然后光标移至后面的单词yes的首字母y上，输入cw删除该单词，再输入no，然后按下Esc结束编辑，最后输入:x保存并退出。
 $ systemctl reload sshd
@@ -576,7 +576,7 @@ $ systemctl reload sshd
 >
 > 按照上面的设置之后，要在本机通过 www 用户登录的话，在 XShell 中配置连接属性的界面，在“用户身份验证”选项卡中，“方法”选择“Public Key”，然后在用户密钥那里，选择前面为 GitHub 生成的 id_rsa 文件，这样就可以用下面的命令直接登录了。
 
-```shell
+```sh
 $ ssh www@1.2.3.4
 $ sudo yum update
 ```
@@ -589,7 +589,7 @@ $ sudo yum update
 
 首先配置好防火墙。
 
-```shell
+```sh
 # 先开启防火墙
 $ sudo systemctl start firewalld
 # 防火墙中允许 SSH 服务，可以从输出结果看到默认已经允许了
@@ -636,7 +636,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/firewalld.servi
 
 然后再配置服务器的时间。
 
-```shell
+```sh
 # 列出所有可用的时区
 $ sudo timedatectl list-timezones
 # 然后设置服务器要使用的时区/区域
@@ -662,7 +662,7 @@ $ sudo systemctl enable ntpd
 
 还要配置 Swap 文件。
 
-```shell
+```sh
 # 小主机内存只有1G，所以创建2G的交换文件
 $ sudo fallocate -l 2G /swapfile
 # 限制其它用户或进程对该交换文件的权限
@@ -679,7 +679,7 @@ $ sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 
 安装 Node 环境。
 
-```shell
+```sh
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
 $ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -690,7 +690,7 @@ $ nvm install node
 
 ## 配置 Nginx
 
-```shell
+```sh
 $ sudo yum install epel-release
 $ sudo yum install nginx
 $ sudo systemctl start nginx
@@ -717,7 +717,7 @@ $ sudo nginx -t
 
 配置 Nginx 映射网站目录。
 
-```shell
+```sh
 $ sudo vi /etc/nginx/nginx.conf
 # 然后将 location / 字段修改为如下内容
         location / {
@@ -734,7 +734,7 @@ $ sudo vi /etc/nginx/nginx.conf
 
 在配置Nginx代理静态资源的时候，发现访问网站时提示 403 Forbidden，上网查了查，试了各种方法，最后发现需要修改执行Nginx的用户。
 
-```shell
+```sh
 $ sudo vi /etc/nginx/nginx.conf
 # 然后将配置文件中的 use nginx 改为 use www 重启 Nginx 之后就可以正常访问了
 # 猜测是因为之前配置过系统权限，所以才导致此问题
@@ -750,7 +750,7 @@ $ sudo vi /etc/nginx/nginx.conf
 
 里面还提到了 `nmon` 这个工具非常好用，于是按照 [Install NMON](https://gist.github.com/sebkouba/f2a982ea1c2b658574dcc3da8de09de6) 中的方法，安装到了 CentOS 上。
 
-```shell
+```sh
 # Get Root
 sudo su
 

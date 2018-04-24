@@ -26,7 +26,7 @@
 
 于是先在本机下载了 FFmpeg，用下面的命令将视频文件进行处理，然后将处理后的 `m3u8` + `ts` 文件放到服务器上。
 
-```shell
+```sh
 ffmpeg.exe -i 01.mp4 video.m3u8 -c:v libx264 -c:a copy -f hls -g 600 -hls_list_size 0
 ```
 

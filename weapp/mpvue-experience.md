@@ -4,7 +4,7 @@
 
 全局安装 `vue-cli` 之后，在指定目录下创建一个基于 mpvue-quickstart 模板的新项目，安装依赖，然后启动项目。
 
-```shell
+```sh
 $ yarn global add vue-cli
 $ vue init mpvue/mpvue-quickstart homework
 $ cd homework && yarn

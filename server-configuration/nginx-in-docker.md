@@ -19,7 +19,7 @@
 
 配置完加速器之后，在服务器上就可以安装 Nginx 了。
 
-```shell
+```sh
 $ docker pull nginx
 Using default tag: latest
 latest: Pulling from library/nginx
@@ -40,7 +40,7 @@ Status: Downloaded newer image for nginx:latest
 
 而证书得先从自己的电脑上下载，下载完成并将证书文件解压到 `cert` 文件夹之后，通过 `scp` 这个命令将文件夹复制到服务器上（macOS 下可以直接在终端中执行 `scp`，Windows 的话则需要在 Git Bash 中执行，需要先安装 Git）。为了避免权限不足导致复制失败，可以将文件夹复制到服务器上指定用户的用户目录下，比如我平时就是通过 `www` 这个用户管理服务器，那么就可以执行下面的命令，把证书复制到服务器上：
 
-```shell
+```sh
 $ mkdir ~/ssl
 # 参考：scp 跨机远程拷贝
 # http://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/scp.html
@@ -57,7 +57,7 @@ Nginx 的配置文件 nginx.conf 也是挂载到 Docker 中让 Nginx 容器使�
 
 为了编写符合自己需求的配置文件，先启动 Docker 容器，把容器中的默认配置文件复制一份出来。
 
-```shell
+```sh
 # 启动一个名为 webserver 的 nginx 容器
 # 参考：利用 commit 理解镜像构成
 # https://docker_practice.gitee.io/image/commit.html
@@ -98,7 +98,7 @@ server {
 
 ### 测试 Nginx 启动方式
 
-```shell
+```sh
 $ docker run --name webserver -d -p 80:80 nginx
 ```
 
@@ -110,13 +110,13 @@ $ docker run --name webserver -d -p 80:80 nginx
 
 在服务器的用户目录下为 Nginx 镜像的 Dockerfile 新建对应目录：
 
-```shell
+```sh
 $ mkdir ~/dockerfile.d/nginx.d && cd ~/dockerfile.d/nginx.d
 ```
 
 在该目录下新建一个名为 `Dockerfile` 的文件，内容如下：
 
-```shell
+```sh
 # 以 nginx 这个镜像作为基础镜像，本机不存在的话则从上面配置的源下载
 FROM nginx
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -128,7 +128,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 另一种直接通过命令行挂载服务器物理文件的方法，也不行：
 
-```shell
+```sh
 $ docker run -d \
     --rm \
     --name webserver \

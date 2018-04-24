@@ -2,7 +2,7 @@
 
 由于 Express 项目中的代码用到了 ES6，为了让项目能够正常运行，就需要 `babel` 来打辅助。
 
-```shell
+```sh
 # 开发环境
 # Linux
 $ DEBUG=rms:server nodemon ./api/bin/www --exec babel-node --presets es2015,stage-2

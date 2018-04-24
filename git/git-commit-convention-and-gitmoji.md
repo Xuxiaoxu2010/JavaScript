@@ -42,13 +42,13 @@ Header 是必须的，Body 和 Footer 则是可选的。
 
 安装好依赖之后，在终端中执行下面的命令，安装 Terminal Emojify。
 
-```shell
+```sh
 $ gem install terminal-emojify
 ```
 
 然后再编辑 `.gitconfig` 文件，增加下面的内容，美化 `git log` 命令的输出结果。
 
-```shell
+```sh
 [alias]
   hist = !git --no-pager log --color --pretty=format:'%C(yellow)%h%C(reset)%C(bold red)%d%C(reset) %s %C(black)— %an (%ad)%C(reset)' --relative-date | emojify | less --RAW-CONTROL-CHARS
 ```

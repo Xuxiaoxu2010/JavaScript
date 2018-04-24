@@ -60,19 +60,19 @@ Git 的一大功能，就是可以将文件退回到某次 `commit` 之前的版
 
 ### 新建文件且未加入暂存区
 
-```shell
+```sh
 git clean -f
 ```
 
 这个命令，会把所有新建且未加入暂存区的文件都删除（不包含文件夹），将项目还原到新建文件之前的状态。
 
-```shell
+```sh
 git clean -f -n
 ```
 
 加上 `-n` 命令，不会执行实际的删除操作，而是将执行 `git clean -f` 命令之后会删除的所有文件都列出来，让用户查看，以免误删文件。
 
-```shell
+```sh
 git clean -f -d
 ```
 
@@ -82,7 +82,7 @@ git clean -f -d
 
 这个也很简单，一条命令就搞定。
 
-```shell
+```sh
 > git checkout -- .
 // 或者
 > git checkout topics/git.md
@@ -94,7 +94,7 @@ git clean -f -d
 
 ### 修改现有文件且已加入暂存区
 
-```shell
+```sh
 git reset --hard
 ```
 
@@ -116,13 +116,13 @@ git reset --hard
 
 首先，添加老师的仓库，并命名为 `upstream`，方便以后再次调用。
 
-```shell
+```sh
 > git remote add upstream https://github.com/xugy0926/getting-started-with-javascript.git
 ```
 
 然后将老师仓库中的内容下载至本地。注意，下载至本地的老师的远程仓库内容，和自己的仓库是互不干扰的。
 
-```shell
+```sh
 > git fetch upstream master
 ```
 
@@ -130,7 +130,7 @@ git reset --hard
 
 我们先不急着合并进来，先看看自己的仓库和老师的仓库有哪些不同。
 
-```shell
+```sh
 > git diff master upstream/master
 ```
 
@@ -142,7 +142,7 @@ git reset --hard
 
 对比完徐老师和自己仓库的不同之后，就要把这些内容（`upstream/master`，代表 `upstream` 这个源的 `master` 分支）合并到自己仓库的当前分支中了。
 
-```shell
+```sh
 > git merge upstream/master
 ```
 
@@ -156,7 +156,7 @@ git reset --hard
 
 一条命令就够了。
 
-```shell
+```sh
 > git diff upstream/master patch
 <!-- 比较老师的远程仓库和本地的 patch 分支有什么不同 -->
 diff --git a/.gitignore b/.gitignore
@@ -189,7 +189,7 @@ index 78d0b6d..0000000
 
 那如果本地仓库和老师仓库是一样新的，执行上面的命令会是什么结果呢？
 
-```shell
+```sh
 > git checkout note
 > git diff upstream/master note
 (END)
@@ -203,7 +203,7 @@ index 78d0b6d..0000000
 
 用这个方法，有可能需要处理出现的 merge 信息：`Merge remote-tracking branch 'upstream/master'`。
 
-```shell
+```sh
 > git fetch upstream master
 ```
 
@@ -211,7 +211,7 @@ index 78d0b6d..0000000
 
 #### 将远程仓库 rebase 并 merge 进本地仓（不推荐）
 
-```shell
+```sh
 > git rebase -i upstream/master
 <!-- 进入 vim 编辑器处理 commits，完成后保存退出 -->
 > git merge upstream/master
@@ -236,25 +236,25 @@ index 78d0b6d..0000000
 
 首先，将老师的仓库的最新版拉到本地（添加 `upstream` 源的操作请查看前面的内容，此处不再重复）。
 
-```shell
+```sh
 > git fetch upstream master
 ```
 
 用拉到本地的仓库新建一个隶属于自己项目的分支 `work`。
 
-```shell
+```sh
 > git checkout -b work upstream/master
 ```
 
 接着将 `91d4fce` 这次 `commit` 的内容（修改老师文章中文字错误和格式的操作）放入新增的 `work` 分支中。
 
-```shell
+```sh
 > git cherry-pick 91d4fce
 ```
 
 将本地分支 `work` 推送至服务器上，并指定 `origin` 为默认主机。完成之后，在网页端提交自己的 PR 即可。
 
-```shell
+```sh
 > git push -u origin work
 ```
 
@@ -278,19 +278,19 @@ index 78d0b6d..0000000
 
 先是将 `work` 分支拉至家里的笔记本上，这时候 `work` 还没有合并至本机的仓库中。这样可以避免操作错误，影响本机的仓库。
 
-```shell
+```sh
 > git fetch origin work
 ```
 
 接着再将 `work` 分支合并至本机的仓库之中。
 
-```shell
+```sh
 > git merge origin/work
 ```
 
 最后再切换一下分支，就可以在家里的笔记本上继续快乐地学习了~
 
-```shell
+```sh
 > git checkout work
 ```
 
@@ -309,7 +309,7 @@ index 78d0b6d..0000000
 
 `git push -d` 命令用于删除远程分支，`git branch -d` 命令则用于删除本地分支。
 
-```shell
+```sh
 > git push -d origin test
 > git branch -d test
 ```
@@ -320,7 +320,7 @@ index 78d0b6d..0000000
 
 注意这里的 `-D` 是大写，编程输入代码时，大小写一定要看仔细。
 
-```shell
+```sh
 > git branch -D work
 ```
 
@@ -340,13 +340,13 @@ index 78d0b6d..0000000
 
 首先，重命名本地的 `work` 分支为 `note`。
 
-```shell
+```sh
 > git branch -m work note
 ```
 
 操作完成后，查看本地的分支列表，确认一下。
 
-```shell
+```sh
 > git branch --list
 * master
   patch
@@ -359,7 +359,7 @@ index 78d0b6d..0000000
 
 然后删除远程的 `work` 分支，结果报错。
 
-```shell
+```sh
 > git push remote :work
 fatal: 'remote' does not appear to be a git repository
 fatal: Could not read from remote repository.
@@ -370,19 +370,19 @@ and the repository exists.
 
 看来这个方法不行，那就再看看刚才那个链接里其他人的回答，往下翻，第二个回答和第一个差不多，第三个有些不一样，把上面命令中的 `remote` 换成了 `origin`，来，试一试。
 
-```shell
+```sh
 > git push origin :work
 ```
 
 第一次执行失败，提示超时错误，说明输入的命令是对的，只是网络状态不太好。
 
-```shell
+```sh
 fatal: unable to access 'https://github.com/Dream4ever/getting-started-with-javascript.git/': Failed to connect to github.com port 443: Timed out
 ```
 
 再执行一次，这下成功了。
 
-```shell
+```sh
 To https://github.com/Dream4ever/getting-started-with-javascript.git
  - [deleted]         work
 ```
@@ -393,7 +393,7 @@ To https://github.com/Dream4ever/getting-started-with-javascript.git
 
 我们先看看远程有哪些分支。
 
-```shell
+```sh
 > git branch -r
   origin/HEAD -> origin/master
   origin/master
@@ -405,7 +405,7 @@ To https://github.com/Dream4ever/getting-started-with-javascript.git
 
 接着再看看本地分支和远程分支之间的对应关系。
 
-```shell
+```sh
 > git branch -vv
 * master 79fb746 [origin/master] Merge remote-tracking branch 'upstream/master'
   patch  9320211 [origin/patch] Merge pull request #81 from WangZhong2014/master
@@ -416,7 +416,7 @@ To https://github.com/Dream4ever/getting-started-with-javascript.git
 
 我们先在本地切换至 `note` 分支。
 
-```shell
+```sh
 > git checkout note
 Switched to branch 'note'
 Your branch is based on 'origin/work', but the upstream is gone.
@@ -425,7 +425,7 @@ Your branch is based on 'origin/work', but the upstream is gone.
 
 从上面的执行结果可以看出来，Git 提示本地的 `note` 分支是基于 `origin/work` 分支，但是远程的 `work` 分支已经不存在了，可以用 `git branch --set-upstream` 命令修复。但是我们是要将本地的 `note` 分支上传到远程并将两者关联，所以需要再执行下面的命令。
 
-```shell
+```sh
 > git push --set-upstream origin note
 Total 0 (delta 0), reused 0 (delta 0)
 To https://github.com/Dream4ever/getting-started-with-javascript.git
@@ -435,7 +435,7 @@ Branch note set up to track remote branch note from origin.
 
 这时候再查看一下本地和远程分支的对应关系。
 
-```shell
+```sh
   master 79fb746 [origin/master] Merge remote-tracking branch 'upstream/master'
   patch  9320211 [origin/patch] Merge pull request #81 from WangZhong2014/master
 * note   9320211 [origin/note] Merge pull request #81 from WangZhong2014/master
@@ -447,7 +447,7 @@ Branch note set up to track remote branch note from origin.
 
 首先，要清除另一台电脑上无效的对应关系。
 
-```shell
+```sh
 > git fetch -p
 From https://github.com/Dream4ever/getting-started-with-javascript
  x [deleted]         (none)     -> origin/work
@@ -455,7 +455,7 @@ From https://github.com/Dream4ever/getting-started-with-javascript
 
 然后，把新的 `note` 分支同步下来就可以了。
 
-```shell
+```sh
 > git fetch origin note
 From https://github.com/Dream4ever/getting-started-with-javascript
  * branch            note       -> FETCH_HEAD
@@ -476,7 +476,7 @@ Switched to a new branch 'note'
 
 下面的命令，将用 note 分支完全覆盖 master 分支。
 
-```shell
+```sh
 > git checkout master
 > git tag old-master-branch
 > git reset --hard note
@@ -494,14 +494,14 @@ Switched to a new branch 'note'
 
 对于非 ASCII 字符，Git 默认是以八进制形式显示的。
 
-```shell
+```sh
 <!-- 八进制形式 -->
 ...270\215\346\224\276\345\274\203 lesson5 Wei.md"
 ```
 
 通过执行下面的命令，可以让 Git 在终端中显示非 ASCII 原本的样子。
 
-```shell
+```sh
 >  git config --global core.quotepath off
 <!-- 可以正常显示了 -->
 .../lesson5/小白JS入门不放弃 lesson5 Wei.md
@@ -515,14 +515,14 @@ Switched to a new branch 'note'
 
 方法其实很简单，将项目的 `.git/config` 文件，由下面的这种形式：
 
-```shell
+```sh
 [remote "origin"]
   url = https://github.com/Dream4ever/Anniversary.git
 ```
 
 改为下面这种形式：
 
-```shell
+```sh
 [remote "origin"]
   url = git@github.com:Dream4ever/JavaScript.git
 ```

@@ -18,20 +18,20 @@
 
 下面的命令是在 PowerShell 中执行的，和官网并不完全一样。因为直接用 `"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath` 这种形式执行的话会报错。
 
-```shell
+```sh
 > cd "C:\Program Files\MongoDB\Server\3.6\bin"
 > .\mongod.exe --dbpath "E:\upcweb\mongodb\db"
 ```
 
 执行命令之后，会看到输出了很多行内容，如果能看到类似下面 `waiting for connections on port 27017` 这样的内容的话，就说明 MongoDB 的服务端已经成功运行了。
 
-```shell
+```sh
 2018-03-17T11:08:54.149+0800 I NETWORK  [initandlisten] waiting for connections on port 27017
 ```
 
 服务端成功运行起来之后，还要通过客户端连接一下，测试是否能够正常访问服务端。新建一个 PowerShell 窗口，依次执行以下命令：
 
-```shell
+```sh
 > cd "C:\Program Files\MongoDB\Server\3.6\bin"
 > .\mongo.exe
 ```
@@ -56,7 +56,7 @@ storage:
 
 然后再执行下面的命令，安装 MongoDB 服务。
 
-```shell
+```sh
 > cd "C:\Program Files\MongoDB\Server\3.6\bin"
 > .\mongod.exe --config "C:\Program Files\MongoDB\Server\3.6\mongod.cfg" --install
 ```
@@ -65,7 +65,7 @@ storage:
 
 然后在终端里面再运行 `mongo.exe`，来检查是否能成功连接到服务端。
 
-```shell
+```sh
 > cd "C:\Program Files\MongoDB\Server\3.6\bin"
 > .\mongo.exe
 ```
