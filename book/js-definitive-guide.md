@@ -1564,8 +1564,8 @@ var x = 2,
 前面讲过了函数定义表达式，函数定义还可以写成语句的形式。
 
 ```javascript
-var f = function(x) { return x + 1; }
-function f(x) { return x + 1; }
+function f(x) { return x + 1; } // 函数声明语句
+var f = function(x) { return x + 1; } // 函数定义表达式
 ```
 
 TODO: 这两种函数定义方式的差异，可以参考徐老师的文章：[两种定义函数方式的差异](http://xugaoyang.com/post/59d3b0aafbbefc4e650f4c0c)。
@@ -3364,7 +3364,7 @@ Array.prototype.filter.call(s,
 定义函数的标准格式： `function funcName() {}`，其中 `funcName` 是函数名称标识符。
 
 ```javascript
-// 函数表达式可以包含名称，从而可以定义递归调用的函数
+// 函数定义表达式可以包含名称，从而可以定义递归调用的函数
 var f = function fact(x) { if (x <= 1) return 1; return x * fact(x - 1); };
 ```
 
@@ -3697,4 +3697,40 @@ var k = operate2('pow', 10, 2);
 
 ### 自定义函数属性
 
-在 JavaScript 中，函数是一种特殊的对象，也就意味着函数也可以有自己的各种属性。如果函数需要一个在它每次调用时都保持不变的值，给函数定义一个属性肯定比定义一个全局变量要好多了。
+在 JavaScript 中，函数是一种特殊的对象，也就意味着函数也可以有自己的属性。如果函数要用到一个每次调用时都保持不变的“静态”变量，给函数定义一个属性肯定比定义一个全局变量要好多了。比如说要让函数每次被调用时返回一个唯一的整数，同时函数每次调用时返回的值还不能相同，那么函数就需要记录它之前每次所返回的值，并且这些值应当在每次函数调用中都保存下来/持久化（persist）。虽然可以把这个值保存在一个全局变量中，但是这个值只有函数才会用到，所以还是保存为函数对象的属性更合适。下面的示例，就演示了一个每次调用时返回不同值的函数：
+
+```javascript
+// 因为函数声明语句的作用域会被提升至文件顶部
+// 所以可以在函数声明之前就为函数对象的属性赋值
+uniqueInteger.counter = 0;
+
+function uniqueInteger() {
+  return uniqueInteger.counter++;
+}
+
+uniqueInteger(); // => 0
+uniqueInteger(); // => 1
+uniqueInteger(); // => 2
+uniqueInteger(); // => 3...
+```
+
+再来看个例子：下面这个函数 `factorial()` 把自己看成是个数组，利用自身的属性来缓存前一次的计算结果。
+
+```javascript
+function factorial(n) {
+  // 有限大的正整数
+  if (isFinite(n) && n > 0 && n === Math.round(n)) {
+    // 如果没有缓存结果则进行计算，用数组索引是否存在来判断
+    if (!(n in factorial)) {
+      // 计算并缓存结果
+      factorial[n] = n * factorial(n - 1);
+    }
+    return factorial[n];
+  } else {
+    // 输入参数不合法，直接返回 NaN
+    return NaN;
+  }
+}
+// 初始化阶乘的初值，用于更大阶乘的计算
+factorial[1] = 1;
+```
