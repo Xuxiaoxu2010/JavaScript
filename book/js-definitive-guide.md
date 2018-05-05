@@ -3734,3 +3734,56 @@ function factorial(n) {
 // 初始化阶乘的初值，用于更大阶乘的计算
 factorial[1] = 1;
 ```
+
+## 作为命名空间的函数
+
+在前面的章节讲过函数作用域：在函数体内定义的变量，只能在函数体内（及嵌套在该函数内部的函数体内）课件，在函数之外是不可见的。在所有函数之外定义的变量则是全局变量，在整个 JavaScript 程序中都是可见的。在不是函数的普通代码块内声明的变量，是没办法让它只在这段代码块内可见的，所以可以通过定义函数来创建一个临时的命名空间，这样在其内部定义的变量就不会污染全局命名空间了。
+
+比如想要写一个 JS 模块，这个模块会用在各种地方，在这个模块中需要定义一个变量，来保存计算时的中间结果。如果不把模块定义在函数中的话，就没法确保所定义的这个变量不会和用到这个模块的代码相冲突。这样一来，把这个模块定义成函数自然就可以解决这个问题了。
+
+```js
+function module() {
+  // do something
+}
+module();
+
+(function() {
+  // do something
+}());
+```
+
+在上面的代码中，第一种函数声明语句通过定义函数的方式来实现模块。第二种方式更为轻巧，定义一个匿名函数然后立刻调用它，这种方式用得也很普遍。`function` 关键字左边的圆括号，会让 JavaScript 认为括号里面的是 **函数定义表达式** 而不是 **函数声明语句**，这样就会立刻执行表达式并且返回计算结果。
+
+下面的示例定义了一个匿名函数并将执行结果赋给变量 `extend`。执行结果 `extend` 也是一个函数，用于处理传入该函数的参数，将第二个及之后的参数的属性全都复制到第一个参数中。
+
+```js
+var extend = (function() {
+  for (var p in { toString: null }) {
+    return function extend(o) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var prop in source) o[prop] = source[prop];
+      }
+      return o;
+    };
+  }
+
+  return function patched_extend(o) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var prop in source) o[prop] = source[prop];
+
+      for (var j = 0; j < protoprops.length; j++) {
+        prop = protoprops[j];
+        if (source.hasOwnProperty(prop)) o[prop] = source[prop];
+      }
+    }
+    return o;
+  };
+
+  var protoprops = ['toString', 'valueOf', 'constructor',
+    'hasOwnProperty', 'isPrototypeOf',
+    'propertyIsEnumerable', 'toLocaleString'];
+}());
+
+```
