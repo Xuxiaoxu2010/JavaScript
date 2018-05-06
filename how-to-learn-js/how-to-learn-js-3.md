@@ -2,8 +2,8 @@
 
 根据前两篇总结而来：
 
-- [如何学习 JS - 第一次交流](https://github.com/Dream4ever/JavaScript/blob/master/how-to-learn-js/how-to-learn-js-1.md)
-- [如何学习 JS - 第二次交流](https://github.com/Dream4ever/JavaScript/blob/master/how-to-learn-js/how-to-learn-js-2.md)
+- [如何学习 JS - 第一次交流](./how-to-learn-js-1.md)
+- [如何学习 JS - 第二次交流](./how-to-learn-js-2.md)
 
 ## 多看书
 
