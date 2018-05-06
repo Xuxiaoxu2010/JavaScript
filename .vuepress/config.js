@@ -29,8 +29,10 @@ module.exports = {
     // 在这里设置的 sidebar 的属性
     // 适用于所有页面
     // 当打开 sidebar 中定义的页面时
-    // 默认只显示该页面的二级标题
-    // 除非定义了下面的 sidebarDepth 属性为 2，才会显示三级标题
+    // 则还会展开显示该页面的二级标题
+    // 如果定义了下面的 sidebarDepth 属性为 2，就显示三级标题
+    // 所有在 sidebar 中定义的文章
+    // 在页面底部都会显示上一篇/下一篇 sidebar 中文章的链接
     sidebar: [
       {
         title: '方法论',
