@@ -1,3 +1,11 @@
+const { readdirSync } = require('fs');
+const { join } = require('path');
+
+const getFilesPath = path => {
+  const filesPath = readdirSync(join('.', path));
+  return filesPath.map(filePath => join(path, filePath));
+}
+
 module.exports = {
   title: '岁月留痕',
   description: '记录编程之路的点点滴滴',
@@ -24,18 +32,31 @@ module.exports = {
     // 默认只显示该页面的二级标题
     // 除非定义了下面的 sidebarDepth 属性为 2，才会显示三级标题
     sidebar: [
-      [
-        '/how-to-learn-js/',
-        '如何学习 JS？',
-      ],
-      [
-        '/weekly-review/',
-        '每周总结',
-      ],
-      [
-        '/book/js-definitive-guide',
-        '犀牛书学习笔记',
-      ],
+      {
+        title: '方法论',
+        children: getFilesPath('how-to-learn-js'),
+      }, {
+        title: '每周总结',
+        children: getFilesPath('weekly-review'),
+      }, {
+        title: '系列课程之一 - 入门',
+        children: getFilesPath('js-elementary'),
+      }, {
+        title: '系列课程之二 - 进阶',
+        children: getFilesPath('js-advanced'),
+      }, {
+        title: 'WebApp 项目学习笔记',
+        children: getFilesPath('webapp'),
+      }, {
+        title: '系列课程之三 - Vue.js 进阶',
+        children: getFilesPath('vue-advanced'),
+      }, {
+        title: '公司业务',
+        children: getFilesPath('business'),
+      }, {
+        title: '服务器配置',
+        children: getFilesPath('server-configuration'),
+      },
     ],
     sidebarDepth: 2,
   }
