@@ -488,6 +488,14 @@ Switched to a new branch 'note'
 
 - [How do I 'overwrite', rather than 'merge', a branch on another branch in Git?](https://stackoverflow.com/a/9690693/2667665)
 
+## 修改历史提交
+
+### 只修改提交信息（commit message）
+
+先参考 [How do you make changes on a specific commit](https://confluence.atlassian.com/bitbucketserverkb/how-do-you-make-changes-on-a-specific-commit-779171729.html) 这篇文章中的方法，修改需要变更的历史提交信息。但是修改之后，提交时间就变了。
+
+所以还要参考 [git rebase without changing commit timestamps](https://stackoverflow.com/a/11179245/2667665) 这里的回答，将提交时间改为文件修改时间。
+
 ## 其它配置
 
 ### 让 Git 在终端里显示中文
