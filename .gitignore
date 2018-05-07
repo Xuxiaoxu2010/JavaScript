@@ -1,3 +1,2 @@
-.vuepress
-!.vuepress/config.js
+.vuepress/dist
 node_modules

@@ -11,7 +11,7 @@ module.exports = {
   description: '记录编程之路的点点滴滴',
   // dev 模式下不显示 favicon？
   head: [
-    ['link', { rel: 'icon', href: `/favicon.ico` }],
+    ['link', { rel: 'icon', href: `/icon.png` }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
   ],
   serviceWorker: true,
