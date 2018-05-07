@@ -14,7 +14,6 @@ module.exports = {
     ['link', { rel: 'icon', href: `/icon.png` }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
   ],
-  serviceWorker: true,
   themeConfig: {
     repo: 'Dream4ever/JavaScript',
     editLinks: true,
