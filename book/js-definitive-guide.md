@@ -3787,3 +3787,28 @@ var extend = (function() {
 }());
 
 ```
+
+## 函数属性、方法和构造函数
+
+在 JavaScript 中，函数是值，对函数使用 `typeof` 操作符，返回结果是 `function` 这个字符串。但函数其实是一种特殊的对象，所以它也可以拥有自己的属性和方法。`Function()` 构造函数还可以用来创建新的函数对象。
+
+### length 属性
+
+在函数体中，`arguments.length` 指的是传入函数的实参的数量，但是函数本身的 `length` 属性则指的是定义函数时的形参的数量，是只读属性。
+
+下面定义的函数 `check()`，检查函数的形参数量 `arguments.callee.length` 和实参数量 `arguments.length` 是否相等，如果不相等则抛出异常。
+
+```javascript
+function check(args) {
+  var actual = args.length;
+  var expected = args.callee.length;
+  if (actual !== expected) {
+    throw Error('Expected ' + expected + 'args; got ' + actual);
+  }
+}
+
+function f(x, y, z) {
+  check(arguments);
+  return x + y + z;
+}
+```
