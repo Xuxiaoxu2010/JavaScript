@@ -3812,3 +3812,9 @@ function f(x, y, z) {
   return x + y + z;
 }
 ```
+
+## prototype 属性
+
+每个函数都有 `prototype` 属性，这个属性指向原型对象（prototype object），每个函数的原型对象也各不相同。把函数当构造函数使用的时候，新建的对象就会继承原型对象的属性。
+
+在前面的章节讲过原型和 `prototype` 属性，在后面的章节也会继续深入探讨。
